@@ -55,14 +55,14 @@ class MainMenu {
 
 
     private void option1() {
-        System.out.println("You selected Option 1.");
+        System.out.println("You chose Option 1.");
     }
 
     private void option2() {
-        System.out.println("You selected Option 2.");
+        System.out.println("You chose Option 2.");
     }
 
     private void option3() {
-        System.out.println("You selected Option 3.");
+        System.out.println("You chose Option 3.");
     }
 }
