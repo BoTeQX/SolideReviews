@@ -32,11 +32,12 @@ class MainMenu {
         int choice;
 
         do {
-            System.out.println("1. Option 1");
-            System.out.println("2. Option 2");
-            System.out.println("3. Option 3");
+            System.out.println("[1] Option 1");
+            System.out.println("[2] Option 2");
+            System.out.println("[3] Option 3");
+            System.out.println("[4] Admin");
             System.out.println();
-            System.out.println(Colors.RED + "0. Exit" + Colors.RESET);
+            System.out.println(Colors.RED + "[0] Exit" + Colors.RESET);
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -45,6 +46,7 @@ class MainMenu {
                 case 1 -> option1();
                 case 2 -> option2();
                 case 3 -> option3();
+                case 4 -> openAdminLoginScreen();
                 case 0 -> System.out.println("Exiting the program. Goodbye!");
                 default -> System.out.println("Invalid choice. Please enter a valid option.");
             }
@@ -64,5 +66,11 @@ class MainMenu {
 
     private void option3() {
         System.out.println("You chose Option 3.");
+    }
+
+    private void openAdminLoginScreen() {
+        AdminLoginMenu adminLogin = new AdminLoginMenu();
+        adminLogin.displayLoginMenu();
+
     }
 }
