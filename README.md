@@ -25,7 +25,7 @@ The program features a ranking system that showcases games based on user reviews
   - Updated prices are reflected in the rankings.
 
 - **Discount Highlight:**
-  - Games with discounts are visually distinguished in the application.
+  - Games with discounts are distinguished in the application.
 
 ## Getting Started
 
@@ -35,5 +35,4 @@ To run the Solide™ Reviews terminal program, follow these steps:
    ```bash
    git clone https://github.com/your-username/solide-reviews.git
 
-## Socials
-[Trello](https://trello.com/b/x3zE25Yc/solide%E2%84%A2-reviews)
+
