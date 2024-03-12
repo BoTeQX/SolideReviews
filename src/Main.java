@@ -4,8 +4,5 @@ public class Main {
         MainMenu mainMenu = new MainMenu();
         mainMenu.displayMainMenu();
 
-        // Create an instance of GameInitializer and call the initializeGames method
-        GameInitializer gameInitializer = new GameInitializer();
-        gameInitializer.initializeGames();
     }
 }

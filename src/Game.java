@@ -1,13 +1,17 @@
+import java.util.ArrayList;
+
 public class Game {
     String name;
     String genre;
     double price;
+
 
     // Constructor
     public Game(String name, String genre, double price) {
         this.name = name;
         this.genre = genre;
         this.price = price;
+
     }
 
     // Getters
@@ -36,6 +40,13 @@ public class Game {
         this.price = price;
     }
 
-
-
+    // toString
+    @Override
+    public String toString() {
+        return "Game{" +
+                "name='" + name + '\'' +
+                ", genre='" + genre + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
