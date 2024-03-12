@@ -7,34 +7,34 @@ public class AdminLoginMenu {
         scanner = new Scanner(System.in);
     }
 
-    public static void printHeader() {
-        System.out.println(Colors.PURPLE + "    _       _           _       ");
-        System.out.println("   / \\   __| |_ __ ___ (_)_ __  ");
-        System.out.println("  / _ \\ / _` | '_ ` _ \\| | '_ \\ ");
-        System.out.println(" / ___ \\ (_| | | | | | | | | | |");
-        System.out.println("/_/   \\_\\__,_|_| |_| |_|_|_| |_|" + Colors.RESET);
-        System.out.println();
-    }
-
     public void displayLoginMenu() {
         int attempts = 3;
-
-        printHeader();
-
+        int choice = -1;
         while (attempts > 0) {
-            System.out.println("[1] Login");
+
+            System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "ADMIN " + Colors.RESET);
+            System.out.println("│");
+            System.out.println("├ <"+ Colors.BLUE_BOLD + "1" + Colors.RESET + "> Login");
+            System.out.println("│");
+            System.out.println("├ <"+ Colors.BLUE_BOLD + "9" + Colors.RESET + "> Back to Main Menu");
+            System.out.println("╰ <"+ Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
-            System.out.println(Colors.RED + "[0] Back to Main Menu" + Colors.RESET);
 
             System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+            } else {
+                scanner.next();
+            }
 
             switch (choice) {
                 case 1 -> login();
-                case 0 -> {
+                case 9 -> {
                     MainMenu mainMenu = new MainMenu();
                     mainMenu.displayMainMenu();
+                }
+                case 0 -> {
+                    System.out.println("Exiting the program. Goodbye!");
                 }
                 default -> System.out.println("Invalid choice. Please enter a valid option.");
             }
@@ -45,6 +45,7 @@ public class AdminLoginMenu {
     }
 
     private void login() {
+        scanner.nextLine();
         System.out.print("Username: ");
         String username = scanner.nextLine();
 
