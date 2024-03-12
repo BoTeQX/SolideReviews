@@ -26,9 +26,9 @@ class MainMenu {
         int choice = -1;
 
         do {
-            System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "MAIN MENNU " + Colors.RESET);
+            System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "MAIN MENU " + Colors.RESET);
             System.out.println("│");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "1" + Colors.RESET + "> Option 1");
+            System.out.println("├ <"+ Colors.BLUE_BOLD + "1" + Colors.RESET + "> Games");
             System.out.println("├ <"+ Colors.BLUE_BOLD + "2" + Colors.RESET + "> Option 2");
             System.out.println("├ <"+ Colors.BLUE_BOLD + "3" + Colors.RESET + "> Option 3");
             System.out.println("├ <"+ Colors.BLUE_BOLD + "4" + Colors.RESET + "> Admin");
@@ -45,7 +45,7 @@ class MainMenu {
 
 
             switch (choice) {
-                case 1 -> option1();
+                case 1 -> openGameMenu();
                 case 2 -> option2();
                 case 3 -> option3();
                 case 4 -> openAdminLoginScreen();
@@ -58,8 +58,9 @@ class MainMenu {
     }
 
 
-    private void option1() {
-        System.out.println("You chose Option 1.");
+    private void openGameMenu() {
+        GameMenu gameMenu = new GameMenu();
+        gameMenu.displayGameMenu();
     }
 
     private void option2() {
