@@ -50,10 +50,18 @@ public class GameMenu {
         GameInitializer gameInitializer = new GameInitializer();
         gameInitializer.initializeGames();
         ArrayList<Game> games = gameInitializer.getGames();
+
+        System.out.println("+----------------------------------+------------+-------+");
+        System.out.println("| Title                            | Genre      | Price |");
+        System.out.println("+----------------------------------+------------+-------+");
+
         for (Game game : games) {
-            System.out.println(game);
+            System.out.printf("| %-32s | %-10s | $%-5.2f |\n", game.getName(), game.getGenre(), game.getPrice());
         }
+
+        System.out.println("+----------------------------------+------------+-------+");
     }
+
 
     private void displayGamesByGenre() {
         scanner.nextLine();
@@ -61,8 +69,21 @@ public class GameMenu {
         String genre = scanner.nextLine();
         GameInitializer gameInitializer = new GameInitializer();
         gameInitializer.initializeGames();
-        for (Game game : gameInitializer.getGamesByGenre(genre)) {
-            System.out.println(game);
+        ArrayList<Game> gamesByGenre = gameInitializer.getGamesByGenre(genre);
+
+        if (gamesByGenre.isEmpty()) {
+            System.out.println("No games found for the specified genre.");
+        } else {
+            System.out.println("+----------------------------------+------------+-------+");
+            System.out.println("| Title                            | Genre      | Price |");
+            System.out.println("+----------------------------------+------------+-------+");
+
+            for (Game game : gamesByGenre) {
+                System.out.printf("| %-32s | %-10s | $%-5.2f |\n", game.getName(), game.getGenre(), game.getPrice());
+            }
+
+            System.out.println("+----------------------------------+------------+-------+");
         }
     }
+
 }
