@@ -20,7 +20,7 @@ public class GameInitializer {
     public ArrayList<Game> getGamesByGenre(String genre) {
         ArrayList<Game> gamesByGenre = new ArrayList<Game>();
         for (Game game : games) {
-            if (game.getGenre().equals(genre)) {
+            if (game.getGenre().equalsIgnoreCase(genre)) {
                 gamesByGenre.add(game);
             }
         }
