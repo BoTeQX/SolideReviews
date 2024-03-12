@@ -20,7 +20,7 @@ public class AdminLoginMenu {
             System.out.println("╰ <"+ Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
 
-            System.out.print("Enter your choice: ");
+            System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
             } else {
