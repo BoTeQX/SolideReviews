@@ -65,14 +65,14 @@ public class GameMenu {
 
     private void displayGamesByGenre() {
         scanner.nextLine();
-        System.out.print("Enter the genre: ");
+        System.out.print(Colors.GREEN + "Enter the genre: " + Colors.RESET);
         String genre = scanner.nextLine();
         GameInitializer gameInitializer = new GameInitializer();
         gameInitializer.initializeGames();
         ArrayList<Game> gamesByGenre = gameInitializer.getGamesByGenre(genre);
 
         if (gamesByGenre.isEmpty()) {
-            System.out.println("No games found for the specified genre.");
+            System.out.println(Colors.RED + "No games found for the specified genre." + Colors.RESET);
         } else {
             System.out.println("+----------------------------------+------------+-------+");
             System.out.println("| Title                            | Genre      | Price |");
