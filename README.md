@@ -33,6 +33,6 @@ To run the Solide™ Reviews terminal program, follow these steps:
 
 1. Clone the repository to your local machine.
    ```bash
-   git clone https://github.com/your-username/solide-reviews.git
+   git clone https://github.com/BoTeQX/solide-reviews.git
 
 

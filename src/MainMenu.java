@@ -8,43 +8,44 @@ class MainMenu {
     }
 
     private void printProgramName() {
-        System.out.println(" _____         _  _      _            ______              _                      ");
-        System.out.println("/  ___|       | |(_)    | |           | ___ \\            (_)                     ");
-        System.out.println("\\ `--.   ___  | | _   __| |  ___      | |_/ / ___ __   __ _   ___ __      __ ___ ");
-        System.out.println(" `--. \\ / _ \\ | || | / _` | / _ \\     |    / / _ \\\\ \\ / /| | / _ \\\\ \\ / \\ / / __|");
-        System.out.println("/\\__/ /| (_) || || || (_| ||  __/     | |\\ \\|  __/ \\ V / | ||  __/ \\ V  V / \\__ \\");
-        System.out.println("\\____/  \\___/ |_||_| \\__,_| \\___|     \\_| \\_/\\___|  \\_/  |_| \\___|  \\_/\\_/  |___/");
-    }
-
-    private void printHeader() {
-        System.out.println(Colors.PURPLE +" __  __       _         __  __                  ");
-        System.out.println("|  \\/  | __ _(_)_ __   |  \\/  | ___ _ __  _   _ ");
-        System.out.println("| |\\/| |/ _` | | '_ \\  | |\\/| |/ _ \\ '_ \\| | | |");
-        System.out.println("| |  | | (_| | | | | | | |  | |  __/ | | | |_| |");
-        System.out.println("|_|  |_|\\__,_|_|_| |_| |_|  |_|\\___|_| |_|\\__,_|");
-        System.out.println(Colors.RESET);
+        System.out.print("     ▀▄   ▄▀                                  ▀▄   ▄▀     \n");
+        System.out.println("    ▄█▀███▀█▄    ──── " + Colors.GREEN_BOLD + "Solide" + Colors.RESET
+                + " ──              ▄█▀███▀█▄    ");
+        System.out.println("   █▀███████▀█            ── " + Colors.GREEN_BOLD_BRIGHT + "Reviews" + Colors.RESET
+                + " ────   █▀███████▀█   ");
+        System.out.println("   ▀ ▀▄▄ ▄▄▀ ▀                              ▀ ▀▄▄ ▄▄▀ ▀   ");
+        System.out.println("");
     }
 
     public void displayMainMenu() {
         printProgramName();
-        printHeader();
 
-        int choice;
+        int choice = -1;
 
         do {
-            System.out.println("1. Option 1");
-            System.out.println("2. Option 2");
-            System.out.println("3. Option 3");
+            System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "MAIN MENU " + Colors.RESET);
+            System.out.println("│");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> Games");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "2" + Colors.RESET + "> Option 2");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "3" + Colors.RESET + "> Option 3");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "4" + Colors.RESET + "> Admin");
+            System.out.println("│");
+            System.out
+                    .println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
-            System.out.println(Colors.RED + "0. Exit" + Colors.RESET);
 
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
+            System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+            } else {
+                scanner.next();
+            }
 
             switch (choice) {
-                case 1 -> option1();
+                case 1 -> openGameMenu();
                 case 2 -> option2();
                 case 3 -> option3();
+                case 4 -> openAdminLoginScreen();
                 case 0 -> System.out.println("Exiting the program. Goodbye!");
                 default -> System.out.println("Invalid choice. Please enter a valid option.");
             }
@@ -53,9 +54,9 @@ class MainMenu {
         scanner.close();
     }
 
-
-    private void option1() {
-        System.out.println("You chose Option 1.");
+    private void openGameMenu() {
+        GameMenu gameMenu = new GameMenu();
+        gameMenu.displayGameMenu();
     }
 
     private void option2() {
@@ -64,5 +65,11 @@ class MainMenu {
 
     private void option3() {
         System.out.println("You chose Option 3.");
+    }
+
+    private void openAdminLoginScreen() {
+        AdminLoginMenu adminLogin = new AdminLoginMenu();
+        adminLogin.displayLoginMenu();
+
     }
 }
