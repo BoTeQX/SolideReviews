@@ -8,16 +8,13 @@ class MainMenu {
     }
 
     private void printProgramName() {
-        System.out.println();
-        System.out.println("      ██          ██      ");
-        System.out.println("        ██      ██               _____         _  _      _            ______              _                      ");
-        System.out.println("      ██████████████            /  ___|       | |(_)    | |           | ___ \\            (_)                     ");
-        System.out.println("    ████  ██████  ████          \\ `--.   ___  | | _   __| |  ___      | |_/ / ___ __   __ _   ___ __      __ ___ ");
-        System.out.println("  ██████████████████████         `--. \\ / _ \\ | || | / _` | / _ \\     |    / / _ \\\\ \\ / /| | / _ \\\\ \\ / \\ / / __|");
-        System.out.println("  ██  ██████████████  ██        /\\__/ /| (_) || || || (_| ||  __/     | |\\ \\|  __/ \\ V / | ||  __/ \\ V  V / \\__ \\");
-        System.out.println("  ██  ██          ██  ██        \\____/  \\___/ |_||_| \\__,_| \\___|     \\_| \\_/\\___|  \\_/  |_| \\___|  \\_/\\_/  |___/");
-        System.out.println("        ████  ████        ");
-        System.out.println();
+        System.out.print("     ▀▄   ▄▀                                  ▀▄   ▄▀     \n");
+        System.out.println("    ▄█▀███▀█▄    ──── " + Colors.GREEN_BOLD + "Solide" + Colors.RESET
+                + " ──              ▄█▀███▀█▄    ");
+        System.out.println("   █▀███████▀█            ── " + Colors.GREEN_BOLD_BRIGHT + "Reviews" + Colors.RESET
+                + " ────   █▀███████▀█   ");
+        System.out.println("   ▀ ▀▄▄ ▄▄▀ ▀                              ▀ ▀▄▄ ▄▄▀ ▀   ");
+        System.out.println("");
     }
 
     public void displayMainMenu() {
@@ -28,12 +25,13 @@ class MainMenu {
         do {
             System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "MAIN MENU " + Colors.RESET);
             System.out.println("│");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "1" + Colors.RESET + "> Games");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "2" + Colors.RESET + "> Option 2");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "3" + Colors.RESET + "> Option 3");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "4" + Colors.RESET + "> Admin");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> Games");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "2" + Colors.RESET + "> Option 2");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "3" + Colors.RESET + "> Option 3");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "4" + Colors.RESET + "> Admin");
             System.out.println("│");
-            System.out.println("╰ <"+ Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
+            System.out
+                    .println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
 
             System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
@@ -42,7 +40,6 @@ class MainMenu {
             } else {
                 scanner.next();
             }
-
 
             switch (choice) {
                 case 1 -> openGameMenu();
@@ -56,7 +53,6 @@ class MainMenu {
 
         scanner.close();
     }
-
 
     private void openGameMenu() {
         GameMenu gameMenu = new GameMenu();
