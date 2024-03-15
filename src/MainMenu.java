@@ -1,25 +1,10 @@
-import java.util.Scanner;
 import java.util.ArrayList;
-
-interface MenuAction {
-    void execute();
-}
-
-class MainMenu {
+import java.util.Scanner;
+class MainMenu extends Menu {
     private final Scanner scanner;
 
     public MainMenu() {
         scanner = new Scanner(System.in);
-    }
-
-    private void printProgramName() {
-        System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
-        System.out.println("    ▄█▀███▀█▄    ──── " + Colors.GREEN_BOLD + "Solide" + Colors.RESET
-                + " ──              ▄█▀███▀█▄    ");
-        System.out.println("   █▀███████▀█            ── " + Colors.GREEN_BOLD_BRIGHT + "Reviews" + Colors.RESET
-                + " ────   █▀███████▀█   ");
-        System.out.println("   ▀ ▀▄▄ ▄▄▀ ▀                              ▀ ▀▄▄ ▄▄▀ ▀   ");
-        System.out.println("");
     }
 
     class OptionList {
@@ -102,7 +87,7 @@ class MainMenu {
 
         do {
             System.out.print("\033[H\033[2J"); // Clear the screen
-            printProgramName();
+            displayLogo(); // Display the program name
             menuOptions.displayOptions(); // Display the menu options
 
             System.out.print(Colors.PURPLE + "Enter your choice: " + Colors.RESET);
