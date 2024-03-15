@@ -1,5 +1,7 @@
+
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class GameMenu {
 
     private final Scanner scanner;
@@ -14,20 +16,20 @@ public class GameMenu {
         do {
             System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "GAMES " + Colors.RESET);
             System.out.println("│");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "1" + Colors.RESET + "> Show all games");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "2" + Colors.RESET + "> Show games by genre");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> Show all games");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "2" + Colors.RESET + "> Show games by genre");
             System.out.println("│");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "9" + Colors.RESET + "> Back to Main Menu");
-            System.out.println("╰ <"+ Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
+            System.out.println("├ <" + Colors.BLUE_BOLD + "9" + Colors.RESET + "> Back to Main Menu");
+            System.out
+                    .println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
 
-            System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
+            System.out.print(Colors.PURPLE + "Enter your choice: " + Colors.RESET);
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
             } else {
                 scanner.next();
             }
-
 
             switch (choice) {
                 case 1 -> displayAllGames();
@@ -61,7 +63,6 @@ public class GameMenu {
 
         System.out.println("+----------------------------------+------------+-------+");
     }
-
 
     private void displayGamesByGenre() {
         scanner.nextLine();

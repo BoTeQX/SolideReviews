@@ -5,7 +5,6 @@ public class Game {
     String genre;
     double price;
 
-
     // Constructor
     public Game(String name, String genre, double price) {
         this.name = name;
