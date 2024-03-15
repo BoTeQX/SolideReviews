@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class AdminLoginMenu {
@@ -14,13 +15,14 @@ public class AdminLoginMenu {
 
             System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "ADMIN " + Colors.RESET);
             System.out.println("│");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "1" + Colors.RESET + "> Login");
+            System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> Login");
             System.out.println("│");
-            System.out.println("├ <"+ Colors.BLUE_BOLD + "9" + Colors.RESET + "> Back to Main Menu");
-            System.out.println("╰ <"+ Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
+            System.out.println("├ <" + Colors.BLUE_BOLD + "9" + Colors.RESET + "> Back to Main Menu");
+            System.out
+                    .println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
 
-            System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
+            System.out.print(Colors.PURPLE + "Enter your choice: " + Colors.RESET);
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
             } else {

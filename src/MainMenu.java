@@ -13,7 +13,7 @@ class MainMenu {
     }
 
     private void printProgramName() {
-        System.out.print("     ▀▄   ▄▀                                  ▀▄   ▄▀     \n");
+        System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
         System.out.println("    ▄█▀███▀█▄    ──── " + Colors.GREEN_BOLD + "Solide" + Colors.RESET
                 + " ──              ▄█▀███▀█▄    ");
         System.out.println("   █▀███████▀█            ── " + Colors.GREEN_BOLD_BRIGHT + "Reviews" + Colors.RESET
