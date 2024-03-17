@@ -1,7 +1,7 @@
-package org.solide.reviews.menus;
+package org.solidereviews.menus;
 
-import org.solide.reviews.interfaces.Menu;
-import org.solide.reviews.utils.Colors;
+import org.solidereviews.interfaces.Menu;
+import org.solidereviews.utils.Colors;
 
 import java.util.Scanner;
 

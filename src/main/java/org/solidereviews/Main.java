@@ -1,7 +1,7 @@
-package org.solide.reviews;
+package org.solidereviews;
 
-import org.solide.reviews.interfaces.Menu;
-import org.solide.reviews.menus.MainMenu;
+import org.solidereviews.interfaces.Menu;
+import org.solidereviews.menus.MainMenu;
 
 public class Main {
     public static void main(String[] args) {

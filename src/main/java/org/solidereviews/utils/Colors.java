@@ -1,4 +1,4 @@
-package org.solide.reviews.utils;
+package org.solidereviews.utils;
 
 public final class Colors {
     public final static String RESET = "\033[0m";
