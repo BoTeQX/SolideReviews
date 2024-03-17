@@ -15,7 +15,7 @@ public class MainMenu implements Menu {
     @Override
     public void displayLogo() {
         System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
-        System.out.println("    ▄█▀███▀█▄    ──── Solide ──              ▄█▀███▀█▄    ");
+        System.out.println("    ▄█▀███▀█▄    ─── Solide™ ──              ▄█▀███▀█▄    ");
         System.out.println("   █▀███████▀█            ── Reviews ────   █▀███████▀█   ");
         System.out.println("   ▀ ▀▄▄ ▄▄▀ ▀                              ▀ ▀▄▄ ▄▄▀ ▀   ");
         System.out.println();
@@ -63,6 +63,11 @@ public class MainMenu implements Menu {
         }
     }
 
+    @Override
+    public void openNewMenu(Menu menu) {
+        clearScreen();
+        menu.displayMenu();
+    }
 
     @Override
     public void clearScreen() {
