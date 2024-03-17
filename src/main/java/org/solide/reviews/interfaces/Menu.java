@@ -1,4 +1,4 @@
-package org.solide.reviews;
+package org.solide.reviews.interfaces;
 
 public interface Menu {
     void displayLogo();

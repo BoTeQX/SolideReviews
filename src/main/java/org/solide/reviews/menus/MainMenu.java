@@ -1,4 +1,6 @@
-package org.solide.reviews;
+package org.solide.reviews.menus;
+
+import org.solide.reviews.interfaces.Menu;
 
 import java.util.Scanner;
 
