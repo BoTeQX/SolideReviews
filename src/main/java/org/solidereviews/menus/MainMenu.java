@@ -3,13 +3,19 @@ package org.solidereviews.menus;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.utils.Colors;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MainMenu implements Menu {
     private final Scanner scanner;
+    private final Map<String, String> adminCredentials;
 
     public MainMenu() {
         this.scanner = new Scanner(System.in);
+        this.adminCredentials = new HashMap<>();
+        // Add admin credentials to the map (username, password)
+        adminCredentials.put("admin", "admin");
     }
 
     @Override
@@ -36,7 +42,7 @@ public class MainMenu implements Menu {
             System.out.println("╰ <"+ Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
 
-            // Get user choice
+            // Get and process user choice
             choice = getUserChoice();
             processUserChoice(choice);
         } while (choice != 0);
@@ -58,13 +64,14 @@ public class MainMenu implements Menu {
             case 1 -> System.out.println("You selected Option 1.");
             case 2 -> System.out.println("You selected Option 2.");
             case 3 -> System.out.println("You selected Option 3.");
+            case 4 -> adminLogin();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
 
     @Override
-    public void openNewMenu(Menu menu) {
+    public void switchToMenu(Menu menu) {
         clearScreen();
         menu.displayMenu();
     }
@@ -75,8 +82,28 @@ public class MainMenu implements Menu {
     }
 
     @Override
+    public void backToPreviousMenu() {
+        System.out.println("You are already in the main menu.");
+    }
+
+    @Override
     public void closeProgram() {
         System.out.println("Exiting the program. Goodbye!");
         scanner.close();
+    }
+
+    private void adminLogin() {
+        System.out.print("Enter username: ");
+        String username = scanner.next();
+        System.out.print("Enter password: ");
+        String password = scanner.next();
+
+        // Check if the entered credentials match admin credentials
+        if (adminCredentials.containsKey(username) && adminCredentials.get(username).equals(password)) {
+            System.out.println("Admin login successful!");
+            switchToMenu(new AdminMenu()); //switching to AdminMenu
+        } else {
+            System.out.println("Incorrect username or password. Please try again.");
+        }
     }
 }

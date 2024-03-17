@@ -5,7 +5,8 @@ public interface Menu {
     void displayMenu();
     int getUserChoice();
     void processUserChoice(int choice);
-    void openNewMenu(Menu menu);
+    void switchToMenu(Menu menu);
+    void backToPreviousMenu();
     void clearScreen();
     void closeProgram();
 
