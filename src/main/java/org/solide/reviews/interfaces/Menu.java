@@ -6,6 +6,6 @@ public interface Menu {
     int getUserChoice();
     void processUserChoice(int choice);
     void clearScreen();
-
+    void closeProgram();
 
 }

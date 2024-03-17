@@ -1,6 +1,7 @@
 package org.solide.reviews.menus;
 
 import org.solide.reviews.interfaces.Menu;
+import org.solide.reviews.utils.Colors;
 
 import java.util.Scanner;
 
@@ -25,24 +26,25 @@ public class MainMenu implements Menu {
         int choice;
         do {
             displayLogo();
-            System.out.println("Main Menu:");
-            System.out.println("[1] Option 1");
-            System.out.println("[2] Option 2");
-            System.out.println("[3] Option 3");
+            System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "MAIN MENU " + Colors.RESET);
+            System.out.println("│");
+            System.out.println("├ <"+ Colors.BLUE_BOLD + "1" + Colors.RESET + "> Games");
+            System.out.println("├ <"+ Colors.BLUE_BOLD + "2" + Colors.RESET + "> Option 2");
+            System.out.println("├ <"+ Colors.BLUE_BOLD + "3" + Colors.RESET + "> Option 3");
+            System.out.println("├ <"+ Colors.BLUE_BOLD + "4" + Colors.RESET + "> Admin");
+            System.out.println("│");
+            System.out.println("╰ <"+ Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
-            System.out.println("[0] Exit");
 
-            System.out.print("Enter your choice: ");
+            // Get user choice
             choice = getUserChoice();
-
             processUserChoice(choice);
         } while (choice != 0);
-
-        scanner.close();
     }
 
     @Override
     public int getUserChoice() {
+        System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
             scanner.next();
@@ -56,18 +58,20 @@ public class MainMenu implements Menu {
             case 1 -> System.out.println("You selected Option 1.");
             case 2 -> System.out.println("You selected Option 2.");
             case 3 -> System.out.println("You selected Option 3.");
-            case 0 -> System.out.println("Exiting the program. Goodbye!");
+            case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
-
-        System.out.print("Press Enter to continue...");
-        scanner.nextLine(); // Consume newline character
-        scanner.nextLine(); // Wait for Enter key press
     }
 
 
     @Override
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
+    }
+
+    @Override
+    public void closeProgram() {
+        System.out.println("Exiting the program. Goodbye!");
+        scanner.close();
     }
 }
