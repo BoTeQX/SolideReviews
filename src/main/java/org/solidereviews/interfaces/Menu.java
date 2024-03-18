@@ -1,13 +1,61 @@
 package org.solidereviews.interfaces;
 
+import org.solidereviews.utils.Colors;
+
+import java.util.Scanner;
+
 public interface Menu {
-    void displayLogo();
-    void displayMenu();
-    int getUserChoice();
+    Scanner scanner = new Scanner(System.in);
+    default void displayLogo() {
+        System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
+        System.out.println("    ▄█▀███▀█▄    ─── Solide™ ──              ▄█▀███▀█▄    ");
+        System.out.println("   █▀███████▀█            ── Reviews ────   █▀███████▀█   ");
+        System.out.println("   ▀ ▀▄▄ ▄▄▀ ▀                              ▀ ▀▄▄ ▄▄▀ ▀   ");
+        System.out.println();
+    }
+    default void displayMenu(String title, String[] menuItems) {
+        int choice;
+        do {
+            displayLogo();
+            System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT +  title + " " + Colors.RESET);
+            System.out.println("│");
+
+            for (int i = 0; i < menuItems.length; i++) {
+                System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + menuItems[i]);
+            }
+
+            System.out.println("│");
+            if(!title.equals("MAIN MENU")) {
+                System.out.println("├ <" + Colors.BLUE_BOLD + "9" + Colors.RESET + "> " + Colors.BLUE_BOLD + "Back" + Colors.RESET);
+            }
+            System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
+            System.out.println();
+
+            // Get and process user choice
+            choice = getUserChoice();
+            processUserChoice(choice);
+        } while (choice != 0);
+    }
+    default int getUserChoice() {
+        System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next();
+        }
+        return scanner.nextInt();
+    }
     void processUserChoice(int choice);
-    void switchToMenu(Menu menu);
+    default void switchToMenu(Menu menu, String title, String[] menuItems) {
+        clearScreen();
+        menu.displayMenu(title, menuItems);
+    }
     void backToPreviousMenu();
-    void clearScreen();
-    void closeProgram();
+    default void clearScreen() {
+        System.out.print("\033[H\033[2J");
+    };
+    default void closeProgram() {
+        System.out.println("Exiting the program. Goodbye!");
+        scanner.close();
+    }
 
 }

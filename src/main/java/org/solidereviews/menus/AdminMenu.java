@@ -3,48 +3,25 @@ package org.solidereviews.menus;
 import org.solidereviews.interfaces.Menu;
 
 public class AdminMenu implements Menu {
-    @Override
-    public void displayLogo() {
-        System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
-        System.out.println("    ▄█▀███▀█▄    ─── Solide™ ──              ▄█▀███▀█▄    ");
-        System.out.println("   █▀███████▀█            ── Reviews ────   █▀███████▀█   ");
-        System.out.println("   ▀ ▀▄▄ ▄▄▀ ▀                              ▀ ▀▄▄ ▄▄▀ ▀   ");
-        System.out.println();
-    }
-
-    @Override
-    public void displayMenu() {
-        displayLogo();
-        System.out.println("placeholder for admin menu options");
-    }
-
-    @Override
-    public int getUserChoice() {
-        return 0;
-    }
 
     @Override
     public void processUserChoice(int choice) {
-
-    }
-
-    @Override
-    public void switchToMenu(Menu menu) {
-
-    }
-
-    @Override
-    public void clearScreen() {
-
+        switch (choice) {
+            case 1 -> System.out.println("You selected Option 1.");
+            case 2 -> System.out.println("You selected Option 2.");
+            case 3 -> System.out.println("You selected Option 3.");
+            case 9 -> backToPreviousMenu();
+            case 0 -> closeProgram();
+            default -> System.out.println("Invalid choice. Please enter a valid option.");
+        }
     }
 
     @Override
     public void backToPreviousMenu() {
-
+        Menu menu = new MainMenu();
+        String title = "MAIN MENU";
+        String[] menuItems = {"Games", "Option 2", "Option 3", "Admin"};
+        switchToMenu(menu, title, menuItems);
     }
 
-    @Override
-    public void closeProgram() {
-
-    }
 }
