@@ -53,7 +53,7 @@ public class MainMenu implements Menu {
             System.out.println("Admin login successful!");
             Menu menu = new AdminMenu();
             String title = "ADMIN MENU";
-            String[] menuItems = {"Manage game catalog", "Reviews", "Surveys"};
+            String[] menuItems = {"Manage game catalog", "Surveys"};
             switchToMenu(menu, title, menuItems); //switching to AdminMenu
         } else {
             System.out.println("Incorrect username or password. Please try again.");

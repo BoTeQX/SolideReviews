@@ -19,7 +19,7 @@ public class GamesMenu implements Menu {
 
     private void option1() {
         Menu menu = new GamesCatalogSubmenu();
-        String title = "GAMES MENU > game catalog";
+        String title = "GAMES MENU > Game catalog";
         String[] menuItems = {"Show all games", "Show games (genre)", "Show games (rating)"};
         switchToMenu(menu, title, menuItems);
     }
