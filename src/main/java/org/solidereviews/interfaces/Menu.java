@@ -20,8 +20,16 @@ public interface Menu {
             System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT +  title + " " + Colors.RESET);
             System.out.println("│");
 
-            for (int i = 0; i < menuItems.length; i++) {
-                System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + menuItems[i]);
+            if(title.equals("MAIN MENU")) {
+                System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> " + Colors.YELLOW_BOLD + "SALE" + Colors.RESET);
+                for (int i = 0; i < menuItems.length; i++) {
+                    System.out.println("├ <" + Colors.BLUE_BOLD + (i + 2) + Colors.RESET + "> " + menuItems[i]);
+                }
+            }
+            else {
+                for (int i = 0; i < menuItems.length; i++) {
+                    System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + menuItems[i]);
+                }
             }
 
             System.out.println("│");
