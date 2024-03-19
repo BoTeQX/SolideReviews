@@ -20,7 +20,7 @@ public class AdminMenu implements Menu {
     public void backToPreviousMenu() {
         Menu menu = new MainMenu();
         String title = "MAIN MENU";
-        String[] menuItems = {"Games", "Option 2", "Option 3", "Admin"};
+        String[] menuItems = {"Games", "Reviews", "Admin"};
         switchToMenu(menu, title, menuItems);
     }
 
