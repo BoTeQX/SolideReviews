@@ -65,11 +65,13 @@ public interface Menu {
     }
     void backToPreviousMenu();
     default void clearScreen() {
+        System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
-    };
+        System.out.flush();
+    }
     default void closeProgram() {
         System.out.println("Exiting the program. Goodbye!");
-        scanner.close();
+        System.exit(0);
     }
 
 }
