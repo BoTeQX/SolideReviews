@@ -20,8 +20,16 @@ public interface Menu {
             System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT +  title + " " + Colors.RESET);
             System.out.println("│");
 
-            for (int i = 0; i < menuItems.length; i++) {
-                System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + menuItems[i]);
+            if(title.equals("MAIN MENU")) {
+                System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> " + Colors.YELLOW_BOLD + "SALE" + Colors.RESET);
+                for (int i = 0; i < menuItems.length; i++) {
+                    System.out.println("├ <" + Colors.BLUE_BOLD + (i + 2) + Colors.RESET + "> " + menuItems[i]);
+                }
+            }
+            else {
+                for (int i = 0; i < menuItems.length; i++) {
+                    System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + menuItems[i]);
+                }
             }
 
             System.out.println("│");
@@ -37,13 +45,19 @@ public interface Menu {
         } while (choice != 0);
     }
     default int getUserChoice() {
-        System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
+        System.out.print(Colors.PURPLE + "Enter your choice: " + Colors.RESET);
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
             scanner.next();
         }
-        return scanner.nextInt();
+        int choice = scanner.nextInt();
+        if (choice < 0 || choice > 9) {
+            System.out.println("Invalid input. Please enter a valid option.");
+            return getUserChoice();
+        }
+        return choice;
     }
+
     void processUserChoice(int choice);
     default void switchToMenu(Menu menu, String title, String[] menuItems) {
         clearScreen();
@@ -51,11 +65,13 @@ public interface Menu {
     }
     void backToPreviousMenu();
     default void clearScreen() {
+        System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
-    };
+        System.out.flush();
+    }
     default void closeProgram() {
         System.out.println("Exiting the program. Goodbye!");
-        scanner.close();
+        System.exit(0);
     }
 
 }

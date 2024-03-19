@@ -1,11 +1,10 @@
 package org.solidereviews.menus;
 
 import org.solidereviews.interfaces.Menu;
-import org.solidereviews.submenus.admin.ManageGameCatalogSubmenu;
-import org.solidereviews.submenus.admin.SurveysSubmenu;
+import org.solidereviews.submenus.games.GameReviewsSubmenu;
+import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 
-public class AdminMenu implements Menu {
-
+public class GamesMenu implements Menu {
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
@@ -17,17 +16,18 @@ public class AdminMenu implements Menu {
         }
     }
 
+
     private void option1() {
-        Menu menu = new ManageGameCatalogSubmenu();
-        String title = "ADMIN MENU > Manage game catalog";
-        String[] menuItems = {"Add game", "Remove game", "Update game", "Add sale", "View game catalog"};
+        Menu menu = new GamesCatalogSubmenu();
+        String title = "GAMES MENU > Game catalog";
+        String[] menuItems = {"Show all games", "Show games (genre)", "Show games (rating)"};
         switchToMenu(menu, title, menuItems);
     }
 
     private void option2() {
-        Menu menu = new SurveysSubmenu();
-        String title = "ADMIN MENU > Surveys";
-        String[] menuItems = {"Create Survey", "Update survey", "Delete survey", "Show survey result(s)"};
+        Menu menu = new GameReviewsSubmenu();
+        String title = "GAMES MENU > Game reviews";
+        String[] menuItems = {"Show all reviews", "Show reviews (game)", "Review game"};
         switchToMenu(menu, title, menuItems);
     }
 
@@ -38,5 +38,4 @@ public class AdminMenu implements Menu {
         String[] menuItems = {"Games", "Reviews", "Admin"};
         switchToMenu(menu, title, menuItems);
     }
-
 }

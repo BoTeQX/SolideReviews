@@ -12,7 +12,7 @@ public class MainMenu implements Menu {
     private final Map<String, String> adminCredentials;
 
     public MainMenu() {
-        // Add admin credentials to the map (username, password)
+        // Add admin credentials to a hashmap (username, password)
         this.adminCredentials = new HashMap<>();
         adminCredentials.put("admin", "admin");
     }
@@ -21,7 +21,7 @@ public class MainMenu implements Menu {
     public void processUserChoice(int choice) {
         switch (choice) {
             case 1 -> System.out.println("You selected Option 1.");
-            case 2 -> System.out.println("You selected Option 2.");
+            case 2 -> option2();
             case 3 -> System.out.println("You selected Option 3.");
             case 4 -> adminLogin();
             case 0 -> closeProgram();
@@ -34,21 +34,38 @@ public class MainMenu implements Menu {
         System.out.println("You are already in the main menu.");
     }
 
+
+    private void option2() {
+        Menu menu = new GamesMenu();
+        String title = "GAMES MENU";
+        String[] menuItems = {"Game catalog", "Game reviews"};
+        switchToMenu(menu, title, menuItems);
+    }
+
     private void adminLogin() {
         System.out.print("Enter username: ");
         String username = scanner.next();
         System.out.print("Enter password: ");
         String password = scanner.next();
 
-        // Check if the entered credentials match admin credentials
+        // Check if the entered credentials match admin credentials in the hashmap
         if (adminCredentials.containsKey(username) && adminCredentials.get(username).equals(password)) {
             System.out.println("Admin login successful!");
             Menu menu = new AdminMenu();
             String title = "ADMIN MENU";
-            String[] menuItems = {"Option 1", "Option 2", "Option 3"};
+            String[] menuItems = {"Manage game catalog", "Surveys"};
             switchToMenu(menu, title, menuItems); //switching to AdminMenu
         } else {
-            System.out.println("Incorrect username or password. Please try again.");
+            try {
+                System.out.println("Incorrect username or password. Please try again.");
+                Thread.sleep(2000);
+                Menu menu = new MainMenu();
+                String title = "MAIN MENU";
+                String[] menuItems = {"Games", "Reviews", "Admin"};
+                switchToMenu(menu, title, menuItems); //switching back to MainMenu
+            } catch (InterruptedException e) {
+               System.out.println("Error: " + e.getMessage());
+            }
         }
     }
 }
