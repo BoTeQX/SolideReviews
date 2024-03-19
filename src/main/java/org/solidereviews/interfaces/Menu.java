@@ -45,13 +45,19 @@ public interface Menu {
         } while (choice != 0);
     }
     default int getUserChoice() {
-        System.out.print(Colors.PURPLE +"Enter your choice: " + Colors.RESET);
+        System.out.print(Colors.PURPLE + "Enter your choice: " + Colors.RESET);
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
             scanner.next();
         }
-        return scanner.nextInt();
+        int choice = scanner.nextInt();
+        if (choice < 0 || choice > 9) {
+            System.out.println("Invalid input. Please enter a valid option.");
+            return getUserChoice();
+        }
+        return choice;
     }
+
     void processUserChoice(int choice);
     default void switchToMenu(Menu menu, String title, String[] menuItems) {
         clearScreen();

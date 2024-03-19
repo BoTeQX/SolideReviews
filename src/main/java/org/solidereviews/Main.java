@@ -10,4 +10,6 @@ public class Main {
         String[] menuItems = {"Games", "Reviews", "Admin"};
         mainMenu.displayMenu(title, menuItems);
     }
+
+
 }

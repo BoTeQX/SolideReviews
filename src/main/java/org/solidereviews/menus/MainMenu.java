@@ -38,7 +38,7 @@ public class MainMenu implements Menu {
     private void option2() {
         Menu menu = new GamesMenu();
         String title = "GAMES MENU";
-        String[] menuItems = {"Show all games", "Show games (genre)", "Show games (rating)"};
+        String[] menuItems = {"Game catalog", "Game reviews"};
         switchToMenu(menu, title, menuItems);
     }
 
@@ -53,7 +53,7 @@ public class MainMenu implements Menu {
             System.out.println("Admin login successful!");
             Menu menu = new AdminMenu();
             String title = "ADMIN MENU";
-            String[] menuItems = {"Option 1", "Option 2", "Option 3"};
+            String[] menuItems = {"Manage game catalog", "Surveys"};
             switchToMenu(menu, title, menuItems); //switching to AdminMenu
         } else {
             System.out.println("Incorrect username or password. Please try again.");
