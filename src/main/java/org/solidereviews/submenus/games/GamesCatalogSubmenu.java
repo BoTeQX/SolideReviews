@@ -3,7 +3,7 @@ package org.solidereviews.submenus.games;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.GamesMenu;
 
-public class GameCatalogSubmenu implements Menu {
+public class GamesCatalogSubmenu implements Menu {
 
         @Override
         public void processUserChoice(int choice) {

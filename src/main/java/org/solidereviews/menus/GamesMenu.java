@@ -1,15 +1,15 @@
 package org.solidereviews.menus;
 
 import org.solidereviews.interfaces.Menu;
-import org.solidereviews.submenus.games.GameCatalogSubmenu;
+import org.solidereviews.submenus.games.GameReviewsSubmenu;
+import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 
 public class GamesMenu implements Menu {
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
             case 1 -> option1();
-            case 2 -> System.out.println("You selected Option 2.");
-            case 3 -> System.out.println("You selected Option 3.");
+            case 2 -> option2();
             case 9 -> backToPreviousMenu();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
@@ -18,9 +18,16 @@ public class GamesMenu implements Menu {
 
 
     private void option1() {
-        Menu menu = new GameCatalogSubmenu();
-        String title = "GAMES MENU - game catalog";
-        String[] menuItems = {"Option 1", "Option 2", "Option 3"};
+        Menu menu = new GamesCatalogSubmenu();
+        String title = "GAMES MENU > game catalog";
+        String[] menuItems = {"Show all games", "Show games (genre)", "Show games (rating)"};
+        switchToMenu(menu, title, menuItems);
+    }
+
+    private void option2() {
+        Menu menu = new GameReviewsSubmenu();
+        String title = "GAMES MENU > Game reviews";
+        String[] menuItems = {"Show all reviews", "Show reviews (game)", "Review game"};
         switchToMenu(menu, title, menuItems);
     }
 

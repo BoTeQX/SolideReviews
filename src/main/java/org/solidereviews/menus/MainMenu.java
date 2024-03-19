@@ -38,7 +38,7 @@ public class MainMenu implements Menu {
     private void option2() {
         Menu menu = new GamesMenu();
         String title = "GAMES MENU";
-        String[] menuItems = {"Game catalog", "Review game"};
+        String[] menuItems = {"Game catalog", "Game reviews"};
         switchToMenu(menu, title, menuItems);
     }
 
