@@ -1,14 +1,12 @@
-package org.solidereviews.filemanager;
-
+package org.solidereviews.utils;
 import java.io.File;
 import java.io.IOException;
 
 public class FileManager {
     private static final String DIRECTORY_PATH = FileManager.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    private static final String FILE_PATH = DIRECTORY_PATH + "data.txt";
+    private static final String FILE_PATH = DIRECTORY_PATH + "data/data.txt";
 
     public FileManager() {
-        System.out.println("FileManager constructor called");
         MakeDataFile();
     }
 
@@ -18,12 +16,9 @@ public class FileManager {
             try {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-                System.out.println("Data file created successfully.");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("Data file already exists.");
         }
     }
 }

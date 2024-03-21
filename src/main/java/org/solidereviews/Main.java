@@ -1,6 +1,6 @@
 package org.solidereviews;
 
-import org.solidereviews.filemanager.FileManager;
+import org.solidereviews.utils.FileManager;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.MainMenu;
 
