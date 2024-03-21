@@ -56,7 +56,16 @@ public class MainMenu implements Menu {
             String[] menuItems = {"Manage game catalog", "Surveys"};
             switchToMenu(menu, title, menuItems); //switching to AdminMenu
         } else {
-            System.out.println("Incorrect username or password. Please try again.");
+            try {
+                System.out.println("Incorrect username or password. Please try again.");
+                Thread.sleep(2000);
+                Menu menu = new MainMenu();
+                String title = "MAIN MENU";
+                String[] menuItems = {"Games", "Reviews", "Admin"};
+                switchToMenu(menu, title, menuItems); //switching back to MainMenu
+            } catch (InterruptedException e) {
+               System.out.println("Error: " + e.getMessage());
+            }
         }
     }
 }
