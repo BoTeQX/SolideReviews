@@ -20,11 +20,7 @@ public class Main {
 
         FileManager fileManager = new FileManager();
         Menu mainMenu = new MainMenu();
-        String title = "MAIN MENU";
-        String[] menuItems = {"Games", "Reviews", "Admin"};
-        mainMenu.displayMenu(title, menuItems);
-
-
+        mainMenu.initiateMenu();
     }
 
 

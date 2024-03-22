@@ -6,8 +6,19 @@ import org.solidereviews.menus.AdminMenu;
 
 public class ManageGameCatalogSubmenu implements Menu {
 
+        String title = "ADMIN MENU > Manage game catalog";
+        String[] menuItems = {"Add game", "Remove game", "Update game", "Add sale", "View game catalog"};
+        GameController gameController = new GameController();
 
-    GameController gameController = new GameController();
+        @Override
+        public String getTitle() {
+            return title;
+        }
+        @Override
+        public String[] getMenuItems() {
+            return menuItems;
+        }
+
         @Override
         public void processUserChoice(int choice) {
             switch (choice) {
