@@ -8,13 +8,24 @@ import java.util.Map;
 
 
 public class MainMenu implements Menu {
-
+    String title = "MAIN MENU";
+    String[] menuItems = {"Games", "Reviews", "Admin"};
     private final Map<String, String> adminCredentials;
 
     public MainMenu() {
         // Add admin credentials to a hashmap (username, password)
         this.adminCredentials = new HashMap<>();
         adminCredentials.put("admin", "admin");
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String[] getMenuItems() {
+        return menuItems;
     }
 
     @Override
@@ -37,9 +48,7 @@ public class MainMenu implements Menu {
 
     private void option2() {
         Menu menu = new GamesMenu();
-        String title = "GAMES MENU";
-        String[] menuItems = {"Game catalog", "Game reviews"};
-        switchToMenu(menu, title, menuItems);
+        menu.initiateMenu();
     }
 
     private void adminLogin() {
@@ -52,8 +61,7 @@ public class MainMenu implements Menu {
         if (adminCredentials.containsKey(username) && adminCredentials.get(username).equals(password)) {
             System.out.println("Admin login successful!");
             Menu menu = new AdminMenu();
-            String title = "ADMIN MENU";
-            String[] menuItems = {"Manage game catalog", "Surveys"};
+            menu.initiateMenu();
             switchToMenu(menu, title, menuItems); //switching to AdminMenu
         } else {
             try {

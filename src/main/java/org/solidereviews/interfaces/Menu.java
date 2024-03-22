@@ -8,11 +8,20 @@ public interface Menu {
     Scanner scanner = new Scanner(System.in);
     default void displayLogo() {
         System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
-        System.out.println("    ▄█▀███▀█▄    ─── Solide™ ──              ▄█▀███▀█▄    ");
+        System.out.println("    ▄█▀███▀█▄    ─── Solide  ──              ▄█▀███▀█▄    ");
         System.out.println("   █▀███████▀█            ── Reviews ────   █▀███████▀█   ");
         System.out.println("   ▀ ▀▄▄ ▄▄▀ ▀                              ▀ ▀▄▄ ▄▄▀ ▀   ");
         System.out.println();
     }
+
+    String getTitle();
+
+    String[] getMenuItems();
+
+    default void initiateMenu() {
+        displayMenu(getTitle(), getMenuItems());
+    }
+
     default void displayMenu(String title, String[] menuItems) {
         int choice;
         do {

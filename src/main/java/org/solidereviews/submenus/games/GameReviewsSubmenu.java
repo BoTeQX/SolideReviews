@@ -4,6 +4,19 @@ import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.GamesMenu;
 
 public class GameReviewsSubmenu implements Menu {
+
+    String title = "GAMES MENU > Game reviews";
+    String[] menuItems = {"Show all reviews", "Show reviews (game)", "Review game"};
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+    @Override
+    public String[] getMenuItems() {
+        return menuItems;
+    }
+
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {

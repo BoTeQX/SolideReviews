@@ -5,6 +5,19 @@ import org.solidereviews.menus.AdminMenu;
 
 public class SurveysSubmenu implements Menu {
 
+    String title = "ADMIN MENU > Surveys";
+    String[] menuItems = {"Create Survey", "Update survey", "Delete survey", "Show survey result(s)"};
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String[] getMenuItems() {
+        return menuItems;
+    }
+
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
