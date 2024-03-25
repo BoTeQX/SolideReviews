@@ -19,6 +19,15 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks {
+    test {
+        useJUnitPlatform()
+    }
+
+    jar { // Add this section 
+        manifest {
+            attributes("Main-Class" to "org.solidereviews.Main") // Replace with your main class
+        }
+    }
 }
+4
