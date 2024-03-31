@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MainMenu implements Menu {
     String title = "MAIN MENU";
-    String[] menuItems = {"Games", "Reviews", "Admin"};
+    String[] menuItems = {"Games","Admin"};
     private final Map<String, String> adminCredentials;
 
     public MainMenu() {
@@ -33,7 +33,6 @@ public class MainMenu implements Menu {
         switch (choice) {
             case 1 -> System.out.println("You selected Option 1.");
             case 2 -> option2();
-            case 3 -> System.out.println("You selected Option 3.");
             case 4 -> adminLogin();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
@@ -62,15 +61,12 @@ public class MainMenu implements Menu {
             System.out.println("Admin login successful!");
             Menu menu = new AdminMenu();
             menu.initiateMenu();
-            switchToMenu(menu, title, menuItems); //switching to AdminMenu
         } else {
             try {
                 System.out.println("Incorrect username or password. Please try again.");
                 Thread.sleep(2000);
                 Menu menu = new MainMenu();
-                String title = "MAIN MENU";
-                String[] menuItems = {"Games", "Reviews", "Admin"};
-                switchToMenu(menu, title, menuItems); //switching back to MainMenu
+                menu.initiateMenu();
             } catch (InterruptedException e) {
                System.out.println("Error: " + e.getMessage());
             }

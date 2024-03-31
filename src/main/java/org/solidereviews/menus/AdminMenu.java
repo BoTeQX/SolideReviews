@@ -42,9 +42,7 @@ public class AdminMenu implements Menu {
     @Override
     public void backToPreviousMenu() {
         Menu menu = new MainMenu();
-        String title = "MAIN MENU";
-        String[] menuItems = {"Games", "Reviews", "Admin"};
-        switchToMenu(menu, title, menuItems);
+        menu.initiateMenu();
     }
 
 }

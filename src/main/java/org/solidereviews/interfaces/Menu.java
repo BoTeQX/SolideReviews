@@ -19,6 +19,7 @@ public interface Menu {
     String[] getMenuItems();
 
     default void initiateMenu() {
+        clearScreen();
         displayMenu(getTitle(), getMenuItems());
     }
 
@@ -68,10 +69,7 @@ public interface Menu {
     }
 
     void processUserChoice(int choice);
-    default void switchToMenu(Menu menu, String title, String[] menuItems) {
-        clearScreen();
-        menu.displayMenu(title, menuItems);
-    }
+
     void backToPreviousMenu();
     default void clearScreen() {
         System.out.print("\033\143");

@@ -33,8 +33,6 @@ public class GamesCatalogSubmenu implements Menu {
         @Override
         public void backToPreviousMenu() {
             Menu menu = new GamesMenu();
-            String title = "GAMES MENU";
-            String[] menuItems = {"Game catalog", "Review game"};
-            switchToMenu(menu, title, menuItems);
+           menu.initiateMenu();
         }
 }

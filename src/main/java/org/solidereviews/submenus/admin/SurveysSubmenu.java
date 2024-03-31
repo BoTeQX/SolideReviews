@@ -34,8 +34,6 @@ public class SurveysSubmenu implements Menu {
     @Override
     public void backToPreviousMenu() {
        Menu menu = new AdminMenu();
-         String title = "ADMIN MENU";
-            String[] menuItems = {"Manage game catalog", "Surveys"};
-            switchToMenu(menu, title, menuItems);
+       menu.initiateMenu();
     }
 }
