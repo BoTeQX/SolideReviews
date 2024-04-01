@@ -70,7 +70,6 @@ public interface Menu {
 
     void processUserChoice(int choice);
 
-    void backToPreviousMenu();
     default void clearScreen() {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");

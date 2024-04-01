@@ -7,7 +7,7 @@ import org.solidereviews.menus.GamesMenu;
 public class GamesCatalogSubmenu implements Menu {
 
     String title = "GAMES MENU > Game catalog";
-    String[] menuItems = {"Show all games", "Show game (genre)"};
+    String[] menuItems = {"Show all games", "Show games (genre)"};
 
     @Override
     public String getTitle() {
@@ -25,15 +25,9 @@ public class GamesCatalogSubmenu implements Menu {
                 case 1 -> GameController.showAllGames();
                 case 2 -> GameController.chooseGenreAndShowGames();
                 case 3 -> System.out.println("You selected Option 3.");
-                case 9 -> backToPreviousMenu();
+                case 9 -> new GamesMenu().initiateMenu();
                 case 0 -> closeProgram();
                 default -> System.out.println("Invalid choice. Please enter a valid option.");
             }
-        }
-
-        @Override
-        public void backToPreviousMenu() {
-            Menu menu = new GamesMenu();
-           menu.initiateMenu();
         }
 }

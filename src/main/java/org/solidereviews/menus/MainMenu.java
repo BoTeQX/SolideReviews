@@ -32,22 +32,11 @@ public class MainMenu implements Menu {
     public void processUserChoice(int choice) {
         switch (choice) {
             case 1 -> System.out.println("You selected Option 1.");
-            case 2 -> option2();
+            case 2 -> new GamesMenu().initiateMenu();
             case 3 -> adminLogin();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
-    }
-
-    @Override
-    public void backToPreviousMenu() {
-        System.out.println("You are already in the main menu.");
-    }
-
-
-    private void option2() {
-        Menu menu = new GamesMenu();
-        menu.initiateMenu();
     }
 
     private void adminLogin() {
@@ -59,14 +48,12 @@ public class MainMenu implements Menu {
         // Check if the entered credentials match admin credentials in the hashmap
         if (adminCredentials.containsKey(username) && adminCredentials.get(username).equals(password)) {
             System.out.println("Admin login successful!");
-            Menu menu = new AdminMenu();
-            menu.initiateMenu();
+            new AdminMenu().initiateMenu();
         } else {
             try {
                 System.out.println("Incorrect username or password. Please try again.");
                 Thread.sleep(2000);
-                Menu menu = new MainMenu();
-                menu.initiateMenu();
+                new MainMenu().initiateMenu();
             } catch (InterruptedException e) {
                System.out.println("Error: " + e.getMessage());
             }

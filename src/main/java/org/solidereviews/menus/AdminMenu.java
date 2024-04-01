@@ -21,28 +21,12 @@ public class AdminMenu implements Menu {
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
-            case 1 -> option1();
-            case 2 -> option2();
-            case 9 -> backToPreviousMenu();
+            case 1 -> new ManageGameCatalogSubmenu().initiateMenu();
+            case 2 -> new SurveysSubmenu().initiateMenu();
+            case 9 -> new MainMenu().initiateMenu();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
-    }
-
-    private void option1() {
-        Menu menu = new ManageGameCatalogSubmenu();
-        menu.initiateMenu();
-    }
-
-    private void option2() {
-        Menu menu = new SurveysSubmenu();
-        menu.initiateMenu();
-    }
-
-    @Override
-    public void backToPreviousMenu() {
-        Menu menu = new MainMenu();
-        menu.initiateMenu();
     }
 
 }

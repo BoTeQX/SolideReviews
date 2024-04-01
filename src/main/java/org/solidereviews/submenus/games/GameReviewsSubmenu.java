@@ -23,15 +23,9 @@ public class GameReviewsSubmenu implements Menu {
             case 1 -> System.out.println("You selected Option 1.");
             case 2 -> System.out.println("You selected Option 2.");
             case 3 -> System.out.println("You selected Option 3.");
-            case 9 -> backToPreviousMenu();
+            case 9 -> new GamesMenu().initiateMenu();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
-    }
-
-    @Override
-    public void backToPreviousMenu() {
-        Menu menu = new GamesMenu();
-       menu.initiateMenu();
     }
 }

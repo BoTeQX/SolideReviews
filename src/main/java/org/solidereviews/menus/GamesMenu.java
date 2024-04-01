@@ -21,28 +21,12 @@ public class GamesMenu implements Menu {
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
-            case 1 -> option1();
-            case 2 -> option2();
-            case 9 -> backToPreviousMenu();
+            case 1 -> new GamesCatalogSubmenu().initiateMenu();
+            case 2 -> new GameReviewsSubmenu().initiateMenu();
+            case 9 -> new MainMenu().initiateMenu();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
 
-
-    private void option1() {
-        Menu menu = new GamesCatalogSubmenu();
-        menu.initiateMenu();
-    }
-
-    private void option2() {
-        Menu menu = new GameReviewsSubmenu();
-        menu.initiateMenu();
-    }
-
-    @Override
-    public void backToPreviousMenu() {
-        Menu menu = new MainMenu();
-        menu.initiateMenu();
-    }
 }
