@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class GameController {
     Scanner scanner = new Scanner(System.in);
-    ArrayList<Game> games = new ArrayList<>();
+    private static ArrayList<Game> games = new ArrayList<>();
 
     public void addGame() {
         System.out.println("Give the game name:");
@@ -27,6 +27,10 @@ public class GameController {
     }
     public void addToGameList(Game game){
         games.add(game);
+    }
+
+    public ArrayList<Game> getGames() {
+        return games;
     }
 
     public void removeGame(){

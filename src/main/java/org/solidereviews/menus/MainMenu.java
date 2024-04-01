@@ -33,7 +33,7 @@ public class MainMenu implements Menu {
         switch (choice) {
             case 1 -> System.out.println("You selected Option 1.");
             case 2 -> option2();
-            case 4 -> adminLogin();
+            case 3 -> adminLogin();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
