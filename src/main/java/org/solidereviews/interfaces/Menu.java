@@ -55,7 +55,7 @@ public interface Menu {
         } while (choice != 0);
     }
     default int getUserChoice() {
-        System.out.print(Colors.PURPLE + "Enter your choice: " + Colors.RESET);
+        System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
             scanner.next();
