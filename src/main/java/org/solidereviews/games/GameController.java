@@ -126,12 +126,8 @@ public class GameController {
         games.add(game);
     }
 
-
     public static void removeGame(){
-    }
 
-    public ArrayList<Game> getGames() {
-        return games;
     }
 
     public static void updateGame(){
