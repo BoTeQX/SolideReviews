@@ -27,7 +27,7 @@ public class ManageGameCatalogSubmenu implements Menu {
                 case 2 -> GameController.removeGame();
                 case 3 -> GameController.updateGame();
                 case 4 -> GameController.addSale();
-                case 5 -> GameDisplayer.showAllGames();
+                case 5 -> GameDisplayer.showAllGames(getTitle());
                 case 9 -> new AdminMenu().initiateMenu();
                 case 0 -> closeProgram();
                 default -> System.out.println("Invalid choice. Please enter a valid option.");
