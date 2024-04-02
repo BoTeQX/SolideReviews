@@ -1,6 +1,7 @@
 package org.solidereviews.games;
 
 import org.solidereviews.interfaces.Menu;
+import org.solidereviews.submenus.admin.ManageGameCatalogSubmenu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 import org.solidereviews.utils.Colors;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameDisplayer extends GameController{
-    public static void showAllGames(){
+    public static void showAllGames(String previousMenuTitle){
         clearScreen();
         System.out.println("+----------------------------------+------------+-------+");
         System.out.println("| Title                            | Genre      | Price |");
@@ -26,8 +27,12 @@ public class GameDisplayer extends GameController{
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
         clearScreen();
-        Menu menu = new GamesCatalogSubmenu();
-        menu.initiateMenu();
+        if (previousMenuTitle.equals("ADMIN MENU > Manage game catalog")) {
+            new ManageGameCatalogSubmenu().initiateMenu();
+        }
+        else {
+            new GamesCatalogSubmenu().initiateMenu();
+        }
     }
 
 
@@ -53,8 +58,7 @@ public class GameDisplayer extends GameController{
             clearScreen();
             showGamesByGenre(selectedGenre);
         } else if (choice == 0) {
-            Menu menu = new GamesCatalogSubmenu();
-            menu.initiateMenu();
+            new GamesCatalogSubmenu().initiateMenu();
         } else {
             chooseGenreAndShowGames();
         }

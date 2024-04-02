@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class GameController {
     static Scanner scanner = new Scanner(System.in);
-    static ArrayList<Game> games = new ArrayList<>();
+    public static ArrayList<Game> games = new ArrayList<>();
 
     public static void addGame() {
         clearScreen();
@@ -30,7 +30,7 @@ public class GameController {
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
         System.out.println("Game added!");
-        GameDisplayer.showAllGames();
+        GameDisplayer.showAllGames("ADMIN MENU > Manage game catalog");
     }
 
     public static void initiateGames(){

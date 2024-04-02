@@ -23,7 +23,7 @@ public class GamesCatalogSubmenu implements Menu {
         @Override
         public void processUserChoice(int choice) {
             switch (choice) {
-                case 1 -> GameDisplayer.showAllGames();
+                case 1 -> GameDisplayer.showAllGames(getTitle());
                 case 2 -> GameDisplayer.chooseGenreAndShowGames();
                 case 3 -> System.out.println("You selected Option 3.");
                 case 9 -> new GamesMenu().initiateMenu();
