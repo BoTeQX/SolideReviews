@@ -30,7 +30,7 @@ public class SurveysSubmenu implements Menu {
         switch (choice) {
             case 1 -> createSurvey();
             case 2 -> System.out.println("You selected Option 2.");
-            case 3 -> System.out.println("You selected Option 3.");
+            case 3 -> deleteSurvey();
             case 4 -> showSurvey();
             case 9 -> new AdminMenu().initiateMenu();
             case 0 -> closeProgram();
@@ -40,6 +40,7 @@ public class SurveysSubmenu implements Menu {
 
     private void createSurvey() {
         clearScreen();
+    
         System.out.println("Select game to create survey for: ");
         ArrayList<Game> games = new GameController().getGames();
         for (int i = 0; i < games.size(); i++) {
@@ -72,17 +73,49 @@ public class SurveysSubmenu implements Menu {
         QuestionAndAnswers survey = new QuestionAndAnswers(question, multipleChoice);
         selectedGame.addToSurvey(survey);
         System.out.println("Survey created successfully!");
-        pressToContinue();
+          pressToContinue();
     }
 
-    private void showSurvey() {
-        Scanner scanner = new Scanner(System.in);
+    private void deleteSurvey() {
         clearScreen();
-        System.out.println("Select game to create survey for: ");
+        System.out.println("Select game to show survey for: ");
         ArrayList<Game> games = new GameController().getGames();
         for (int i = 0; i < games.size(); i++) {
             System.out.println(i + 1 + ". " + games.get(i).getName());
         }
+
+        int gameIndex = scanner.nextInt();
+        Game selectedGame = games.get(gameIndex - 1);
+
+        clearScreen();
+        ArrayList<QuestionAndAnswers> survey = selectedGame.getSurvey();
+        if (survey.size() == 0) {
+            System.out.println("No data found for " + selectedGame.getName());
+            pressToContinue();
+            return;
+        }
+    
+        System.out.println("Select survey to delete for " + selectedGame.getName() + ": ");
+        for (int i = 0; i < survey.size(); i++) {
+            System.out.println(i + 1 + ". " + survey.get(i).getQuestion());
+        }
+
+        int surveyIndex = scanner.nextInt();
+        if (survey.get(surveyIndex - 1) != null) {
+            survey.remove(surveyIndex - 1);
+            System.out.println("delted");
+        }
+        pressToContinue();
+    }
+
+    private void showSurvey() {
+        clearScreen();
+        System.out.println("Select game to show survey for: ");
+        ArrayList<Game> games = new GameController().getGames();
+        for (int i = 0; i < games.size(); i++) {
+            System.out.println(i + 1 + ". " + games.get(i).getName());
+        }
+
         int gameIndex = scanner.nextInt();
         Game selectedGame = games.get(gameIndex - 1);
 
@@ -95,7 +128,7 @@ public class SurveysSubmenu implements Menu {
         }
     
         for (QuestionAndAnswers qna : selectedGame.getSurvey()) {
-            System.out.println("Question: " + qna.getQuestion() + " MultipleChoice: " + qna.isMultipleChoice());
+            System.out.println("\nQuestion: " + qna.getQuestion() + " MultipleChoice: " + qna.isMultipleChoice());
             System.out.println("------- Answers");
         }
     
