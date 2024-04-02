@@ -33,6 +33,9 @@ public class GameController {
         addToGameList(game3);
     }
 
+    public static ArrayList<Game> getGames() {
+        return games;
+    }
 
     public static void addToGameList(Game game){
         games.add(game);

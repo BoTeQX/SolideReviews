@@ -80,4 +80,11 @@ public interface Menu {
         System.exit(0);
     }
 
+    default void pressToContinue() {
+        System.out.println(Colors.BLUE_BOLD + "\nPress Enter to continue..." + Colors.RESET);
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        clearScreen();
+    }
+
 }
