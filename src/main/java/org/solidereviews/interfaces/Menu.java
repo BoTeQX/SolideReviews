@@ -8,11 +8,21 @@ public interface Menu {
     Scanner scanner = new Scanner(System.in);
     default void displayLogo() {
         System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
-        System.out.println("    ▄█▀███▀█▄    ─── Solide™ ──              ▄█▀███▀█▄    ");
+        System.out.println("    ▄█▀███▀█▄    ─── Solide  ──              ▄█▀███▀█▄    ");
         System.out.println("   █▀███████▀█            ── Reviews ────   █▀███████▀█   ");
         System.out.println("   ▀ ▀▄▄ ▄▄▀ ▀                              ▀ ▀▄▄ ▄▄▀ ▀   ");
         System.out.println();
     }
+
+    String getTitle();
+
+    String[] getMenuItems();
+
+    default void initiateMenu() {
+        clearScreen();
+        displayMenu(getTitle(), getMenuItems());
+    }
+
     default void displayMenu(String title, String[] menuItems) {
         int choice;
         do {
@@ -45,7 +55,7 @@ public interface Menu {
         } while (choice != 0);
     }
     default int getUserChoice() {
-        System.out.print(Colors.PURPLE + "Enter your choice: " + Colors.RESET);
+        System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
             scanner.next();
@@ -59,11 +69,7 @@ public interface Menu {
     }
 
     void processUserChoice(int choice);
-    default void switchToMenu(Menu menu, String title, String[] menuItems) {
-        clearScreen();
-        menu.displayMenu(title, menuItems);
-    }
-    void backToPreviousMenu();
+
     default void clearScreen() {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
