@@ -1,12 +1,16 @@
 package org.solidereviews.games;
+import org.solidereviews.interfaces.Menu;
+import org.solidereviews.submenus.games.GamesCatalogSubmenu;
+import org.solidereviews.utils.Colors;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameController {
-    Scanner scanner = new Scanner(System.in);
-    ArrayList<Game> games = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+    static ArrayList<Game> games = new ArrayList<>();
 
-    public void addGame() {
+    public static void addGame() {
         System.out.println("Give the game name:");
         String gameName = scanner.nextLine();
         System.out.println("Give the game genre:");
@@ -16,28 +20,33 @@ public class GameController {
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
         System.out.println("Game added!");
-        showAllGames();
+        GameDisplayer.showAllGames();
     }
-    public void showAllGames(){
-        for(Game item : games){
-            System.out.println(item.getName());
-            System.out.println(item.getGenre());
-            System.out.println(item.getPrice());
-        }
+
+    public static void initiateGames(){
+        //this is temporary until the "database" is implemented
+        Game game1 = new Game("Game 1", "Shooter", 19.99);
+        Game game2 = new Game("Game 2", "RPG", 14.99);
+        Game game3 = new Game("Game 3", "Survival", 29.99);
+        addToGameList(game1);
+        addToGameList(game2);
+        addToGameList(game3);
     }
-    public void addToGameList(Game game){
+
+
+    public static void addToGameList(Game game){
         games.add(game);
     }
 
-    public void removeGame(){
+    public static void removeGame(){
 
     }
 
-    public void updateGame(){
+    public static void updateGame(){
 
     }
 
-    public void addSale(){
+    public static void addSale(){
 
     }
 }
