@@ -1,4 +1,5 @@
 package org.solidereviews.games;
+
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 import org.solidereviews.utils.Colors;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 public class GameController {
     static Scanner scanner = new Scanner(System.in);
-    static ArrayList<Game> games = new ArrayList<>();
+    public static ArrayList<Game> games = new ArrayList<>();
 
     public static void addGame() {
         System.out.println("Give the game name:");
@@ -23,8 +24,8 @@ public class GameController {
         GameDisplayer.showAllGames();
     }
 
-    public static void initiateGames(){
-        //this is temporary until the "database" is implemented
+    public static void initiateGames() {
+        // this is temporary until the "database" is implemented
         Game game1 = new Game("Game 1", "Shooter", 19.99);
         Game game2 = new Game("Game 2", "RPG", 14.99);
         Game game3 = new Game("Game 3", "Survival", 29.99);
@@ -33,20 +34,24 @@ public class GameController {
         addToGameList(game3);
     }
 
-
-    public static void addToGameList(Game game){
+    public static void addToGameList(Game game) {
         games.add(game);
     }
 
-    public static void removeGame(){
+    public static void removeGame() {
 
     }
 
-    public static void updateGame(){
+    public static void updateGame() {
 
     }
 
-    public static void addSale(){
+    public static void addSale() {
 
     }
+
+    public static ArrayList<Game> getAllGames() {
+        return games;
+    }
+
 }

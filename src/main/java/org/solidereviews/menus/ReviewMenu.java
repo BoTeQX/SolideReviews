@@ -1,6 +1,10 @@
 package org.solidereviews.menus;
 
 import java.util.Scanner;
+
+import org.solidereviews.games.Game;
+import org.solidereviews.games.GameController;
+
 import java.util.ArrayList;
 
 public class ReviewMenu {
@@ -10,6 +14,7 @@ public class ReviewMenu {
         int gameplayRating;
         int storyRating;
         String reviewText;
+        int overallRating;
 
         public Review(String gameName, int graphicsRating, int gameplayRating, int storyRating, String reviewText) {
             this.gameName = gameName;
@@ -17,16 +22,17 @@ public class ReviewMenu {
             this.gameplayRating = gameplayRating;
             this.storyRating = storyRating;
             this.reviewText = reviewText;
+            this.overallRating = (graphicsRating + gameplayRating + storyRating) / 3;
         }
+
     }
 
     public void addReview() {
+        ArrayList<Game> games = GameController.getAllGames();
         ArrayList<String> gameNames = new ArrayList<>();
-        gameNames.add("The Witcher 3: Wild Hunt");
-        gameNames.add("Red Dead Redemption 2");
-        gameNames.add("The Last of Us Part II");
-        gameNames.add("God of War");
-        gameNames.add("Cyberpunk 2077");
+        for (Game game : games) {
+            gameNames.add(game.getName());
+        }
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Select a game to review:");

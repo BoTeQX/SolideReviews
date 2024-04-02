@@ -6,7 +6,7 @@ public class Game {
     private double price;
     private int sale = 0;
 
-    public Game(String name, String genre, double price){
+    public Game(String name, String genre, double price) {
         this.name = name;
         this.genre = genre;
         this.price = price;
@@ -35,7 +35,6 @@ public class Game {
     public void setPrice(double price) {
         this.price = price;
     }
-
 
     public int getSale() {
         return sale;

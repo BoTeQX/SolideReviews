@@ -1,1 +1,1 @@
-./gradlew build && cd build/libs && java -jar SolideReviews-1.0-SNAPSHOT.jar
+gradle build && cd build/libs && java -jar SolideReviews-1.0-SNAPSHOT.jar
