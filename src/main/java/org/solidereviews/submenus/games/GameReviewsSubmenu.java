@@ -6,7 +6,7 @@ import org.solidereviews.menus.GamesMenu;
 public class GameReviewsSubmenu implements Menu {
 
     String title = "GAMES MENU > Game reviews";
-    String[] menuItems = { "Show reviews (game)", "Review game" };
+    String[] menuItems = {"Show reviews (game)", "Review game"};
 
     @Override
     public String getTitle() {

@@ -10,12 +10,13 @@ import org.solidereviews.menus.MainMenu;
 
 public class Main {
     public static void main(String[] args) {
-
         GameController.initiateGames();
-
         FileManager fileManager = new FileManager();
         new MainMenu().initiateMenu();
     }
 
-
 }
+
+
+
+
