@@ -29,7 +29,7 @@ public class SurveysSubmenu implements Menu {
     public void processUserChoice(int choice) {
         switch (choice) {
             case 1 -> createSurvey();
-            case 2 -> System.out.println("You selected Option 2.");
+            case 2 -> updateSurvey();
             case 3 -> deleteSurvey();
             case 4 -> showSurvey();
             case 9 -> new AdminMenu().initiateMenu();
@@ -40,14 +40,8 @@ public class SurveysSubmenu implements Menu {
 
     private void createSurvey() {
         clearScreen();
-    
         System.out.println("Select game to create survey for: ");
-        ArrayList<Game> games = new GameController().getGames();
-        for (int i = 0; i < games.size(); i++) {
-            System.out.println(i + 1 + ". " + games.get(i).getName());
-        }
-        int gameIndex = scanner.nextInt();
-        Game selectedGame = games.get(gameIndex - 1);
+        Game selectedGame = showGamesAndSelect();
 
         clearScreen();
         System.out.println("Do you want to create survey for " + selectedGame.getName() + "?");
@@ -76,16 +70,16 @@ public class SurveysSubmenu implements Menu {
           pressToContinue();
     }
 
+    private void updateSurvey() {
+        clearScreen();
+        System.out.println("Select game to updatez survey for: ");
+        Game selectedGame = showGamesAndSelect();
+    }
+
     private void deleteSurvey() {
         clearScreen();
         System.out.println("Select game to show survey for: ");
-        ArrayList<Game> games = new GameController().getGames();
-        for (int i = 0; i < games.size(); i++) {
-            System.out.println(i + 1 + ". " + games.get(i).getName());
-        }
-
-        int gameIndex = scanner.nextInt();
-        Game selectedGame = games.get(gameIndex - 1);
+        Game selectedGame = showGamesAndSelect();
 
         clearScreen();
         ArrayList<QuestionAndAnswers> survey = selectedGame.getSurvey();
@@ -111,13 +105,7 @@ public class SurveysSubmenu implements Menu {
     private void showSurvey() {
         clearScreen();
         System.out.println("Select game to show survey for: ");
-        ArrayList<Game> games = new GameController().getGames();
-        for (int i = 0; i < games.size(); i++) {
-            System.out.println(i + 1 + ". " + games.get(i).getName());
-        }
-
-        int gameIndex = scanner.nextInt();
-        Game selectedGame = games.get(gameIndex - 1);
+        Game selectedGame = showGamesAndSelect();
 
         clearScreen();
         ArrayList<QuestionAndAnswers> survey = selectedGame.getSurvey();
@@ -133,5 +121,17 @@ public class SurveysSubmenu implements Menu {
         }
     
         pressToContinue();
+    }
+
+    private Game showGamesAndSelect() {
+        ArrayList<Game> games = new GameController().getGames();
+        for (int i = 0; i < games.size(); i++) {
+            System.out.println(i + 1 + ". " + games.get(i).getName());
+        }
+
+        int gameIndex = scanner.nextInt();
+        Game selectedGame = games.get(gameIndex - 1);
+
+        return selectedGame;
     }
 }
