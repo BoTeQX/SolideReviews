@@ -14,8 +14,7 @@ public class Main {
         GameController.initiateGames();
 
         FileManager fileManager = new FileManager();
-        Menu mainMenu = new MainMenu();
-        mainMenu.initiateMenu();
+        new MainMenu().initiateMenu();
     }
 
 

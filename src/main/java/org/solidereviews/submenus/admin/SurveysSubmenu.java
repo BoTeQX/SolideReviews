@@ -25,15 +25,10 @@ public class SurveysSubmenu implements Menu {
             case 2 -> System.out.println("You selected Option 2.");
             case 3 -> System.out.println("You selected Option 3.");
             case 4 -> System.out.println("You selected Option 4.");
-            case 9 -> backToPreviousMenu();
+            case 9 -> new AdminMenu().initiateMenu();
             case 0 -> closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
 
-    @Override
-    public void backToPreviousMenu() {
-       Menu menu = new AdminMenu();
-       menu.initiateMenu();
-    }
 }
