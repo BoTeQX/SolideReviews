@@ -97,6 +97,7 @@ public class GameDisplayer extends GameController{
         }
     }
 
+
     public static void showSingleGame(String gameName, String previousMenuTitle) {
         clearScreen();
         for (Game game : games) {
@@ -114,4 +115,5 @@ public class GameDisplayer extends GameController{
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
 }
