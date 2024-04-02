@@ -1,5 +1,7 @@
 package org.solidereviews;
 
+import org.solidereviews.games.Game;
+import org.solidereviews.games.GameController;
 import org.solidereviews.utils.FileManager;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.MainMenu;
@@ -8,12 +10,9 @@ import org.solidereviews.menus.MainMenu;
 
 public class Main {
     public static void main(String[] args) {
+        GameController.initiateGames();
         FileManager fileManager = new FileManager();
-        Menu mainMenu = new MainMenu();
-        String title = "MAIN MENU";
-        String[] menuItems = {"Games", "Reviews", "Admin"};
-        mainMenu.displayMenu(title, menuItems);
+        new MainMenu().initiateMenu();
     }
-
 
 }
