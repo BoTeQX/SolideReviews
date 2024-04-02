@@ -10,9 +10,11 @@ public class GameController {
     static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Game> games = new ArrayList<>();
 
-    public static void addGame() {
+
+    public static void addGame(String previousMenuTitle) {
         clearScreen();
         System.out.println("Give the game name(or leave empty to cancel): ");
+
         String gameName = scanner.nextLine();
         if (gameName.isEmpty()){
             return;
@@ -30,7 +32,7 @@ public class GameController {
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
         System.out.println("Game added!");
-        GameDisplayer.showAllGames("ADMIN MENU > Manage game catalog");
+        GameDisplayer.showSingleGame(gameName, previousMenuTitle);
     }
 
     public static void initiateGames(){
