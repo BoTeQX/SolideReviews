@@ -1,6 +1,7 @@
 package org.solidereviews.submenus.games;
 
 import org.solidereviews.games.GameController;
+import org.solidereviews.games.GameDisplayer;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.GamesMenu;
 
@@ -22,8 +23,8 @@ public class GamesCatalogSubmenu implements Menu {
         @Override
         public void processUserChoice(int choice) {
             switch (choice) {
-                case 1 -> GameController.showAllGames();
-                case 2 -> GameController.chooseGenreAndShowGames();
+                case 1 -> GameDisplayer.showAllGames();
+                case 2 -> GameDisplayer.chooseGenreAndShowGames();
                 case 3 -> System.out.println("You selected Option 3.");
                 case 9 -> new GamesMenu().initiateMenu();
                 case 0 -> closeProgram();
