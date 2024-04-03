@@ -75,7 +75,7 @@ public class FileManager {
         File file = new File(GAMES_FILE_PATH);
         if (file.exists()) {
             file.delete();
-            makeDataFile(GAMES_FILE_PATH); // Recreate the file
+            makeDataFile(GAMES_FILE_PATH); // recreate the file
         }
     }
 }

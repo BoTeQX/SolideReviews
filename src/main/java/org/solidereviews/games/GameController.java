@@ -62,21 +62,34 @@ public class GameController {
     games.add(game);
     }
 
-    public static void removeGame(){
+    public static void removeGame() {
         clearScreen();
         System.out.println("What game do you want to remove?(or leave empty to cancel)");
         String gameName = scanner.nextLine();
-        if (gameName.isEmpty()){
+        if (gameName.isEmpty()) {
             return;
         }
+
+
         for (Game game : games) {
-            if(game.getName().equalsIgnoreCase(gameName)){
-                games.remove(game);
+            if (game.getName().equalsIgnoreCase(gameName)) {
+                games.remove(game); // remove the game from the arraylist
+
+                // Rewrite the file without the removed game
+                FileManager fileManager = new FileManager();
+                fileManager.deleteGamesFile(); // delete the file just like updategame
+                for (Game updatedGame : games) {
+                    // the whole text file gets rewritten
+                    String gameInfo = updatedGame.getName() + "," + updatedGame.getGenre() + "," + updatedGame.getPrice();
+                    fileManager.writeGameToFile(gameInfo);
+                }
                 System.out.println(game.getName() + " removed.");
-                break;
+                return;
             }
         }
 
+
+        System.out.println("Game not found.");
     }
 
     public static void updateGame(){
@@ -90,7 +103,7 @@ public class GameController {
     }
 
     private static void updateGameMenu(String gameName) {
-        boolean gameFound = false; //if game doesn't exists
+        boolean gameFound = false; //if game doesn't exist
 
         for (Game game : games) {
             if (game.getName().equalsIgnoreCase(gameName)) {
