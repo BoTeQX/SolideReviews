@@ -31,10 +31,10 @@ public class GameController {
             return;
         }
 
-        String gameInfo = gameName + "," + gameGenre + "," + gamePrice; //formatting string
+        String gameInfo = gameName + "|" + gameGenre + "|" + gamePrice; //formatting string
 
         FileManager fileManager = new FileManager();
-        fileManager.writeGameToFile(gameInfo); //uses the method in FileManager
+        fileManager.writeGameToFile(gameInfo); //uses the method in FileManager to write into the datafile
 
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
@@ -48,7 +48,7 @@ public class GameController {
         FileManager fileManager = new FileManager();
         ArrayList<String> gameData = fileManager.readGamesFile(); // Read game data from file
         for (String data : gameData) {
-            String[] parts = data.split(",");
+            String[] parts = data.split("|");
             String name = parts[0];
             String genre = parts[1];
             double price = Double.parseDouble(parts[2]);
@@ -80,7 +80,7 @@ public class GameController {
                 fileManager.deleteGamesFile(); // delete the file just like updategame
                 for (Game updatedGame : games) {
                     // the whole text file gets rewritten
-                    String gameInfo = updatedGame.getName() + "," + updatedGame.getGenre() + "," + updatedGame.getPrice();
+                    String gameInfo = updatedGame.getName() + "|" + updatedGame.getGenre() + "|" + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
                 System.out.println(game.getName() + " removed.");
@@ -139,12 +139,12 @@ public class GameController {
                 fileManager.deleteGamesFile(); // Delete the existing games file
                 for (Game updatedGame : games) {
                     // Write each game to the file
-                    String gameInfo = updatedGame.getName() + "," + updatedGame.getGenre() + "," + updatedGame.getPrice();
+                    String gameInfo = updatedGame.getName() + "|" + updatedGame.getGenre() + "|" + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
                 System.out.println("Game updated.");
 
-                return; // Exit the method once the game is updated
+                return;
             }
         }
 
