@@ -29,12 +29,22 @@ public class GameController {
         if (gamePrice <= 0){
             return;
         }
+<<<<<<< Updated upstream
+=======
+
+        String gameInfo = gameName + "~" + gameGenre + "~" + gamePrice; //formatting string
+
+        FileManager fileManager = new FileManager();
+        fileManager.writeGameToFile(gameInfo); //uses the method in FileManager to write into the datafile
+
+>>>>>>> Stashed changes
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
         System.out.println("Game added!");
         GameDisplayer.showSingleGame(gameName, previousMenuTitle);
     }
 
+<<<<<<< Updated upstream
     public static void initiateGames(){
         //this is temporary until the "database" is implemented
         Game game1 = new Game("Game 1", "Shooter", 19.99);
@@ -43,6 +53,19 @@ public class GameController {
         addToGameList(game1);
         addToGameList(game2);
         addToGameList(game3);
+=======
+    public static void initiateGames() {
+        FileManager fileManager = new FileManager();
+        ArrayList<String> gameData = fileManager.readGamesFile(); // Read game data from file
+        for (String data : gameData) {
+            String[] parts = data.split("~");
+            String name = parts[0];
+            String genre = parts[1];
+            double price = Double.parseDouble(parts[2]);
+            Game game = new Game(name, genre, price);
+            addToGameList(game);
+        }
+>>>>>>> Stashed changes
     }
 
 
@@ -58,8 +81,22 @@ public class GameController {
             return;
         }
         for (Game game : games) {
+<<<<<<< Updated upstream
             if(game.getName().equalsIgnoreCase(gameName)){
                 games.remove(game);
+=======
+            if (game.getName().equalsIgnoreCase(gameName)) {
+                games.remove(game); // remove the game from the arraylist
+
+                // Rewrite the file without the removed game
+                FileManager fileManager = new FileManager();
+                fileManager.deleteGamesFile(); // delete the file just like updategame
+                for (Game updatedGame : games) {
+                    // the whole text file gets rewritten
+                    String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
+                    fileManager.writeGameToFile(gameInfo);
+                }
+>>>>>>> Stashed changes
                 System.out.println(game.getName() + " removed.");
                 break;
             }
@@ -101,14 +138,30 @@ public class GameController {
                     double newPrice = scanner.nextDouble();
                     game.setPrice(newPrice);
 
+<<<<<<< Updated upstream
                     updateGameMenu(game.getName());
                 }else {
                     break;
+=======
+                // Rewrite the file with the updated game data
+                FileManager fileManager = new FileManager();
+                fileManager.deleteGamesFile(); // Delete the existing games file
+                for (Game updatedGame : games) {
+                    // Write each game to the file
+                    String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
+                    fileManager.writeGameToFile(gameInfo);
+>>>>>>> Stashed changes
                 }
                 System.out.println(game.getName() + " updated.");
                 break;
             }
         }
+<<<<<<< Updated upstream
+=======
+
+        // If the game with the specified name is not found
+        System.out.println("Game not found.");
+>>>>>>> Stashed changes
     }
 
     public static void addSale(){
