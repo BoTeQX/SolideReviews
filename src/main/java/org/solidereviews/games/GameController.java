@@ -88,38 +88,56 @@ public class GameController {
         }
         updateGameMenu(gameName);
     }
-    private static void updateGameMenu(String gameName){
+
+    private static void updateGameMenu(String gameName) {
+        boolean gameFound = false; //if game doesn't exists
+
         for (Game game : games) {
-            if(game.getName().equalsIgnoreCase(gameName)){
+            if (game.getName().equalsIgnoreCase(gameName)) {
+                gameFound = true;
                 System.out.println("What do you want to change?\n1. Name\n2. Genre\n3. Price\n4. Cancel");
                 int updateOpt = scanner.nextInt();
-                if(updateOpt == 1) {
+
+                if (updateOpt == 1) {
                     System.out.println("New name?");
                     scanner.nextLine();
                     String newName = scanner.nextLine();
+                    // update the name
                     game.setName(newName);
-
-                    updateGameMenu(newName);
-                }else if (updateOpt == 2){
+                } else if (updateOpt == 2) {
                     System.out.println("New genre?");
                     scanner.nextLine();
                     String newGenre = scanner.nextLine();
+                    // update the genre
                     game.setGenre(newGenre);
-
-                    updateGameMenu(game.getName());
-                }else if(updateOpt == 3){
+                } else if (updateOpt == 3) {
                     System.out.println("New price?");
                     scanner.nextLine();
                     double newPrice = scanner.nextDouble();
+                    // update the price
                     game.setPrice(newPrice);
-
-                    updateGameMenu(game.getName());
-                }else {
-                    break;
+                } else {
+                    System.out.println("Update canceled.");
+                    return; // Exit the method if the user cancels
                 }
-                System.out.println(game.getName() + " updated.");
-                break;
+
+                // Rewrite the file with the updated game data
+                FileManager fileManager = new FileManager();
+                fileManager.deleteGamesFile(); // Delete the existing games file
+                for (Game updatedGame : games) {
+                    // Write each game to the file
+                    String gameInfo = updatedGame.getName() + "," + updatedGame.getGenre() + "," + updatedGame.getPrice();
+                    fileManager.writeGameToFile(gameInfo);
+                }
+                System.out.println("Game updated.");
+
+                return; // Exit the method once the game is updated
             }
+        }
+
+        // If the game with the specified name is not found
+        if (!gameFound) {
+            System.out.println("Game not found.");
         }
     }
 

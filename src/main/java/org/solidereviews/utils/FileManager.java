@@ -66,5 +66,17 @@ public class FileManager {
     public ArrayList<String> readGamesFile() {
         return readAllLines(GAMES_FILE_PATH);
     }
+
+    public static String getGamesFilePath() {
+        return GAMES_FILE_PATH;
+    }
+
+    public void deleteGamesFile() {
+        File file = new File(GAMES_FILE_PATH);
+        if (file.exists()) {
+            file.delete();
+            makeDataFile(GAMES_FILE_PATH); // Recreate the file
+        }
+    }
 }
 
