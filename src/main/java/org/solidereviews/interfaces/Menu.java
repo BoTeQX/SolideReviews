@@ -26,6 +26,7 @@ public interface Menu {
     default void displayMenu(String title, String[] menuItems) {
         int choice;
         do {
+            clearScreen();
             displayLogo();
             System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT +  title + " " + Colors.RESET);
             System.out.println("│");

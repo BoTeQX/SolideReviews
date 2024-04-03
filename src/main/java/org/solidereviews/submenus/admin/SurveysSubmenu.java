@@ -6,6 +6,8 @@ import java.util.Scanner;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.AdminMenu;
 
+import org.solidereviews.utils.Colors;
+
 import org.solidereviews.games.Game;
 import org.solidereviews.games.GameController;
 import org.solidereviews.games.QuestionAndAnswers;
@@ -39,47 +41,38 @@ public class SurveysSubmenu implements Menu {
     }
 
     private void createSurvey() {
-        clearScreen();
-        System.out.println("Select game to create survey for: ");
         Game selectedGame = showGamesAndSelect();
-
-        clearScreen();
-        System.out.println("Do you want to create survey for " + selectedGame.getName() + "?");
-        System.out.println("1. Yes");
-        System.out.println("2. No");
-        if (scanner.nextInt() != 1) {
-            System.out.println("Survey creation cancelled.");
+        if (selectedGame == null)
             return;
-        }
 
-        clearScreen();
-        System.out.println("Enter survey question for " + selectedGame.getName() + ":");
+        createQuestionMenu(selectedGame, "Enter survey question for: ", null, null);
         scanner.nextLine();
         String question = scanner.next();
 
-        clearScreen();
-        System.out.println("Is this a multiple choice question?");
-        System.out.println("1. Yes");
-        System.out.println("2. No");
-        boolean multipleChoice = scanner.nextInt() == 1;
+        createQuestionMenu(selectedGame, null, question, null);
+        boolean multipleChoice = createConfirmMenu("Is this a multiple choice question?");
 
-        clearScreen();
-        QuestionAndAnswers survey = new QuestionAndAnswers(question, multipleChoice);
-        selectedGame.addToSurvey(survey);
-        System.out.println("Survey created successfully!");
-          pressToContinue();
+        createQuestionMenu(selectedGame, null, question, String.valueOf(multipleChoice));
+        boolean save = createConfirmMenu("Do you want to save this survey?");
+        if (save) {
+            QuestionAndAnswers survey = new QuestionAndAnswers(question, multipleChoice);
+            selectedGame.addToSurvey(survey);
+            createQuestionMenu(selectedGame, Colors.GREEN_BOLD + "Survey created successfully!", question, String.valueOf(multipleChoice));
+        }
+
+        pressToContinue();
     }
 
     private void updateSurvey() {
-        clearScreen();
-        System.out.println("Select game to updatez survey for: ");
         Game selectedGame = showGamesAndSelect();
+        if (selectedGame == null)
+            return;
     }
 
     private void deleteSurvey() {
-        clearScreen();
-        System.out.println("Select game to show survey for: ");
         Game selectedGame = showGamesAndSelect();
+        if (selectedGame == null)
+            return;
 
         clearScreen();
         ArrayList<QuestionAndAnswers> survey = selectedGame.getSurvey();
@@ -103,9 +96,9 @@ public class SurveysSubmenu implements Menu {
     }
 
     private void showSurvey() {
-        clearScreen();
-        System.out.println("Select game to show survey for: ");
         Game selectedGame = showGamesAndSelect();
+        if (selectedGame == null)
+            return;
 
         clearScreen();
         ArrayList<QuestionAndAnswers> survey = selectedGame.getSurvey();
@@ -119,19 +112,76 @@ public class SurveysSubmenu implements Menu {
             System.out.println("\nQuestion: " + qna.getQuestion() + " MultipleChoice: " + qna.isMultipleChoice());
             System.out.println("------- Answers");
         }
-    
         pressToContinue();
     }
 
     private Game showGamesAndSelect() {
+        clearScreen();
+        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Select Game" + Colors.RESET);
+        System.out.println("│");
         ArrayList<Game> games = new GameController().getGames();
         for (int i = 0; i < games.size(); i++) {
-            System.out.println(i + 1 + ". " + games.get(i).getName());
+            System.out.println("├ <" + Colors.BLUE_BOLD + (i+1) + Colors.RESET + "> " + games.get(i).getName());
+        }
+        System.out.println("│");
+        System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
+
+        System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
+        if (scanner.hasNextInt() == false) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next();
+            return showGamesAndSelect();
+        }
+    
+        int gameIndex = scanner.nextInt();
+        if (gameIndex == 0)
+            return null;
+
+        if (gameIndex < 0 || gameIndex > games.size()) {
+            System.out.println("Invalid choice. Please enter a valid option.");
+            return showGamesAndSelect();
         }
 
-        int gameIndex = scanner.nextInt();
         Game selectedGame = games.get(gameIndex - 1);
 
         return selectedGame;
+    }
+
+    private void createQuestionMenu(Game selectedGame, String bottomText, String question, String multipleChoice) {
+        clearScreen();
+        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey Question" + Colors.RESET);
+        System.out.println("│");
+        System.out.println("├ Game: " + Colors.GREEN_BOLD + selectedGame.getName() + Colors.RESET);
+
+        if (question != null)
+            System.out.println("├ Question: " + Colors.GREEN_BOLD + question + Colors.RESET);
+
+        if (multipleChoice != null)
+            System.out.println("├ Multiple Choice: " + Colors.GREEN_BOLD + multipleChoice + Colors.RESET);
+
+        System.out.println("│");
+
+        if (bottomText != null)
+            System.out.print("╰ " + Colors.BLUE_BOLD + bottomText + Colors.RESET);
+    }
+
+    private boolean createConfirmMenu(String titleMenu) {
+        System.out.println("├─> " + Colors.CYAN_BOLD_BRIGHT + titleMenu + Colors.RESET);
+        System.out.println("│");
+        System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> Yes");
+        System.out.println("├ <" + Colors.BLUE_BOLD + "2" + Colors.RESET + "> No");
+        System.out.println("│");
+        System.out.print("╰ " + Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
+
+        if (scanner.hasNextInt() == false) {
+            scanner.next();
+            return createConfirmMenu(titleMenu);
+        }
+
+        int choice = scanner.nextInt();
+        if (choice < 0 || choice > 2)
+            return createConfirmMenu(titleMenu);
+
+        return choice == 1;
     }
 }
