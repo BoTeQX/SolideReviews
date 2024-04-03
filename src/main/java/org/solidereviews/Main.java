@@ -18,10 +18,12 @@ public class Main {
         fileManager.writeGamesFile(games);
 
         GameController.initiateGames();
-
         new MainMenu().initiateMenu();
 
     }
 
-
 }
+
+
+
+
