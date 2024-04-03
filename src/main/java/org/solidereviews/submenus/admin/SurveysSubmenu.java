@@ -45,19 +45,32 @@ public class SurveysSubmenu implements Menu {
         if (selectedGame == null)
             return;
 
-        createQuestionMenu(selectedGame, "Enter survey question for: ", null, null);
-        scanner.nextLine();
+        createQuestionMenu(selectedGame, "Enter survey question for: ", null, null, null);
+
         String question = scanner.next();
-
-        createQuestionMenu(selectedGame, null, question, null);
+        createQuestionMenu(selectedGame, null, question, null, null);
+        
         boolean multipleChoice = createConfirmMenu("Is this a multiple choice question?");
+        QuestionAndAnswers survey = new QuestionAndAnswers(question, multipleChoice);
+        if (multipleChoice) {
+            while (true) {
+                createQuestionMenu(selectedGame, "Enter answer for the question: ", question, String.valueOf(multipleChoice), survey.getAnswers());
+                scanner.nextLine();
+                String answer = scanner.next();
+                survey.addAnswer(answer);
 
-        createQuestionMenu(selectedGame, null, question, String.valueOf(multipleChoice));
+                createQuestionMenu(selectedGame, null, question, String.valueOf(multipleChoice), survey.getAnswers());
+                boolean addMore = createConfirmMenu("Do you want to add more answers?");
+                if (!addMore)
+                    break;
+            }
+        }
+
+        createQuestionMenu(selectedGame, null, question, String.valueOf(multipleChoice), survey.getAnswers());
         boolean save = createConfirmMenu("Do you want to save this survey?");
         if (save) {
-            QuestionAndAnswers survey = new QuestionAndAnswers(question, multipleChoice);
             selectedGame.addToSurvey(survey);
-            createQuestionMenu(selectedGame, Colors.GREEN_BOLD + "Survey created successfully!", question, String.valueOf(multipleChoice));
+            createQuestionMenu(selectedGame, Colors.GREEN_BOLD + "Survey created successfully!", question, String.valueOf(multipleChoice), survey.getAnswers());
         }
 
         pressToContinue();
@@ -143,11 +156,12 @@ public class SurveysSubmenu implements Menu {
         }
 
         Game selectedGame = games.get(gameIndex - 1);
+        scanner.nextLine();
 
         return selectedGame;
     }
 
-    private void createQuestionMenu(Game selectedGame, String bottomText, String question, String multipleChoice) {
+    private void createQuestionMenu(Game selectedGame, String bottomText, String question, String multipleChoice, ArrayList<String> answers) {
         clearScreen();
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey Question" + Colors.RESET);
         System.out.println("│");
@@ -158,6 +172,17 @@ public class SurveysSubmenu implements Menu {
 
         if (multipleChoice != null)
             System.out.println("├ Multiple Choice: " + Colors.GREEN_BOLD + multipleChoice + Colors.RESET);
+
+        if (answers != null && answers.size() > 0) {
+            System.out.println("├ Answers: ");
+            for (int i = 0; i < answers.size(); i++) {
+                String symbool = "│ ├";
+                if (i == answers.size() - 1)
+                    symbool = "│ ╰";
+
+                System.out.println(symbool + (i + 1) + ". " + Colors.GREEN_BOLD + answers.get(i) + Colors.RESET);
+            }
+        }
 
         System.out.println("│");
 
