@@ -88,23 +88,26 @@ public class SurveysSubmenu implements Menu {
             return;
 
         clearScreen();
-        ArrayList<QuestionAndAnswers> survey = selectedGame.getSurvey();
-        if (survey.size() == 0) {
-            System.out.println("No data found for " + selectedGame.getName());
+        ArrayList<QuestionAndAnswers> surveyList = selectedGame.getSurvey();
+        if (surveyList.size() == 0) {
+            System.out.println("No survey data found for " + selectedGame.getName());
             pressToContinue();
             return;
         }
-    
-        System.out.println("Select survey to delete for " + selectedGame.getName() + ": ");
-        for (int i = 0; i < survey.size(); i++) {
-            System.out.println(i + 1 + ". " + survey.get(i).getQuestion());
+
+        QuestionAndAnswers survey = selectSurveyToDelete(surveyList);
+        if (survey == null)
+            return;
+
+        createQuestionMenu(selectedGame, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getAnswers());
+        boolean delete = createConfirmMenu("Are you sure you want to delete this survey?");
+        if (delete) {
+            selectedGame.removeFromSurvey(survey);
+            System.out.println("\nSurvey deleted successfully!");
+        } else {
+            System.out.println("\nSurvey deletion cancelled.");
         }
 
-        int surveyIndex = scanner.nextInt();
-        if (survey.get(surveyIndex - 1) != null) {
-            survey.remove(surveyIndex - 1);
-            System.out.println("delted");
-        }
         pressToContinue();
     }
 
@@ -208,5 +211,40 @@ public class SurveysSubmenu implements Menu {
             return createConfirmMenu(titleMenu);
 
         return choice == 1;
+    }
+
+    private QuestionAndAnswers selectSurveyToDelete(ArrayList<QuestionAndAnswers> survey) {
+        clearScreen();
+        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Select Survey to delete" + Colors.RESET);
+        System.out.println("│");
+
+        for (int i = 0; i < survey.size(); i++) {
+            System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + survey.get(i).getQuestion());
+        }
+        System.out.println("│");
+        System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
+
+        if (scanner.hasNextInt() == false) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next();
+            return selectSurveyToDelete(survey);
+        }
+    
+        int surveyIndex = scanner.nextInt();
+        if (surveyIndex == 0)
+            return null;
+
+        if (surveyIndex < 0 || surveyIndex > survey.size()) {
+            System.out.println("Invalid choice. Please enter a valid option.");
+            return selectSurveyToDelete(survey);
+        }
+
+        QuestionAndAnswers selectedSurvey = survey.get(surveyIndex - 1);
+        if (selectedSurvey == null) {
+            return selectSurveyToDelete(survey);
+        }
+
+        scanner.nextLine();
+        return selectedSurvey;
     }
 }

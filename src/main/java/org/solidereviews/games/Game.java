@@ -53,6 +53,10 @@ public class Game {
         survey.add(qna);
     }
 
+    public void removeFromSurvey(QuestionAndAnswers qna) {
+        survey.remove(qna);
+    }
+
     public ArrayList<QuestionAndAnswers> getSurvey() {
         return survey;
     }
