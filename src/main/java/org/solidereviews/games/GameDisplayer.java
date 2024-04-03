@@ -8,7 +8,7 @@ import org.solidereviews.utils.Colors;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GameDisplayer extends GameController{
+public class GameDisplayer extends GameController {
 
     protected static void displayTopBar() {
         System.out.println("+----------------------------------+------------+---------+");
@@ -28,13 +28,12 @@ public class GameDisplayer extends GameController{
         clearScreen();
         if (previousMenuTitle.equals("ADMIN MENU > Manage game catalog")) {
             new ManageGameCatalogSubmenu().initiateMenu();
-        }
-        else {
+        } else {
             new GamesCatalogSubmenu().initiateMenu();
         }
     }
 
-    public static void showAllGames(String previousMenuTitle){
+    public static void showAllGames(String previousMenuTitle) {
         clearScreen();
         displayTopBar();
         for (Game game : games) {
@@ -47,15 +46,15 @@ public class GameDisplayer extends GameController{
     }
 
 
-    private static void getAllGenres(){
+    private static void getAllGenres() {
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "AVAILABLE GENRES: " + Colors.RESET);
         System.out.println("│");
         for (int i = 0; i < games.size(); i++) {
-            System.out.println("├ <" + Colors.BLUE_BOLD + (i+1) + Colors.RESET + "> " + games.get(i).getGenre());
+            System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + games.get(i).getGenre());
         }
     }
 
-    public static void chooseGenreAndShowGames(String previousMenuTitle){
+    public static void chooseGenreAndShowGames(String previousMenuTitle) {
         clearScreen();
         getAllGenres();
         System.out.println("│");
@@ -75,7 +74,7 @@ public class GameDisplayer extends GameController{
         }
     }
 
-    private static void showGamesByGenre(String genre, String previousMenuTitle){
+    private static void showGamesByGenre(String genre, String previousMenuTitle) {
         ArrayList<Game> gamesByGenre = new ArrayList<>();
         for (Game game : games) {
             if (game.getGenre().equals(genre)) {
@@ -85,13 +84,13 @@ public class GameDisplayer extends GameController{
         if (gamesByGenre.isEmpty()) {
             System.out.println(Colors.RED + "No games found for the specified genre." + Colors.RESET);
         } else {
-           displayTopBar();
+            displayTopBar();
             for (Game game : gamesByGenre) {
                 System.out.printf("| %-32s | %-10s | %s$%-5.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
             }
             displayBottomBar();
 
-            System.out.println("Total games: " + Colors.PURPLE +  gamesByGenre.size() + Colors.RESET);
+            System.out.println("Total games: " + Colors.PURPLE + gamesByGenre.size() + Colors.RESET);
             displayPauseMessage(previousMenuTitle);
             new GamesCatalogSubmenu().initiateMenu();
         }
@@ -110,7 +109,7 @@ public class GameDisplayer extends GameController{
         }
     }
 
-    private static void clearScreen() {
+    protected static void clearScreen() {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
         System.out.flush();

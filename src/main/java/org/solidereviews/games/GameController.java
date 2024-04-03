@@ -2,6 +2,7 @@ package org.solidereviews.games;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 import org.solidereviews.utils.Colors;
+import org.solidereviews.utils.FileManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,25 +30,36 @@ public class GameController {
         if (gamePrice <= 0){
             return;
         }
+
+        String gameInfo = gameName + "," + gameGenre + "," + gamePrice; //formatting string
+
+        FileManager fileManager = new FileManager();
+        fileManager.writeGameToFile(gameInfo); //uses the method in FileManager
+
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
         System.out.println("Game added!");
         GameDisplayer.showSingleGame(gameName, previousMenuTitle);
+
+
     }
 
-    public static void initiateGames(){
-        //this is temporary until the "database" is implemented
-        Game game1 = new Game("Game 1", "Shooter", 19.99);
-        Game game2 = new Game("Game 2", "RPG", 14.99);
-        Game game3 = new Game("Game 3", "Survival", 29.99);
-        addToGameList(game1);
-        addToGameList(game2);
-        addToGameList(game3);
+    public static void initiateGames() {
+        FileManager fileManager = new FileManager();
+        ArrayList<String> gameData = fileManager.readGamesFile(); // Read game data from file
+        for (String data : gameData) {
+            String[] parts = data.split(",");
+            String name = parts[0];
+            String genre = parts[1];
+            double price = Double.parseDouble(parts[2]);
+            Game game = new Game(name, genre, price);
+            addToGameList(game);
+        }
     }
 
 
     public static void addToGameList(Game game){
-        games.add(game);
+    games.add(game);
     }
 
     public static void removeGame(){
@@ -134,5 +146,5 @@ public class GameController {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
         System.out.flush();
-    }
+    } //Had to use protected, can someone check this out. It was first private
 }
