@@ -9,7 +9,15 @@ public class AllReviews {
         reviews.add(review);
     }
 
-    public ArrayList<Review> getReviews() {
+    public static ArrayList<Review> getReviews() {
         return reviews;
+    }
+
+    public static void getReviewsByGame(String gameName) {
+        for (Review review : reviews) {
+            if (Review.getGameName().equals(gameName)) {
+                Review.showReview();
+            }
+        }
     }
 }
