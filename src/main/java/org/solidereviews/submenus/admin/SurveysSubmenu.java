@@ -80,6 +80,35 @@ public class SurveysSubmenu implements Menu {
         Game selectedGame = showGamesAndSelect();
         if (selectedGame == null)
             return;
+
+        clearScreen();
+        ArrayList<QuestionAndAnswers> surveyList = selectedGame.getSurvey();
+        if (!checkForSurveyList(surveyList, selectedGame.getName()))
+            return;
+
+        QuestionAndAnswers survey = selectSurvey(surveyList, "Select Survey to update");
+        if (survey == null)
+            return;
+        
+        createQuestionMenu(selectedGame, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getAnswers());
+        boolean confirmed = createConfirmMenu("Are you sure you want to update this survey?");
+        if (!confirmed) {
+            System.out.println("\nSurvey update cancelled.");
+            pressToContinue();
+            return;
+        }
+
+        showThingsToUpdateAndSelect();
+    }
+
+    private boolean checkForSurveyList(ArrayList<QuestionAndAnswers> surveyList, String gameName) {
+        if (surveyList.size() == 0) {
+            System.out.println("No survey data found for " + gameName);
+            pressToContinue();
+            return false;
+        }
+    
+        return true;
     }
 
     private void deleteSurvey() {
@@ -89,13 +118,10 @@ public class SurveysSubmenu implements Menu {
 
         clearScreen();
         ArrayList<QuestionAndAnswers> surveyList = selectedGame.getSurvey();
-        if (surveyList.size() == 0) {
-            System.out.println("No survey data found for " + selectedGame.getName());
-            pressToContinue();
+        if (!checkForSurveyList(surveyList, selectedGame.getName()))
             return;
-        }
 
-        QuestionAndAnswers survey = selectSurveyToDelete(surveyList);
+        QuestionAndAnswers survey = selectSurvey(surveyList, "Select Survey to delete");
         if (survey == null)
             return;
 
@@ -213,9 +239,9 @@ public class SurveysSubmenu implements Menu {
         return choice == 1;
     }
 
-    private QuestionAndAnswers selectSurveyToDelete(ArrayList<QuestionAndAnswers> survey) {
+    private QuestionAndAnswers selectSurvey(ArrayList<QuestionAndAnswers> survey, String menuTitle) {
         clearScreen();
-        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Select Survey to delete" + Colors.RESET);
+        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + menuTitle + Colors.RESET);
         System.out.println("│");
 
         for (int i = 0; i < survey.size(); i++) {
@@ -227,7 +253,7 @@ public class SurveysSubmenu implements Menu {
         if (scanner.hasNextInt() == false) {
             System.out.println("Invalid input. Please enter a number.");
             scanner.next();
-            return selectSurveyToDelete(survey);
+            return selectSurvey(survey, menuTitle);
         }
     
         int surveyIndex = scanner.nextInt();
@@ -236,15 +262,38 @@ public class SurveysSubmenu implements Menu {
 
         if (surveyIndex < 0 || surveyIndex > survey.size()) {
             System.out.println("Invalid choice. Please enter a valid option.");
-            return selectSurveyToDelete(survey);
+            return selectSurvey(survey, menuTitle);
         }
 
         QuestionAndAnswers selectedSurvey = survey.get(surveyIndex - 1);
         if (selectedSurvey == null) {
-            return selectSurveyToDelete(survey);
+            return selectSurvey(survey, menuTitle);
         }
 
         scanner.nextLine();
         return selectedSurvey;
+    }
+    
+    private void showThingsToUpdateAndSelect() {
+        System.out.println("├─> " + Colors.CYAN_BOLD_BRIGHT + "Select element to edit" + Colors.RESET);
+        System.out.println("│");
+        System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> Edit Question");
+        System.out.println("├ <" + Colors.BLUE_BOLD + "2" + Colors.RESET + "> Edit Multiple Choice");
+        System.out.println("├ <" + Colors.BLUE_BOLD + "3" + Colors.RESET + "> Edit Answers");
+        System.out.println("│");
+        System.out.print("╰ " + Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
+
+        if (scanner.hasNextInt() == false) {
+            scanner.next();
+            showThingsToUpdateAndSelect();
+        }
+
+        int gameIndex = scanner.nextInt();
+        if (gameIndex == 0)
+            return;
+
+        int choice = scanner.nextInt();
+        if (choice < 0 || choice > 3)
+            showThingsToUpdateAndSelect();
     }
 }
