@@ -44,3 +44,7 @@ bin/
 *.jar
 data.txt
 *.bat
+
+.idea/misc.xml
+.idea/.name
+
