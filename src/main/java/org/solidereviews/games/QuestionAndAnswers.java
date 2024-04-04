@@ -34,6 +34,10 @@ public class QuestionAndAnswers {
     return multipleChoice;
   }
 
+  public void setMultipleChoice(boolean multipleChoice) {
+    this.multipleChoice = multipleChoice;
+  }
+
   public void addChoice(String choice) {
     choices.add(choice);
   }
