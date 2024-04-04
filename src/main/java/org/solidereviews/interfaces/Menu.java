@@ -26,6 +26,7 @@ public interface Menu {
     default void displayMenu(String title, String[] menuItems) {
         int choice;
         do {
+            clearScreen();
             displayLogo();
             System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT +  title + " " + Colors.RESET);
             System.out.println("│");
@@ -78,6 +79,13 @@ public interface Menu {
     default void closeProgram() {
         System.out.println("Exiting the program. Goodbye!");
         System.exit(0);
+    }
+
+    default void pressToContinue() {
+        System.out.println(Colors.BLUE_BOLD + "\nPress Enter to continue..." + Colors.RESET);
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        clearScreen();
     }
 
 }

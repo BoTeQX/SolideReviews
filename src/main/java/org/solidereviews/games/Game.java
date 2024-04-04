@@ -1,10 +1,14 @@
 package org.solidereviews.games;
 
+import java.util.ArrayList;
+import org.solidereviews.games.QuestionAndAnswers;
+
 public class Game {
     private String name;
     private String genre;
     private double price;
     private int sale = 0;
+    private ArrayList<QuestionAndAnswers> survey = new ArrayList<>();
 
     public Game(String name, String genre, double price){
         this.name = name;
@@ -43,5 +47,17 @@ public class Game {
 
     public void setSale(int sale) {
         this.sale = sale;
+    }
+
+    public void addToSurvey(QuestionAndAnswers qna) {
+        survey.add(qna);
+    }
+
+    public void removeFromSurvey(QuestionAndAnswers qna) {
+        survey.remove(qna);
+    }
+
+    public ArrayList<QuestionAndAnswers> getSurvey() {
+        return survey;
     }
 }
