@@ -1,4 +1,5 @@
 package org.solidereviews.games;
+
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 import org.solidereviews.utils.Colors;
@@ -11,36 +12,34 @@ public class GameController {
     static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Game> games = new ArrayList<>();
 
-
     public static void addGame(String previousMenuTitle) {
         clearScreen();
         System.out.println("Give the game name(or leave empty to cancel): ");
 
         String gameName = scanner.nextLine();
-        if (gameName.isEmpty()){
+        if (gameName.isEmpty()) {
             return;
         }
         System.out.println("Give the game genre(or leave empty to cancel):");
         String gameGenre = scanner.nextLine();
-        if (gameGenre.isEmpty()){
+        if (gameGenre.isEmpty()) {
             return;
         }
         System.out.println("Give the game price(or put 0 to cancel):");
         double gamePrice = scanner.nextDouble();
-        if (gamePrice <= 0){
+        if (gamePrice <= 0) {
             return;
         }
 
-        String gameInfo = gameName + "|" + gameGenre + "|" + gamePrice; //formatting string
+        String gameInfo = gameName + "|" + gameGenre + "|" + gamePrice; // formatting string
 
         FileManager fileManager = new FileManager();
-        fileManager.writeGameToFile(gameInfo); //uses the method in FileManager to write into the datafile
+        fileManager.writeGameToFile(gameInfo); // uses the method in FileManager to write into the datafile
 
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
         System.out.println("Game added!");
         GameDisplayer.showSingleGame(gameName, previousMenuTitle);
-
 
     }
 
@@ -57,9 +56,8 @@ public class GameController {
         }
     }
 
-
-    public static void addToGameList(Game game){
-    games.add(game);
+    public static void addToGameList(Game game) {
+        games.add(game);
     }
 
     public static void removeGame() {
@@ -70,7 +68,6 @@ public class GameController {
             return;
         }
 
-
         for (Game game : games) {
             if (game.getName().equalsIgnoreCase(gameName)) {
                 games.remove(game); // remove the game from the arraylist
@@ -80,7 +77,8 @@ public class GameController {
                 fileManager.deleteGamesFile(); // delete the file just like updategame
                 for (Game updatedGame : games) {
                     // the whole text file gets rewritten
-                    String gameInfo = updatedGame.getName() + "|" + updatedGame.getGenre() + "|" + updatedGame.getPrice();
+                    String gameInfo = updatedGame.getName() + "|" + updatedGame.getGenre() + "|"
+                            + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
                 System.out.println(game.getName() + " removed.");
@@ -88,22 +86,21 @@ public class GameController {
             }
         }
 
-
         System.out.println("Game not found.");
     }
 
-    public static void updateGame(){
+    public static void updateGame() {
         clearScreen();
         System.out.println("What game do you want to update?(or leave empty to cancel)");
         String gameName = scanner.nextLine();
-        if (gameName.isEmpty()){
+        if (gameName.isEmpty()) {
             return;
         }
         updateGameMenu(gameName);
     }
 
     private static void updateGameMenu(String gameName) {
-        boolean gameFound = false; //if game doesn't exist
+        boolean gameFound = false; // if game doesn't exist
 
         for (Game game : games) {
             if (game.getName().equalsIgnoreCase(gameName)) {
@@ -139,7 +136,8 @@ public class GameController {
                 fileManager.deleteGamesFile(); // Delete the existing games file
                 for (Game updatedGame : games) {
                     // Write each game to the file
-                    String gameInfo = updatedGame.getName() + "|" + updatedGame.getGenre() + "|" + updatedGame.getPrice();
+                    String gameInfo = updatedGame.getName() + "|" + updatedGame.getGenre() + "|"
+                            + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
                 System.out.println("Game updated.");
@@ -154,15 +152,15 @@ public class GameController {
         }
     }
 
-    public static void addSale(){
+    public static void addSale() {
         clearScreen();
         System.out.println("What game do you want to put on sale?(or leave empty to cancel)");
         String gameName = scanner.nextLine();
-        if (gameName.isEmpty()){
+        if (gameName.isEmpty()) {
             return;
         }
         for (Game game : games) {
-            if(game.getName().equalsIgnoreCase(gameName)){
+            if (game.getName().equalsIgnoreCase(gameName)) {
                 System.out.println("How much % sale do you want?");
                 int salePercentage = scanner.nextInt();
                 game.setSale(salePercentage);
@@ -173,9 +171,14 @@ public class GameController {
             }
         }
     }
+
     protected static void clearScreen() {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
         System.out.flush();
-    } //Had to use protected, can someone check this out. It was first private
+    } // Had to use protected, can someone check this out. It was first private
+
+    public static ArrayList<Game> getGames() {
+        return games;
+    }
 }
