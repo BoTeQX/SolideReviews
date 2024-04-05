@@ -48,3 +48,6 @@ data.txt
 .idea/misc.xml
 .idea/.name
 
+/.idea/sonarlint
+/.idea
+.idea/artifacts/SolideReviews_jar.xml

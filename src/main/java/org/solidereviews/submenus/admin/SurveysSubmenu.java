@@ -14,32 +14,35 @@ import org.solidereviews.games.QuestionAndAnswers;
 
 public class SurveysSubmenu implements Menu {
 
-    String title = "ADMIN MENU > Surveys";
-    String[] menuItems = {"Create Survey", "Update survey", "Delete survey", "Show survey result(s)"};
+    String title = "ADMIN MENU > Surveys"; // Title of the submenu
+    String[] menuItems = {"Create Survey", "Update survey", "Delete survey", "Show survey result(s)"}; // Menu items
 
     @Override
     public String getTitle() {
         return title;
-    }
+    } // Return the title of the submenu
 
     @Override
     public String[] getMenuItems() {
         return menuItems;
-    }
+    } // Return the menu items
 
+    // Use the user's choice that was entered in the menu to determine which method to call or menu to redirect to
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
-            case 1 -> createSurvey();
-            case 2 -> updateSurvey();
-            case 3 -> deleteSurvey();
-            case 4 -> showSurvey();
-            case 9 -> new AdminMenu().initiateMenu();
-            case 0 -> closeProgram();
-            default -> System.out.println("Invalid choice. Please enter a valid option.");
+            case 1 -> createSurvey(); // if user chooses 1, call createSurvey method (to create a survey)
+            case 2 -> updateSurvey(); // if user chooses 2, call updateSurvey method (to update a survey)
+            case 3 -> deleteSurvey();// if user chooses 3, call deleteSurvey method (to delete a survey)
+            case 4 -> showSurvey(); // if user chooses 4, call showSurvey method (to show survey results)
+            case 9 -> new AdminMenu().initiateMenu(); // if user chooses 9, the user is redirected to the AdminMenu
+            case 0 -> closeProgram(); // if user chooses 0, the program is closed
+            default -> System.out.println("Invalid choice. Please enter a valid option."); // if user chooses an invalid option, an error message is displayed
         }
     }
 
+
+    //TODO: Implement the following methods in a new class called SurveyController
     private void createSurvey() {
         Game selectedGame = showGamesAndSelect();
         if (selectedGame == null)

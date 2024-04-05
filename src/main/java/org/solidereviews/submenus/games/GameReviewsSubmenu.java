@@ -6,27 +6,28 @@ import org.solidereviews.reviews.ReviewController;
 
 public class GameReviewsSubmenu implements Menu {
 
-    String title = "GAMES MENU > Game reviews";
-    String[] menuItems = { "Show reviews (game)", "Review game" };
+    String title = "GAMES MENU > Game reviews"; // Title of the submenu
+    String[] menuItems = { "Show reviews (game)", "Review game" }; // Menu items
 
     @Override
     public String getTitle() {
         return title;
-    }
+    } // Return the title of the submenu
 
     @Override
     public String[] getMenuItems() {
         return menuItems;
-    }
+    } // Return the menu items
 
+    // Use the user's choice that was entered in the menu to determine which method to call or menu to redirect to
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
             case 1 -> System.out.println("You selected Option 1.");
-            case 2 -> new ReviewController().addReview();
-            case 9 -> new GamesMenu().initiateMenu();
-            case 0 -> closeProgram();
-            default -> System.out.println("Invalid choice. Please enter a valid option.");
+            case 2 -> new ReviewController().addReview(); // if user chooses 2, call addReview method (to add a review to a game)
+            case 9 -> new GamesMenu().initiateMenu(); // if user chooses 9, the user is redirected to the GamesMenu
+            case 0 -> closeProgram(); // if user chooses 0, the program is closed
+            default -> System.out.println("Invalid choice. Please enter a valid option."); // if user chooses an invalid option, an error message is displayed
         }
     }
 }
