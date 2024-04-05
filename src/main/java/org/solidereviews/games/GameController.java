@@ -220,7 +220,8 @@ public class GameController {
                 System.out.println();
                 GlobalFunctions.pressToContinue();
     }
-    private static Game showGamesAndSelect(String title) {
+
+    public static Game showGamesAndSelect(String title) {
         GlobalFunctions.clearScreen();
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + title + Colors.RESET);
         System.out.println("│");
@@ -243,6 +244,7 @@ public class GameController {
             scanner.nextLine();
             return null;
         }
+
         if (gameIndex < 0 || gameIndex > games.size()) {
             System.out.println("Invalid choice. Please enter a valid option.");
             return showGamesAndSelect(title);

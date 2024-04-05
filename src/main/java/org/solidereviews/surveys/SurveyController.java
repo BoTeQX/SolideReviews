@@ -15,7 +15,7 @@ public  class SurveyController {
     static Scanner scanner = new Scanner(System.in);
 
     public static void createSurvey() {
-        Game selectedGame = showGamesAndSelect();
+        Game selectedGame = GameController.showGamesAndSelect("Select Game");
         if (selectedGame == null)
             return;
 
@@ -50,7 +50,7 @@ public  class SurveyController {
     }
 
     public static void updateSurvey() {
-        Game selectedGame = showGamesAndSelect();
+        Game selectedGame = GameController.showGamesAndSelect("Select Game");
         if (selectedGame == null)
             return;
 
@@ -80,7 +80,7 @@ public  class SurveyController {
     }
 
     public static void deleteSurvey() {
-        Game selectedGame = showGamesAndSelect();
+        Game selectedGame = GameController.showGamesAndSelect("Select Game");
         if (selectedGame == null)
             return;
 
@@ -104,61 +104,40 @@ public  class SurveyController {
         GlobalFunctions.pressToContinue();
     }
 
-    public static void showSurvey() {
-        Game selectedGame = showGamesAndSelect();
+    public static void showSurveyResult() {
+        Game selectedGame = GameController.showGamesAndSelect("Select Game");
         if (selectedGame == null)
             return;
 
         GlobalFunctions.clearScreen();
-        ArrayList<QuestionAndAnswers> survey = selectedGame.getSurvey();
-        if (survey.size() == 0) {
-            System.out.println("No data found for " + selectedGame.getName());
-            GlobalFunctions.pressToContinue();
+        ArrayList<QuestionAndAnswers> surveyList = selectedGame.getSurvey();
+        if (!checkForSurveyList(surveyList, selectedGame.getName()))
             return;
-        }
+
+        
+        for (QuestionAndAnswers survey : surveyList) {
+            createQuestionMenu(selectedGame.getName(), null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), null);
+            ArrayList<String> answers = survey.getAnswers();
+            if (answers.size() == 0) {
+                System.out.println("No answers found for this survey.");
+                GlobalFunctions.pressToContinue();
+                continue;
+            } 
+
+            System.out.println("├─> Answers: ");
+            for (int i = 0; i < answers.size(); i++) {
+                System.out.println("├ <" + Colors.YELLOW_BOLD + (i + 1) + Colors.RESET + "> " + answers.get(i));
+            }
     
-        for (QuestionAndAnswers qna : selectedGame.getSurvey()) {
-            System.out.println("\nQuestion: " + qna.getQuestion() + " MultipleChoice: " + qna.isMultipleChoice());
-            System.out.println("------- Answers");
+            System.out.println("╰");
+
+            GlobalFunctions.pressToContinue();
         }
-        GlobalFunctions.pressToContinue();
-    }
-
-    public static Game showGamesAndSelect() {
-        GlobalFunctions.clearScreen();
-        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Select Game" + Colors.RESET);
-        System.out.println("│");
-        ArrayList<Game> games = new GameController().getGames();
-        for (int i = 0; i < games.size(); i++) {
-            System.out.println("├ <" + Colors.BLUE_BOLD + (i+1) + Colors.RESET + "> " + games.get(i).getName());
-        }
-
-        showCancelMenu();
-
-        if (!scanner.hasNextInt()) {
-            System.out.println(GlobalFunctions.ERROR_INVALID_NUMBER);
-            scanner.next();
-            return showGamesAndSelect();
-        }
-    
-        int gameIndex = scanner.nextInt();
-        if (gameIndex == 0)
-            return null;
-
-        if (gameIndex < 0 || gameIndex > games.size()) {
-            System.out.println(GlobalFunctions.ERROR_INVALID_CHOICE);
-            return showGamesAndSelect();
-        }
-
-        Game selectedGame = games.get(gameIndex - 1);
-        scanner.nextLine();
-
-        return selectedGame;
     }
 
     public static void createQuestionMenu(String gameName, String bottomText, String question, String multipleChoice, ArrayList<String> answers) {
         GlobalFunctions.clearScreen();
-        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey | New Question" + Colors.RESET);
+        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey Question" + Colors.RESET);
         System.out.println("│");
         System.out.println("├ Game: " + Colors.GREEN_BOLD + gameName + Colors.RESET);
 
@@ -171,7 +150,7 @@ public  class SurveyController {
         }
 
         if (answers != null && answers.size() > 0 && multipleChoice != null && multipleChoice.equals("Yes")) {
-            System.out.println("├ Answers: ");
+            System.out.println("├ Choices: ");
             for (int i = 0; i < answers.size(); i++) {
                 String symbool = "│ ├─ " + Colors.YELLOW_BRIGHT;
                 if (i == answers.size() - 1)
@@ -328,5 +307,72 @@ public  class SurveyController {
         System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
 
         System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
+    }
+
+    public static void answerQuestion() {
+        Game selectedGame = GameController.showGamesAndSelect("Select Game");
+        if (selectedGame == null)
+            return;
+
+        GlobalFunctions.clearScreen();
+
+        String gameName = selectedGame.getName();
+        ArrayList<QuestionAndAnswers> surveyList = selectedGame.getSurvey();
+        if (!checkForSurveyList(surveyList, gameName))
+            return;
+
+        int surveySize = surveyList.size();
+        for (int i = 0; i < surveySize; i++) {
+            GlobalFunctions.clearScreen();
+            QuestionAndAnswers question = surveyList.get(i);
+            if (question.isMultipleChoice()) {
+                showMultipleChoiceQuestionAndAnswer(question, gameName, i + 1, surveySize);
+            } else {
+                showQuestionAndAnswer(question, gameName, i + 1, surveySize);
+            }
+        }
+
+        System.out.println(Colors.GREEN_BOLD + "\nAnswer saved successfully!" + Colors.RESET);
+        GlobalFunctions.pressToContinue();
+    }
+
+    public static void showQuestionAndAnswer(QuestionAndAnswers question, String gameName, int questionNumber, int totalQuestions) {
+        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey Question" + Colors.RESET);
+        System.out.println("│");
+        System.out.println("├ Game: " + Colors.GREEN_BOLD + gameName + Colors.RESET);
+        System.out.println("├ Question [" + Colors.YELLOW_BOLD + questionNumber + Colors.RESET + "/" + Colors.YELLOW_BOLD + totalQuestions + Colors.RESET + "]: " + Colors.GREEN_BOLD + question.getQuestion() + Colors.RESET);
+        System.out.println("│");
+        System.out.print("╰ " + Colors.BLUE_BOLD + "Enter your answer: " + Colors.RESET);
+        question.addAnswer(scanner.nextLine());
+    }
+
+    public static void showMultipleChoiceQuestionAndAnswer(QuestionAndAnswers question, String gameName, int questionNumber, int totalQuestions) {
+        System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey Question" + Colors.RESET);
+        System.out.println("│");
+        System.out.println("├ Game: " + Colors.GREEN_BOLD + gameName + Colors.RESET);
+        System.out.println("├ Question [" + Colors.YELLOW_BOLD + questionNumber + Colors.RESET + " of " + Colors.YELLOW_BOLD + totalQuestions + Colors.RESET + "]: " + Colors.GREEN_BOLD + question.getQuestion() + Colors.RESET);
+        System.out.println("│");
+        System.out.println("├ Choices: ");
+        ArrayList<String> choices = question.getChoices();
+        for (int i = 0; i < choices.size(); i++) {
+            System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + choices.get(i));
+        }
+        System.out.println("│");
+        System.out.print("╰ " + Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
+
+        if (!scanner.hasNextInt()) {
+            System.out.println(GlobalFunctions.ERROR_INVALID_NUMBER);
+            scanner.next();
+            showMultipleChoiceQuestionAndAnswer(question, gameName, questionNumber, totalQuestions);
+        }
+
+        int choice = scanner.nextInt();
+        if (choice < 0 || choice > choices.size()) {
+            System.out.println(GlobalFunctions.ERROR_INVALID_CHOICE);
+            showMultipleChoiceQuestionAndAnswer(question, gameName, questionNumber, totalQuestions);
+        }
+
+        scanner.nextLine();
+        question.addAnswer(choices.get(choice - 1));
     }
 }
