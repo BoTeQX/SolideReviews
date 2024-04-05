@@ -11,20 +11,18 @@ import java.util.Scanner;
 public class GameDisplayer extends GameController {
 
     protected static void displayTopBar() {
-        System.out.println("+----------------------------------+------------+---------+");
-        System.out.println("| Title                            | Genre      | Price   |");
-        System.out.println("+----------------------------------+------------+---------+");
+        System.out.println("+------------------------------------------------------+--------------------------------+--------------+");
+        System.out.println("| Title                                                | Genre                          | Price        |");
+        System.out.println("+------------------------------------------------------+--------------------------------+--------------+");
     }
 
     protected static void displayBottomBar() {
-        System.out.println("+----------------------------------+------------+---------+\n");
+        System.out.println("+------------------------------------------------------+--------------------------------+--------------+\n");
     }
 
     protected static void displayPauseMessage(String previousMenuTitle) {
         System.out.println();
-        System.out.println(Colors.BLUE_BOLD + "Press Enter to continue..." + Colors.RESET);
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        pressToContinue();
         clearScreen();
         if (previousMenuTitle.equals("ADMIN MENU > Manage game catalog")) {
             new ManageGameCatalogSubmenu().initiateMenu();
@@ -37,7 +35,7 @@ public class GameDisplayer extends GameController {
         clearScreen();
         displayTopBar();
         for (Game game : games) {
-            System.out.printf("| %-32s | %-10s | %s$%-5.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
+            System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
         }
         displayBottomBar();
         System.out.println("Total games: " + Colors.PURPLE + games.size() + Colors.RESET);
@@ -86,12 +84,13 @@ public class GameDisplayer extends GameController {
         } else {
             displayTopBar();
             for (Game game : gamesByGenre) {
-                System.out.printf("| %-32s | %-10s | %s$%-5.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
+                System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
             }
             displayBottomBar();
 
             System.out.println("Total games: " + Colors.PURPLE + gamesByGenre.size() + Colors.RESET);
             displayPauseMessage(previousMenuTitle);
+
             new GamesCatalogSubmenu().initiateMenu();
         }
     }
@@ -102,7 +101,7 @@ public class GameDisplayer extends GameController {
         for (Game game : games) {
             if (game.getName().equals(gameName)) {
                 displayTopBar();
-                System.out.printf("| %-32s | %-10s | %s$%-5.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
+                System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
                 displayBottomBar();
                 displayPauseMessage(previousMenuTitle);
             }
@@ -113,6 +112,18 @@ public class GameDisplayer extends GameController {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    private static void closeProgram() {
+        System.out.println("Exiting the program. Goodbye!");
+        System.exit(0);
+    }
+
+    private static void pressToContinue() {
+        System.out.println(Colors.BLUE_BOLD + "\nPress Enter to continue..." + Colors.RESET);
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        clearScreen();
     }
 
 }

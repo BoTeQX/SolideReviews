@@ -31,7 +31,7 @@ public class GameController {
             return;
         }
 
-        String gameInfo = gameName + "|" + gameGenre + "|" + gamePrice; // formatting string
+        String gameInfo = gameName + "~" + gameGenre + "~" + gamePrice; //formatting string
 
         FileManager fileManager = new FileManager();
         fileManager.writeGameToFile(gameInfo); // uses the method in FileManager to write into the datafile
@@ -47,7 +47,7 @@ public class GameController {
         FileManager fileManager = new FileManager();
         ArrayList<String> gameData = fileManager.readGamesFile(); // Read game data from file
         for (String data : gameData) {
-            String[] parts = data.split("|");
+            String[] parts = data.split("~");
             String name = parts[0];
             String genre = parts[1];
             double price = Double.parseDouble(parts[2]);
@@ -56,8 +56,12 @@ public class GameController {
         }
     }
 
+    public static ArrayList<Game> getGames() {
+        return games;
+    }
+
     public static void addToGameList(Game game) {
-        games.add(game);
+      games.add(game);
     }
 
     public static void removeGame() {
@@ -77,8 +81,7 @@ public class GameController {
                 fileManager.deleteGamesFile(); // delete the file just like updategame
                 for (Game updatedGame : games) {
                     // the whole text file gets rewritten
-                    String gameInfo = updatedGame.getName() + "|" + updatedGame.getGenre() + "|"
-                            + updatedGame.getPrice();
+                    String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
                 System.out.println(game.getName() + " removed.");
@@ -136,8 +139,8 @@ public class GameController {
                 fileManager.deleteGamesFile(); // Delete the existing games file
                 for (Game updatedGame : games) {
                     // Write each game to the file
-                    String gameInfo = updatedGame.getName() + "|" + updatedGame.getGenre() + "|"
-                            + updatedGame.getPrice();
+
+                    String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
                 System.out.println("Game updated.");
@@ -147,9 +150,7 @@ public class GameController {
         }
 
         // If the game with the specified name is not found
-        if (!gameFound) {
             System.out.println("Game not found.");
-        }
     }
 
     public static void addSale() {
@@ -176,9 +177,5 @@ public class GameController {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
         System.out.flush();
-    } // Had to use protected, can someone check this out. It was first private
-
-    public static ArrayList<Game> getGames() {
-        return games;
     }
 }
