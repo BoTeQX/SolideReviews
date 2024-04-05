@@ -1,7 +1,7 @@
 package org.solidereviews.games;
 
 import java.util.ArrayList;
-import org.solidereviews.games.QuestionAndAnswers;
+import org.solidereviews.surveys.QuestionAndAnswers;
 
 public class Game {
     private String name;
