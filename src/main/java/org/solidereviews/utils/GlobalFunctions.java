@@ -41,4 +41,7 @@ public class GlobalFunctions {
 
         return choice == 1;
     }
+
+    public static final String ERROR_INVALID_CHOICE = "Invalid choice. Please enter a valid option.";
+    public static final String ERROR_INVALID_NUMBER = "Invalid input. Please enter a valid number.";
 }

@@ -26,7 +26,7 @@ public  class SurveyController {
         String question = scanner.nextLine();
         createQuestionMenu(gameName, null, question, null, null);
         
-        boolean multipleChoice =  GlobalFunctions.createConfirmMenu("Is this a multiple choice question?");
+        boolean multipleChoice = GlobalFunctions.createConfirmMenu("Is this a multiple choice question?");
         QuestionAndAnswers survey = new QuestionAndAnswers(question, multipleChoice);
         if (multipleChoice) {
             while (true) {
@@ -35,15 +35,13 @@ public  class SurveyController {
                 survey.addChoice(answer);
 
                 createQuestionMenu(gameName, null, question, String.valueOf(multipleChoice), survey.getChoices());
-                boolean addMore =  GlobalFunctions.createConfirmMenu("Do you want to add more choices?");
-                if (!addMore)
+                if (!GlobalFunctions.createConfirmMenu("Do you want to add more choices?"))
                     break;
             }
         }
 
         createQuestionMenu(gameName, null, question, String.valueOf(multipleChoice), survey.getChoices());
-        boolean save =  GlobalFunctions.createConfirmMenu("Do you want to save this survey?");
-        if (save) {
+        if (GlobalFunctions.createConfirmMenu("Do you want to save this survey?")) {
             selectedGame.addToSurvey(survey);
             createQuestionMenu(gameName, Colors.GREEN_BOLD + "Survey created successfully!\n", question, String.valueOf(multipleChoice), survey.getChoices());
         }
@@ -68,13 +66,6 @@ public  class SurveyController {
             return;
         
         createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
-        boolean confirmed =  GlobalFunctions.createConfirmMenu("Are you sure you want to update this survey?");
-        if (!confirmed) {
-            System.out.println("\nSurvey update cancelled.");
-            GlobalFunctions.pressToContinue();
-            return;
-        }
-
         showThingsToUpdateAndSelect(gameName, survey);
     }
 
@@ -103,8 +94,7 @@ public  class SurveyController {
             return;
 
         createQuestionMenu(selectedGame.getName(), null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
-        boolean delete =  GlobalFunctions.createConfirmMenu("Are you sure you want to delete this survey?");
-        if (delete) {
+        if (GlobalFunctions.createConfirmMenu("Are you sure you want to delete this survey?")) {
             selectedGame.removeFromSurvey(survey);
             System.out.println("\nSurvey deleted successfully!");
         } else {
@@ -142,12 +132,11 @@ public  class SurveyController {
         for (int i = 0; i < games.size(); i++) {
             System.out.println("├ <" + Colors.BLUE_BOLD + (i+1) + Colors.RESET + "> " + games.get(i).getName());
         }
-        System.out.println("│");
-        System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
 
-        System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
+        showCancelMenu();
+
         if (!scanner.hasNextInt()) {
-            System.out.println("Invalid input. Please enter a number.");
+            System.out.println(GlobalFunctions.ERROR_INVALID_NUMBER);
             scanner.next();
             return showGamesAndSelect();
         }
@@ -157,7 +146,7 @@ public  class SurveyController {
             return null;
 
         if (gameIndex < 0 || gameIndex > games.size()) {
-            System.out.println("Invalid choice. Please enter a valid option.");
+            System.out.println(GlobalFunctions.ERROR_INVALID_CHOICE);
             return showGamesAndSelect();
         }
 
@@ -206,13 +195,11 @@ public  class SurveyController {
         for (int i = 0; i < survey.size(); i++) {
             System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + survey.get(i).getQuestion());
         }
-        System.out.println("│");
-        System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
 
-        System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
+        showCancelMenu();
 
         if (!scanner.hasNextInt()) {
-            System.out.println("Invalid input. Please enter a number.");
+            System.out.println(GlobalFunctions.ERROR_INVALID_NUMBER);
             scanner.next();
             return selectSurvey(survey, menuTitle);
         }
@@ -222,7 +209,7 @@ public  class SurveyController {
             return null;
 
         if (surveyIndex < 0 || surveyIndex > survey.size()) {
-            System.out.println("Invalid choice. Please enter a valid option.");
+            System.out.println(GlobalFunctions.ERROR_INVALID_CHOICE);
             return selectSurvey(survey, menuTitle);
         }
 
@@ -272,7 +259,7 @@ public  class SurveyController {
             case 2 -> updateMultipleChoice(gameName, survey);
             case 3 -> addChoice(gameName, survey);
             case 4 -> deleteChoice(gameName, survey);
-            default -> System.out.println("Invalid choice. Please enter a valid option.");
+            default -> System.out.println(GlobalFunctions.ERROR_INVALID_CHOICE);
         }
     }
 
@@ -284,8 +271,7 @@ public  class SurveyController {
 
     public static void updateMultipleChoice(String gameName, QuestionAndAnswers survey) {
         createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
-        boolean multipleChoice =  GlobalFunctions.createConfirmMenu("Is this a multiple choice question?");
-        survey.setMultipleChoice(multipleChoice);
+        survey.setMultipleChoice(GlobalFunctions.createConfirmMenu("Is this a multiple choice question?"));
         showThingsToUpdateAndSelect(gameName, survey);
     }
 
@@ -302,8 +288,7 @@ public  class SurveyController {
             return;
 
         createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
-        boolean multipleChoice =  GlobalFunctions.createConfirmMenu("Are you sure you want to delete this choice '" + Colors.RESET + choice + Colors.CYAN_BOLD + "' from the survey?");
-        if (multipleChoice)
+        if (GlobalFunctions.createConfirmMenu("Are you sure you want to delete this choice '" + Colors.RESET + choice + Colors.CYAN_BOLD + "' from the survey?"))
             survey.getChoices().remove(choice);
         showThingsToUpdateAndSelect(gameName, survey);
     }
@@ -316,12 +301,9 @@ public  class SurveyController {
             System.out.println("├ <" + Colors.BLUE_BOLD + (i+1) + Colors.RESET + "> " + choicesList.get(i));
         }
     
-        System.out.println("│");
-        System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
-
-        System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
+        showCancelMenu();
         if (!scanner.hasNextInt()) {
-            System.out.println("Invalid input. Please enter a number.");
+            System.out.println(GlobalFunctions.ERROR_INVALID_NUMBER);
             scanner.next();
             return showSurveyChoicesAndSelect(survey);
         }
@@ -331,7 +313,7 @@ public  class SurveyController {
             return null;
 
         if (selectedNumer < 0 || selectedNumer > choicesList.size()) {
-            System.out.println("Invalid choice. Please enter a valid option.");
+            System.out.println(GlobalFunctions.ERROR_INVALID_CHOICE);
             return showSurveyChoicesAndSelect(survey);
         }
 
@@ -339,5 +321,12 @@ public  class SurveyController {
         scanner.nextLine();
 
         return choice;
+    }
+
+    public static void showCancelMenu() {
+        System.out.println("│");
+        System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
+
+        System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
     }
 }
