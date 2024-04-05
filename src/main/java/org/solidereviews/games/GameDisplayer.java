@@ -3,7 +3,9 @@ package org.solidereviews.games;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.submenus.admin.ManageGameCatalogSubmenu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
+
 import org.solidereviews.utils.Colors;
+import org.solidereviews.utils.GlobalFunctions;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,8 +24,8 @@ public class GameDisplayer extends GameController {
 
     protected static void displayPauseMessage(String previousMenuTitle) {
         System.out.println();
-        pressToContinue();
-        clearScreen();
+        GlobalFunctions.pressToContinue();
+        GlobalFunctions.clearScreen();
         if (previousMenuTitle.equals("ADMIN MENU > Manage game catalog")) {
             new ManageGameCatalogSubmenu().initiateMenu();
         } else {
@@ -32,7 +34,7 @@ public class GameDisplayer extends GameController {
     }
 
     public static void showAllGames(String previousMenuTitle) {
-        clearScreen();
+        GlobalFunctions.clearScreen();
         displayTopBar();
         for (Game game : games) {
             System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
@@ -63,7 +65,7 @@ public class GameDisplayer extends GameController {
     }
 
     public static void chooseGenreAndShowGames(String previousMenuTitle) {
-        clearScreen();
+        GlobalFunctions.clearScreen();
         getAllGenres();
         System.out.println("│");
         System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET);
@@ -73,7 +75,7 @@ public class GameDisplayer extends GameController {
         int choice = scanner.nextInt();
         if (choice > 0 && choice <= games.size()) {
             String selectedGenre = games.get(choice - 1).getGenre();
-            clearScreen();
+            GlobalFunctions.clearScreen();
             showGamesByGenre(selectedGenre, previousMenuTitle);
         } else if (choice == 0) {
             new GamesCatalogSubmenu().initiateMenu();
@@ -107,7 +109,7 @@ public class GameDisplayer extends GameController {
 
 
     public static void showSingleGame(String gameName, String previousMenuTitle) {
-        clearScreen();
+        GlobalFunctions.clearScreen();
         for (Game game : games) {
             if (game.getName().equals(gameName)) {
                 displayTopBar();
@@ -117,23 +119,4 @@ public class GameDisplayer extends GameController {
             }
         }
     }
-
-    protected static void clearScreen() {
-        System.out.print("\033\143");
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    private static void closeProgram() {
-        System.out.println("Exiting the program. Goodbye!");
-        System.exit(0);
-    }
-
-    private static void pressToContinue() {
-        System.out.println(Colors.BLUE_BOLD + "\nPress Enter to continue..." + Colors.RESET);
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        clearScreen();
-    }
-
 }

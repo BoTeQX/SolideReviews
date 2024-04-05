@@ -5,6 +5,9 @@ import org.solidereviews.submenus.games.GameRankingsSubMenu;
 import org.solidereviews.submenus.games.GameReviewsSubmenu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 
+import org.solidereviews.utils.Colors;
+import org.solidereviews.utils.GlobalFunctions;
+
 public class GamesMenu implements Menu {
 
     String title = "GAMES MENU";
@@ -26,7 +29,7 @@ public class GamesMenu implements Menu {
             case 2 -> new GamesCatalogSubmenu().initiateMenu();
             case 3 -> new GameReviewsSubmenu().initiateMenu();
             case 9 -> new MainMenu().initiateMenu();
-            case 0 -> closeProgram();
+            case 0 -> GlobalFunctions.closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }

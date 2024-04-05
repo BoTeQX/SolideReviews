@@ -5,6 +5,9 @@ import org.solidereviews.games.GameDisplayer;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.AdminMenu;
 
+import org.solidereviews.utils.Colors;
+import org.solidereviews.utils.GlobalFunctions;
+
 public class ManageGameCatalogSubmenu implements Menu {
 
         String title = "ADMIN MENU > Manage game catalog";
@@ -29,7 +32,7 @@ public class ManageGameCatalogSubmenu implements Menu {
                 case 4 -> GameController.addSale();
                 case 5 -> GameDisplayer.showAllGames(getTitle());
                 case 9 -> new AdminMenu().initiateMenu();
-                case 0 -> closeProgram();
+                case 0 -> GlobalFunctions.closeProgram();
                 default -> System.out.println("Invalid choice. Please enter a valid option.");
             }
         }

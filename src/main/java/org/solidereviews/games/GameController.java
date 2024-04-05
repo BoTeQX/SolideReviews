@@ -2,8 +2,10 @@ package org.solidereviews.games;
 
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
-import org.solidereviews.utils.Colors;
 import org.solidereviews.utils.FileManager;
+
+import org.solidereviews.utils.Colors;
+import org.solidereviews.utils.GlobalFunctions;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,22 +15,22 @@ public class GameController {
     public static ArrayList<Game> games = new ArrayList<>();
 
     public static void addGame(String previousMenuTitle) {
-        clearScreen();
+        GlobalFunctions.clearScreen();
         System.out.println(Colors.BLUE_BOLD + "Give the game name(or leave empty to cancel): " + Colors.RESET);
 
         String gameName = scanner.nextLine();
         if (gameName.isEmpty()){
-            clearScreen();
+            GlobalFunctions.clearScreen();
             return;
         }
-        clearScreen();
+        GlobalFunctions.clearScreen();
         System.out.println(Colors.BLUE_BOLD + "Give the game genre(or leave empty to cancel):" + Colors.RESET);
         String gameGenre = scanner.nextLine();
         if (gameGenre.isEmpty()){
-            clearScreen();
+            GlobalFunctions.clearScreen();
             return;
         }
-        clearScreen();
+        GlobalFunctions.clearScreen();
         System.out.println(Colors.BLUE_BOLD + "Give the game price(or put 0 to cancel):" + Colors.RESET);
         double gamePrice = 0;
         boolean validPrice = false;
@@ -36,7 +38,7 @@ public class GameController {
             try {
                 gamePrice = Double.parseDouble(scanner.nextLine());
                 if (gamePrice <= 0) {
-                    clearScreen();
+                    GlobalFunctions.clearScreen();
                     return;
                 }
                 validPrice = true;
@@ -78,12 +80,12 @@ public class GameController {
     }
 
     public static void removeGame() {
-        clearScreen();
+        GlobalFunctions.clearScreen();
         Game selectedGame = showGamesAndSelect("What game do you want to remove?");
         if(selectedGame == null){
-            clearScreen();
+            GlobalFunctions.clearScreen();
             System.out.println("Game not found");
-            pressToContinue();
+            GlobalFunctions.pressToContinue();
             return;
         }
                 games.remove(selectedGame); // remove the game from the arraylist
@@ -94,25 +96,25 @@ public class GameController {
                     String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
-                clearScreen();
+                GlobalFunctions.clearScreen();
                 System.out.println(selectedGame.getName() + " removed.");
-                pressToContinue();
+                GlobalFunctions.pressToContinue();
     }
 
     public static void updateGame() {
-        clearScreen();
+        GlobalFunctions.clearScreen();
         Game selectedGame = showGamesAndSelect("What game do you want to update?");
         if(selectedGame == null){
-            clearScreen();
+            GlobalFunctions.clearScreen();
             System.out.println("Game not found");
-            pressToContinue();
+            GlobalFunctions.pressToContinue();
             return;
         }
         updateGameMenu(selectedGame);
     }
 
     private static void updateGameMenu(Game game) {
-        clearScreen();
+        GlobalFunctions.clearScreen();
                 System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "What do you want to change?" + Colors.RESET);
                 System.out.println("│");
                 System.out.println("├ <" + Colors.BLUE_BOLD + (1) + Colors.RESET + "> " + "Name");
@@ -123,29 +125,29 @@ public class GameController {
                 int updateOpt = scanner.nextInt();
 
                 if (updateOpt == 1) {
-                    clearScreen();
+                    GlobalFunctions.clearScreen();
                     System.out.println(Colors.CYAN_BOLD_BRIGHT + "New name?(leave empty to cancel)" + Colors.RESET);
                     scanner.nextLine();
                     String newName = scanner.nextLine();
                     if (newName.isEmpty()) {
-                        clearScreen();
+                        GlobalFunctions.clearScreen();
                         return;
                     }
                     // update the name
                     game.setName(newName);
                 } else if (updateOpt == 2) {
-                    clearScreen();
+                    GlobalFunctions.clearScreen();
                     System.out.println(Colors.CYAN_BOLD_BRIGHT + "New genre?(leave empty to cancel)" + Colors.RESET);
                     scanner.nextLine();
                     String newGenre = scanner.nextLine();
                     if (newGenre.isEmpty()) {
-                        clearScreen();
+                        GlobalFunctions.clearScreen();
                         return;
                     }
                     // update the genre
                     game.setGenre(newGenre);
                 } else if (updateOpt == 3) {
-                    clearScreen();
+                    GlobalFunctions.clearScreen();
                     System.out.println(Colors.CYAN_BOLD_BRIGHT + "New price?(put 0 to cancel)" + Colors.RESET);
                     scanner.nextLine();
                     double newPrice = 0;
@@ -154,7 +156,7 @@ public class GameController {
                         try {
                             newPrice = Double.parseDouble(scanner.nextLine());
                             if (newPrice <= 0) {
-                                clearScreen();
+                                GlobalFunctions.clearScreen();
                                 return;
                             }
                             validPrice = true;
@@ -167,7 +169,7 @@ public class GameController {
 
 
                 } else {
-                    clearScreen();
+                    GlobalFunctions.clearScreen();
                     System.out.println("Update canceled.");
                     return; // Exit the method if the user cancels
                 }
@@ -181,18 +183,18 @@ public class GameController {
                     String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
-                clearScreen();
+                GlobalFunctions.clearScreen();
                 System.out.println("Game updated.");
-                pressToContinue();
+                GlobalFunctions.pressToContinue();
     }
 
     public static void addSale() {
-        clearScreen();
+        GlobalFunctions.clearScreen();
         Game selectedGame = showGamesAndSelect("What game do you want to put on sale?");
         if(selectedGame == null){
-            clearScreen();
+            GlobalFunctions.clearScreen();
             System.out.println("Game not found");
-            pressToContinue();
+            GlobalFunctions.pressToContinue();
             return;
         }
                 System.out.println(Colors.BLUE_BOLD + "How much % sale do you want?");
@@ -202,7 +204,7 @@ public class GameController {
             try {
                 salePercentage = Integer.parseInt(scanner.nextLine());
                 if (salePercentage <= 0) {
-                    clearScreen();
+                    GlobalFunctions.clearScreen();
                     return;
                 }
                 validPrice = true;
@@ -212,14 +214,15 @@ public class GameController {
         }
 //                int salePercentage = scanner.nextInt();
                 selectedGame.setSale(salePercentage);
-                clearScreen();
+                GlobalFunctions.clearScreen();
                 System.out.println(selectedGame.getName() + " sale updated.\nOld price: " + selectedGame.getPrice());
                 System.out.printf("New price: %.2f", ((selectedGame.getPrice() / 100) * (100 - selectedGame.getSale())));
                 System.out.println();
-                pressToContinue();
+                GlobalFunctions.pressToContinue();
     }
-    private static Game showGamesAndSelect(String title) {
-        clearScreen();
+
+    public static Game showGamesAndSelect(String title) {
+        GlobalFunctions.clearScreen();
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + title + Colors.RESET);
         System.out.println("│");
         ArrayList<Game> games = getGames();
@@ -241,6 +244,7 @@ public class GameController {
             scanner.nextLine();
             return null;
         }
+
         if (gameIndex < 0 || gameIndex > games.size()) {
             System.out.println("Invalid choice. Please enter a valid option.");
             return showGamesAndSelect(title);
@@ -250,20 +254,5 @@ public class GameController {
         scanner.nextLine();
 
         return selectedGame;
-    }
-    public static ArrayList<Game> getGames() {
-        return games;
-    }
-
-    protected static void clearScreen() {
-        System.out.print("\033\143");
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-    protected static void pressToContinue() {
-        System.out.println(Colors.BLUE_BOLD + "\nPress Enter to continue..." + Colors.RESET);
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        clearScreen();
     }
 }
