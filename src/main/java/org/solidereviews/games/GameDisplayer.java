@@ -49,8 +49,18 @@ public class GameDisplayer extends GameController {
     private static void getAllGenres() {
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "AVAILABLE GENRES: " + Colors.RESET);
         System.out.println("│");
-        for (int i = 0; i < games.size(); i++) {
-            System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + games.get(i).getGenre());
+
+        ArrayList<String> uniqueGenres = new ArrayList<>();
+        for (Game game : games) {
+            String genre = game.getGenre();
+            if (!uniqueGenres.contains(genre)) {
+                uniqueGenres.add(genre);
+            }
+        }
+
+        int index = 1;
+        for (String genre : uniqueGenres) {
+            System.out.println("├ <" + Colors.BLUE_BOLD + index++ + Colors.RESET + "> " + genre);
         }
     }
 
