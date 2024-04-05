@@ -3,15 +3,18 @@ package org.solidereviews.reviews;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import org.solidereviews.games.Game;
+import org.solidereviews.games.GameController;
+import org.solidereviews.submenus.games.GameReviewsSubmenu;
+
 public class ReviewController {
 
     public void addReview() {
+        ArrayList<Game> games = GameController.getGames();
         ArrayList<String> gameNames = new ArrayList<>();
-        gameNames.add("The Witcher 3: Wild Hunt");
-        gameNames.add("Red Dead Redemption 2");
-        gameNames.add("The Last of Us Part II");
-        gameNames.add("God of War");
-        gameNames.add("Cyberpunk 2077");
+        for (Game game : games) {
+            gameNames.add(game.getName());
+        }
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Select a game to review:");
@@ -46,10 +49,24 @@ public class ReviewController {
         System.out.println("Write your review or leave empty:");
         scanner.nextLine();
         String reviewText = scanner.nextLine();
-
-        scanner.close();
         Review review = new Review(gameName, graphicsRating, gameplayRating, storyRating, reviewText);
-        System.out.println("Review added successfully!");
 
+        Review.showReview();
+
+        System.out.println("Confirm review? (Y/N)");
+        String confirm = scanner.nextLine();
+        while (!confirm.equalsIgnoreCase("Y") && !confirm.equalsIgnoreCase("N")) {
+            System.out.println("Invalid input. Please enter Y or N:");
+            confirm = scanner.nextLine();
+        }
+        if (confirm.equalsIgnoreCase("N")) {
+            System.out.println("Review cancelled.");
+        } else {
+            scanner.close();
+            Review.addReview(review);
+            System.out.println("Review added successfully!");
+
+        }
+        new GameReviewsSubmenu().initiateMenu();
     }
 }
