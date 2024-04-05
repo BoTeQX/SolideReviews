@@ -1,4 +1,5 @@
 package org.solidereviews.games;
+
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 import org.solidereviews.utils.Colors;
@@ -10,7 +11,6 @@ import java.util.Scanner;
 public class GameController {
     static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Game> games = new ArrayList<>();
-
 
     public static void addGame(String previousMenuTitle) {
         clearScreen();
@@ -45,15 +45,15 @@ public class GameController {
             }
         }
 
-            String gameInfo = gameName + "~" + gameGenre + "~" + gamePrice; //formatting string
+        String gameInfo = gameName + "~" + gameGenre + "~" + gamePrice; //formatting string
 
-            FileManager fileManager = new FileManager();
-            fileManager.writeGameToFile(gameInfo); //uses the method in FileManager to write into the datafile
+        FileManager fileManager = new FileManager();
+        fileManager.writeGameToFile(gameInfo); //uses the method in FileManager to write into the datafile
 
-            Game game = new Game(gameName, gameGenre, gamePrice);
-            games.add(game);
-            System.out.println("Game added!");
-            GameDisplayer.showSingleGame(gameName, previousMenuTitle);
+        Game game = new Game(gameName, gameGenre, gamePrice);
+        games.add(game);
+        System.out.println("Game added!");
+        GameDisplayer.showSingleGame(gameName, previousMenuTitle);
     }
 
     public static void initiateGames() {
@@ -69,9 +69,12 @@ public class GameController {
         }
     }
 
+    public static ArrayList<Game> getGames() {
+        return games;
+    }
 
-    public static void addToGameList(Game game){
-    games.add(game);
+    public static void addToGameList(Game game) {
+      games.add(game);
     }
 
     public static void removeGame() {
@@ -84,8 +87,6 @@ public class GameController {
             return;
         }
                 games.remove(selectedGame); // remove the game from the arraylist
-
-                // Rewrite the file without the removed game
                 FileManager fileManager = new FileManager();
                 fileManager.deleteGamesFile(); // delete the file just like updategame
                 for (Game updatedGame : games) {
@@ -98,7 +99,7 @@ public class GameController {
                 pressToContinue();
     }
 
-    public static void updateGame(){
+    public static void updateGame() {
         clearScreen();
         Game selectedGame = showGamesAndSelect("What game do you want to update?");
         if(selectedGame == null){
@@ -107,7 +108,6 @@ public class GameController {
             pressToContinue();
             return;
         }
-
         updateGameMenu(selectedGame);
     }
 
@@ -177,6 +177,7 @@ public class GameController {
                 fileManager.deleteGamesFile(); // Delete the existing games file
                 for (Game updatedGame : games) {
                     // Write each game to the file
+
                     String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
                     fileManager.writeGameToFile(gameInfo);
                 }
@@ -185,7 +186,7 @@ public class GameController {
                 pressToContinue();
     }
 
-    public static void addSale(){
+    public static void addSale() {
         clearScreen();
         Game selectedGame = showGamesAndSelect("What game do you want to put on sale?");
         if(selectedGame == null){
@@ -253,6 +254,7 @@ public class GameController {
     public static ArrayList<Game> getGames() {
         return games;
     }
+
     protected static void clearScreen() {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");
