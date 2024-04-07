@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.solidereviews.games.Game;
 import org.solidereviews.games.GameController;
+import org.solidereviews.utils.Util;
 
 public class ReviewDisplayer {
     public void showReviewsByGame() {
@@ -18,5 +19,6 @@ public class ReviewDisplayer {
                 review.showReview();
             }
         }
+        Util.pressToContinue();
     }
 }

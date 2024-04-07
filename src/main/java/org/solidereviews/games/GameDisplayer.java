@@ -11,13 +11,17 @@ import java.util.Scanner;
 public class GameDisplayer extends GameController {
 
     protected static void displayTopBar() {
-        System.out.println("+------------------------------------------------------+--------------------------------+--------------+");
-        System.out.println("| Title                                                | Genre                          | Price        |");
-        System.out.println("+------------------------------------------------------+--------------------------------+--------------+");
+        System.out.println(
+                "+------------------------------------------------------+--------------------------------+--------------+");
+        System.out.println(
+                "| Title                                                | Genre                          | Price        |");
+        System.out.println(
+                "+------------------------------------------------------+--------------------------------+--------------+");
     }
 
     protected static void displayBottomBar() {
-        System.out.println("+------------------------------------------------------+--------------------------------+--------------+\n");
+        System.out.println(
+                "+------------------------------------------------------+--------------------------------+--------------+\n");
     }
 
     protected static void displayPauseMessage(String previousMenuTitle) {
@@ -35,14 +39,14 @@ public class GameDisplayer extends GameController {
         clearScreen();
         displayTopBar();
         for (Game game : games) {
-            System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
+            System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD,
+                    game.getPrice(), Colors.RESET);
         }
         displayBottomBar();
         System.out.println("Total games: " + Colors.PURPLE + games.size() + Colors.RESET);
         displayPauseMessage(previousMenuTitle);
 
     }
-
 
     private static void getAllGenres() {
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "AVAILABLE GENRES: " + Colors.RESET);
@@ -94,7 +98,8 @@ public class GameDisplayer extends GameController {
         } else {
             displayTopBar();
             for (Game game : gamesByGenre) {
-                System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
+                System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(),
+                        Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
             }
             displayBottomBar();
 
@@ -105,13 +110,13 @@ public class GameDisplayer extends GameController {
         }
     }
 
-
     public static void showSingleGame(String gameName, String previousMenuTitle) {
         clearScreen();
         for (Game game : games) {
             if (game.getName().equals(gameName)) {
                 displayTopBar();
-                System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
+                System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(),
+                        Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
                 displayBottomBar();
                 displayPauseMessage(previousMenuTitle);
             }
@@ -129,7 +134,7 @@ public class GameDisplayer extends GameController {
         System.exit(0);
     }
 
-    private static void pressToContinue() {
+    protected static void pressToContinue() {
         System.out.println(Colors.BLUE_BOLD + "\nPress Enter to continue..." + Colors.RESET);
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
