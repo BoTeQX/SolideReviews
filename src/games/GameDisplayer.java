@@ -2,37 +2,27 @@ package games;
 
 import submenus.admin.ManageGameCatalogSubmenu;
 import submenus.games.GamesCatalogSubmenu;
-
 import utils.Colors;
 import utils.GlobalFunctions;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GameDisplayer extends GameController {
 
     // Method to display the top bar of the table
     protected static void displayTopBar() {
-        System.out.println(
-                "+------------------------------------------------------+--------------------------------+--------------+");
-        System.out.println(
-                "| Title                                                | Genre                          | Price        |");
-        System.out.println(
-                "+------------------------------------------------------+--------------------------------+--------------+");
+        System.out.println("+------------------------------------------------------+--------------------------------+--------------+");
+        System.out.println("| Title                                                | Genre                          | Price        |");
+        System.out.println("+------------------------------------------------------+--------------------------------+--------------+");
     }
 
     // Method to display a game from the catalog in the table format
-    protected static void displayGame(Game game) {
-        displayTopBar();
+    public static void displayGame(Game game) {
         System.out.printf("| %-52s | %-30s | %s$%-10.2f%s  |\n", game.getName(), game.getGenre(), Colors.GREEN_BOLD, game.getPrice(), Colors.RESET);
-        displayBottomBar();
     }
 
     // Method to display the bottom bar of the table
     protected static void displayBottomBar() {
-        System.out.println(
-                "+------------------------------------------------------+--------------------------------+--------------+\n");
+        System.out.println("+------------------------------------------------------+--------------------------------+--------------+\n");
     }
 
     // Method to display a message to pause the screen and wait for the user to press enter
@@ -67,7 +57,17 @@ public class GameDisplayer extends GameController {
     private static void getAllGenres() {
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "AVAILABLE GENRES: " + Colors.RESET);
         System.out.println("│");
+        ArrayList<String> uniqueGenres = getUniqueGenres();
 
+        int index = 1; // Initialize the index to 1 for the first genre to display as the first option in the menu
+
+        // Loop through the uniqueGenres ArrayList and display each genre with an index
+        for (String genre : uniqueGenres) {
+            System.out.println("├ <" + Colors.BLUE_BOLD + index++ + Colors.RESET + "> " + genre); // Display the genre with an index
+        }
+    }
+
+    private static ArrayList<String> getUniqueGenres() {
         ArrayList<String> uniqueGenres = new ArrayList<>(); // Create an ArrayList to store the unique genres since a genre can be repeated in the catalog
 
         // Loop through the games ArrayList and add each unique genre to the uniqueGenres ArrayList
@@ -78,13 +78,7 @@ public class GameDisplayer extends GameController {
                 uniqueGenres.add(genre); // Add the genre to the uniqueGenres ArrayList
             }
         }
-
-        int index = 1; // Initialize the index to 1 for the first genre to display as the first option in the menu
-
-        // Loop through the uniqueGenres ArrayList and display each genre with an index
-        for (String genre : uniqueGenres) {
-            System.out.println("├ <" + Colors.BLUE_BOLD + index++ + Colors.RESET + "> " + genre); // Display the genre with an index
-        }
+        return uniqueGenres;
     }
 
 

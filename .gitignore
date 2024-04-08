@@ -32,3 +32,4 @@ SolideReviews.jar
 SolideReviews.jardata
 *.dll
 *.class
+/.idea/sonarlint
