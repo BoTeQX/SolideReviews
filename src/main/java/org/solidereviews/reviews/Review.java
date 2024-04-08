@@ -1,11 +1,11 @@
 package org.solidereviews.reviews;
 
 public class Review {
-    private int graphicsRating;
-    private int gameplayRating;
-    private int storyRating;
-    private int overallRating;
-    private String reviewText;
+    private final int graphicsRating;
+    private final int gameplayRating;
+    private final int storyRating;
+    private final int overallRating;
+    private final String reviewText;
 
     public Review(int graphicsRating, int gameplayRating, int storyRating,
             String reviewText) {

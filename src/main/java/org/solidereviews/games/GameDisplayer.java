@@ -63,7 +63,7 @@ public class GameDisplayer extends GameController {
         displayPauseMessage(previousMenuTitle); // Call the displayPauseMessage method to display a message to pause the screen and wait for the user to press enter
     }
 
-   // Method to display all genres in the catalog
+    // Method to display all genres in the catalog
     private static void getAllGenres() {
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "AVAILABLE GENRES: " + Colors.RESET);
         System.out.println("│");
@@ -101,7 +101,7 @@ public class GameDisplayer extends GameController {
         // Check if the user's choice is valid and display the games for the selected genre (more than 0 because 0 is to cancel and less than or equal to the number of genres)
         if (choice > 0 && choice <= games.size()) {
             String selectedGenre = games.get(choice - 1).getGenre(); // Get the selected genre based on the user's choice (subtract 1 because the index starts at 0)
-             GlobalFunctions.clearScreen(); // Clear the screen
+            GlobalFunctions.clearScreen(); // Clear the screen
             showGamesByGenre(selectedGenre, previousMenuTitle); // Call the showGamesByGenre method to display the games for the selected genre and pass the previousMenuTitle to know where the user came from
         }
         // Check if the user's choice is (0) to cancel
@@ -154,4 +154,5 @@ public class GameDisplayer extends GameController {
             }
         }
     }
+}
 
