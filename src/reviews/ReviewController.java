@@ -9,7 +9,7 @@ import org.solidereviews.utils.GlobalFunctions;
 public class ReviewController {
     private static int setRating(String ratingType) {
         Scanner scanner = new Scanner(System.in);
-        System.out.printf("Rate the %s (1-5): %n", ratingType);
+        System.out.printf(Colors.BLUE_BOLD + "Rate the %s (1-5): %n" + Colors.RESET, ratingType);
         while (true) {
             if (scanner.hasNextInt()) {
                 int rating = scanner.nextInt();
@@ -35,13 +35,13 @@ public class ReviewController {
         int gameplayRating = setRating("gameplay");
         int storyRating = setRating("story");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Write your review or leave empty:");
+        System.out.println(Colors.BLUE_BOLD + "Write your review or leave empty:" + Colors.RESET);
         String reviewText = scanner.nextLine();
         Review review = new Review(graphicsRating, gameplayRating, storyRating, reviewText);
         GlobalFunctions.clearScreen();
         System.out.printf("Review preview for %s: %n", game.getName());
         review.showReview();
-        System.out.println("Confirm review? (Y/N)");
+        System.out.println(Colors.BLUE_BOLD + "Confirm review? (Y/N)" + Colors.RESET);
         String confirm = scanner.nextLine();
         while (!confirm.equalsIgnoreCase("y") && !confirm.equalsIgnoreCase("n")) {
             System.out.println("Invalid input. Please enter Y or N:");
@@ -55,6 +55,18 @@ public class ReviewController {
             System.out.println("Review added successfully!");
         }
         GlobalFunctions.pressToContinue();
+        System.out.println(Colors.BLUE_BOLD + "Would you like to do our survey? (Y/N)" + Colors.RESET);
+        String confirm = scanner.nextLine();
+        while (!confirm.equalsIgnoreCase("y") && !confirm.equalsIgnoreCase("n")) {
+            System.out.println("Invalid input. Please enter Y or N:");
+            confirm = scanner.nextLine();
+        }
+        GlobalFunctions.clearScreen();
+        if (confirm.equalsIgnoreCase("N")) {
+            System.out.println("Skipping Survey");
+        } else {
+            SurveyController.answerQuestion();
+        }
         new GameReviewsSubmenu().initiateMenu();
     }
 }

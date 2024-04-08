@@ -13,7 +13,7 @@ public class ReviewDisplayer {
         System.err.println("Overall rating: " + overall);
         ArrayList<Review> reviews = game.getReviews();
         if (reviews.isEmpty()) {
-            System.out.println("No reviews found for this game.");
+            System.out.printf("No reviews found for %s%n", game.getName());
         } else {
             System.out.printf("Reviews for %s: %n", game.getName());
             for (Review review : reviews) {
