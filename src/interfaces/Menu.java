@@ -17,21 +17,21 @@ public interface Menu {
     }
 
 
-    String getTitle(); // Get the title of the current menu
+    String getTitle();
 
-    String[] getMenuItems(); // Get the menu items of the current menu
+    String[] getMenuItems();
 
     // Method to initiate a menu
     default void initiateMenu() {
-         GlobalFunctions.clearScreen(); // Clear the screen
+         GlobalFunctions.clearScreen();
         displayMenu(getTitle(), getMenuItems()); // Display the menu using the title and menu items of the current menu
     }
 
-    // Method to display a menu using a title and menu items
-    default void displayMenu(String title, String[] menuItems) {
-        int choice; // Variable containing a users choice in a menu
 
-        // Do while loop to display the menu until the user exits the program
+    default void displayMenu(String title, String[] menuItems) {
+        int choice;
+
+        // Loops to display the menu until the user exits the program
         do {
              GlobalFunctions.clearScreen(); // Clear the screen
             displayLogo(); // Display the logo
@@ -52,29 +52,26 @@ public interface Menu {
             System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET); // Display the exit option to exit the program
             System.out.println();
 
-            // Get and process user choice
-            choice = getUserChoice(); // Get the user's choice
-            processUserChoice(choice); // Process the user's choice to determine the next action
-        } while (choice != 0); // Continue displaying the menu until the user exits the program
+            choice = getUserChoice();
+            processUserChoice(choice);
+        } while (choice != 0); // Continue displaying the menu until the user exits the program (0 is the exit option in all menus)
     }
 
-    // Method to get/ask for the user's choice
     default int getUserChoice() {
         System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
 
-        // Check if the user entered a number
         while (!scanner.hasNextInt()) {
-            System.out.println("Invalid input. Please enter a number."); // If the user did not enter a number, display an error message
+            System.out.println("Invalid input. Please enter a number."); // If the user entered a non-integer value, display an error message
             scanner.next(); // Clear the scanner
         }
-        int choice = scanner.nextInt(); // Get the user's input/choice
+        int choice = scanner.nextInt();
 
         // Check if the user entered a valid  menu option (0-9 since a menu never has 10 or more options and 0 is always exit in all menus)
         if (choice < 0 || choice > 9) {
-            System.out.println("Invalid input. Please enter a valid option."); // If the user entered an invalid option, display an error message
-            return getUserChoice(); // Ask for the user to choose a menu option again
+            System.out.println("Invalid input. Please enter a valid option.");
+            return getUserChoice();
         }
-        return choice; // Return the user's choice
+        return choice;
     }
     void processUserChoice(int choice);
 }
