@@ -35,5 +35,4 @@ public class ManageGameCatalogSubmenu implements Menu {
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
-
 }

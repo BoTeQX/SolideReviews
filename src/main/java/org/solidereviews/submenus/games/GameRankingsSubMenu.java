@@ -8,7 +8,7 @@ import org.solidereviews.utils.GlobalFunctions;
 public class GameRankingsSubMenu implements Menu {
 
     String title = "GAMES MENU > Game rankings";
-    String[] menuItems = { "Show all rankings (descending)", "Show all rankings (ascending)", "Show ranking (game)" };
+    String[] menuItems = { "Show all rankings" };
 
     @Override
     public String getTitle() {
@@ -31,5 +31,4 @@ public class GameRankingsSubMenu implements Menu {
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
-
 }

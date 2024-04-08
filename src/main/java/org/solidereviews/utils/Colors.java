@@ -1,5 +1,7 @@
 package org.solidereviews.utils;
 
+
+// this class is used to store the colors that are used in the console to make the output more readable and user-friendly and colorful :)
 public final class Colors {
     public final static String RESET = "\033[0m";
 

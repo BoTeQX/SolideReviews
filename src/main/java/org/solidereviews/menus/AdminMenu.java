@@ -19,8 +19,9 @@ public class AdminMenu implements Menu {
     @Override
     public String[] getMenuItems() {
         return menuItems;
-    }
+    } 
 
+    // Use the user's choice that was entered in the menu to determine which submenu to initiate
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
@@ -31,5 +32,4 @@ public class AdminMenu implements Menu {
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
-
 }

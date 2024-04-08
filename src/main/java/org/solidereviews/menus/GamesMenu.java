@@ -15,7 +15,7 @@ public class GamesMenu implements Menu {
     @Override
     public String getTitle() {
         return title;
-    }
+    } 
 
     @Override
     public String[] getMenuItems() {
@@ -33,5 +33,4 @@ public class GamesMenu implements Menu {
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
-
 }
