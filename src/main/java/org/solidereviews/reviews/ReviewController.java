@@ -27,9 +27,10 @@ public class ReviewController {
     }
 
     public void addReview() {
-        // GameController.games.add(new Game("The Witcher 3", "RPG", 59.99));
         Util.clearScreen();
         Game game = GameController.showGamesAndSelect("Select a game to review:");
+        Util.clearScreen();
+        System.out.printf("Reviewing %s: %n", game.getName());
         int graphicsRating = setRating("graphics");
         int gameplayRating = setRating("gameplay");
         int storyRating = setRating("story");
@@ -46,6 +47,7 @@ public class ReviewController {
             System.out.println("Invalid input. Please enter Y or N:");
             confirm = scanner.nextLine();
         }
+        Util.clearScreen();
         if (confirm.equalsIgnoreCase("N")) {
             System.out.println("Review cancelled.");
         } else {

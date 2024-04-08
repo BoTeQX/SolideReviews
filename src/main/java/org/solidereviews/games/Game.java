@@ -57,6 +57,17 @@ public class Game {
         return reviews;
     }
 
+    public int getOverallRating() {
+        if (reviews.isEmpty()) {
+            return 0;
+        }
+        int sum = 0;
+        for (Review review : reviews) {
+            sum += review.getOverallRating();
+        }
+        return sum / reviews.size();
+    }
+
     public void addToSurvey(QuestionAndAnswers qna) {
         survey.add(qna);
     }

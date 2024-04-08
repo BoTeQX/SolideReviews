@@ -9,6 +9,8 @@ import org.solidereviews.utils.Util;
 public class ReviewDisplayer {
     public void showReviewsByGame() {
         Game game = GameController.showGamesAndSelect("Select a game to see the reviews from:");
+        int overall = game.getOverallRating();
+        System.err.println("Overall rating: " + overall);
         ArrayList<Review> reviews = game.getReviews();
         if (reviews.isEmpty()) {
             System.out.println("No reviews found for this game.");
