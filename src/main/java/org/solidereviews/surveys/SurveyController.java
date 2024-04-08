@@ -6,12 +6,15 @@ import java.util.Scanner;
 import org.solidereviews.games.Game;
 import org.solidereviews.games.GameController;
 
-import org.solidereviews.surveys.QuestionAndAnswers;
-
 import org.solidereviews.utils.Colors;
 import org.solidereviews.utils.GlobalFunctions;
 
-public  class SurveyController {
+public class SurveyController {
+
+    private SurveyController() {
+        // Prevent instantiation
+    }
+
     static Scanner scanner = new Scanner(System.in);
 
     public static void createSurvey() {
@@ -25,12 +28,13 @@ public  class SurveyController {
 
         String question = scanner.nextLine();
         createQuestionMenu(gameName, null, question, null, null);
-        
+
         boolean multipleChoice = GlobalFunctions.createConfirmMenu("Is this a multiple choice question?");
         QuestionAndAnswers survey = new QuestionAndAnswers(question, multipleChoice);
         if (multipleChoice) {
             while (true) {
-                createQuestionMenu(gameName, "Enter extra choice for the question: ", question, String.valueOf(multipleChoice), survey.getChoices());
+                createQuestionMenu(gameName, "Enter extra choice for the question: ", question,
+                        String.valueOf(multipleChoice), survey.getChoices());
                 String answer = scanner.nextLine();
                 survey.addChoice(answer);
 
@@ -43,7 +47,8 @@ public  class SurveyController {
         createQuestionMenu(gameName, null, question, String.valueOf(multipleChoice), survey.getChoices());
         if (GlobalFunctions.createConfirmMenu("Do you want to save this survey?")) {
             selectedGame.addToSurvey(survey);
-            createQuestionMenu(gameName, Colors.GREEN_BOLD + "Survey created successfully!\n", question, String.valueOf(multipleChoice), survey.getChoices());
+            createQuestionMenu(gameName, Colors.GREEN_BOLD + "Survey created successfully!\n", question,
+                    String.valueOf(multipleChoice), survey.getChoices());
         }
 
         GlobalFunctions.pressToContinue();
@@ -64,8 +69,9 @@ public  class SurveyController {
         QuestionAndAnswers survey = selectSurvey(surveyList, "Select Survey to update");
         if (survey == null)
             return;
-        
-        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
+
+        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()),
+                survey.getChoices());
         showThingsToUpdateAndSelect(gameName, survey);
     }
 
@@ -75,7 +81,7 @@ public  class SurveyController {
             GlobalFunctions.pressToContinue();
             return false;
         }
-    
+
         return true;
     }
 
@@ -93,7 +99,8 @@ public  class SurveyController {
         if (survey == null)
             return;
 
-        createQuestionMenu(selectedGame.getName(), null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
+        createQuestionMenu(selectedGame.getName(), null, survey.getQuestion(),
+                String.valueOf(survey.isMultipleChoice()), survey.getChoices());
         if (GlobalFunctions.createConfirmMenu("Are you sure you want to delete this survey?")) {
             selectedGame.removeFromSurvey(survey);
             System.out.println("\nSurvey deleted successfully!");
@@ -114,28 +121,29 @@ public  class SurveyController {
         if (!checkForSurveyList(surveyList, selectedGame.getName()))
             return;
 
-        
         for (QuestionAndAnswers survey : surveyList) {
-            createQuestionMenu(selectedGame.getName(), null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), null);
+            createQuestionMenu(selectedGame.getName(), null, survey.getQuestion(),
+                    String.valueOf(survey.isMultipleChoice()), null);
             ArrayList<String> answers = survey.getAnswers();
             if (answers.size() == 0) {
                 System.out.println("No answers found for this survey.");
                 GlobalFunctions.pressToContinue();
                 continue;
-            } 
+            }
 
             System.out.println("├─> Answers: ");
             for (int i = 0; i < answers.size(); i++) {
                 System.out.println("├ <" + Colors.YELLOW_BOLD + (i + 1) + Colors.RESET + "> " + answers.get(i));
             }
-    
+
             System.out.println("╰");
 
             GlobalFunctions.pressToContinue();
         }
     }
 
-    public static void createQuestionMenu(String gameName, String bottomText, String question, String multipleChoice, ArrayList<String> answers) {
+    public static void createQuestionMenu(String gameName, String bottomText, String question, String multipleChoice,
+            ArrayList<String> answers) {
         GlobalFunctions.clearScreen();
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey Question" + Colors.RESET);
         System.out.println("│");
@@ -156,7 +164,8 @@ public  class SurveyController {
                 if (i == answers.size() - 1)
                     symbool = "│ ╰─ " + Colors.YELLOW_BRIGHT;
 
-                System.out.println(symbool + (i + 1) + Colors.RESET + ". " + Colors.GREEN_BOLD + answers.get(i) + Colors.RESET);
+                System.out.println(
+                        symbool + (i + 1) + Colors.RESET + ". " + Colors.GREEN_BOLD + answers.get(i) + Colors.RESET);
             }
         }
 
@@ -182,7 +191,7 @@ public  class SurveyController {
             scanner.next();
             return selectSurvey(survey, menuTitle);
         }
-    
+
         int surveyIndex = scanner.nextInt();
         if (surveyIndex == 0)
             return null;
@@ -199,10 +208,11 @@ public  class SurveyController {
 
         return selectedSurvey;
     }
-    
+
     public static void showThingsToUpdateAndSelect(String gameName, QuestionAndAnswers survey) {
         int maxSelections = survey.isMultipleChoice() ? 4 : 2;
-        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
+        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()),
+                survey.getChoices());
         System.out.println("├─> " + Colors.CYAN_BOLD_BRIGHT + "Select element to Update" + Colors.RESET);
         System.out.println("│");
         System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> Update Question");
@@ -243,31 +253,37 @@ public  class SurveyController {
     }
 
     public static void updateQuestion(String gameName, QuestionAndAnswers survey) {
-        createQuestionMenu(gameName, "Enter new question: ", survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
+        createQuestionMenu(gameName, "Enter new question: ", survey.getQuestion(),
+                String.valueOf(survey.isMultipleChoice()), survey.getChoices());
         survey.changeQuestion(scanner.nextLine());
         showThingsToUpdateAndSelect(gameName, survey);
     }
 
     public static void updateMultipleChoice(String gameName, QuestionAndAnswers survey) {
-        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
+        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()),
+                survey.getChoices());
         survey.setMultipleChoice(GlobalFunctions.createConfirmMenu("Is this a multiple choice question?"));
         showThingsToUpdateAndSelect(gameName, survey);
     }
 
     public static void addChoice(String gameName, QuestionAndAnswers survey) {
-        createQuestionMenu(gameName, "Enter new choice: ", survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
+        createQuestionMenu(gameName, "Enter new choice: ", survey.getQuestion(),
+                String.valueOf(survey.isMultipleChoice()), survey.getChoices());
         survey.addChoice(scanner.nextLine());
         showThingsToUpdateAndSelect(gameName, survey);
     }
 
     public static void deleteChoice(String gameName, QuestionAndAnswers survey) {
-        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
+        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()),
+                survey.getChoices());
         String choice = showSurveyChoicesAndSelect(survey);
         if (choice == null)
             return;
 
-        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()), survey.getChoices());
-        if (GlobalFunctions.createConfirmMenu("Are you sure you want to delete this choice '" + Colors.RESET + choice + Colors.CYAN_BOLD + "' from the survey?"))
+        createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()),
+                survey.getChoices());
+        if (GlobalFunctions.createConfirmMenu("Are you sure you want to delete this choice '" + Colors.RESET + choice
+                + Colors.CYAN_BOLD + "' from the survey?"))
             survey.getChoices().remove(choice);
         showThingsToUpdateAndSelect(gameName, survey);
     }
@@ -277,16 +293,16 @@ public  class SurveyController {
         System.out.println("│");
         ArrayList<String> choicesList = survey.getChoices();
         for (int i = 0; i < choicesList.size(); i++) {
-            System.out.println("├ <" + Colors.BLUE_BOLD + (i+1) + Colors.RESET + "> " + choicesList.get(i));
+            System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + choicesList.get(i));
         }
-    
+
         showCancelMenu();
         if (!scanner.hasNextInt()) {
             System.out.println(GlobalFunctions.ERROR_INVALID_NUMBER);
             scanner.next();
             return showSurveyChoicesAndSelect(survey);
         }
-    
+
         int selectedNumer = scanner.nextInt();
         if (selectedNumer == 0)
             return null;
@@ -304,7 +320,8 @@ public  class SurveyController {
 
     public static void showCancelMenu() {
         System.out.println("│");
-        System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
+        System.out.println(
+                "╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET + "\n");
 
         System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
     }
@@ -336,21 +353,27 @@ public  class SurveyController {
         GlobalFunctions.pressToContinue();
     }
 
-    public static void showQuestionAndAnswer(QuestionAndAnswers question, String gameName, int questionNumber, int totalQuestions) {
+    public static void showQuestionAndAnswer(QuestionAndAnswers question, String gameName, int questionNumber,
+            int totalQuestions) {
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey Question" + Colors.RESET);
         System.out.println("│");
         System.out.println("├ Game: " + Colors.GREEN_BOLD + gameName + Colors.RESET);
-        System.out.println("├ Question [" + Colors.YELLOW_BOLD + questionNumber + Colors.RESET + "/" + Colors.YELLOW_BOLD + totalQuestions + Colors.RESET + "]: " + Colors.GREEN_BOLD + question.getQuestion() + Colors.RESET);
+        System.out.println("├ Question [" + Colors.YELLOW_BOLD + questionNumber + Colors.RESET + "/"
+                + Colors.YELLOW_BOLD + totalQuestions + Colors.RESET + "]: " + Colors.GREEN_BOLD
+                + question.getQuestion() + Colors.RESET);
         System.out.println("│");
         System.out.print("╰ " + Colors.BLUE_BOLD + "Enter your answer: " + Colors.RESET);
         question.addAnswer(scanner.nextLine());
     }
 
-    public static void showMultipleChoiceQuestionAndAnswer(QuestionAndAnswers question, String gameName, int questionNumber, int totalQuestions) {
+    public static void showMultipleChoiceQuestionAndAnswer(QuestionAndAnswers question, String gameName,
+            int questionNumber, int totalQuestions) {
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "Survey Question" + Colors.RESET);
         System.out.println("│");
         System.out.println("├ Game: " + Colors.GREEN_BOLD + gameName + Colors.RESET);
-        System.out.println("├ Question [" + Colors.YELLOW_BOLD + questionNumber + Colors.RESET + " of " + Colors.YELLOW_BOLD + totalQuestions + Colors.RESET + "]: " + Colors.GREEN_BOLD + question.getQuestion() + Colors.RESET);
+        System.out.println("├ Question [" + Colors.YELLOW_BOLD + questionNumber + Colors.RESET + " of "
+                + Colors.YELLOW_BOLD + totalQuestions + Colors.RESET + "]: " + Colors.GREEN_BOLD
+                + question.getQuestion() + Colors.RESET);
         System.out.println("│");
         System.out.println("├ Choices: ");
         ArrayList<String> choices = question.getChoices();

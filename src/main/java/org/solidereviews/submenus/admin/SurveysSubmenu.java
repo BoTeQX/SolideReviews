@@ -1,23 +1,18 @@
 package org.solidereviews.submenus.admin;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.AdminMenu;
 
 import org.solidereviews.utils.Colors;
 import org.solidereviews.utils.GlobalFunctions;
 
-import org.solidereviews.games.Game;
-import org.solidereviews.games.GameController;
-
 import org.solidereviews.surveys.SurveyController;
 
 public class SurveysSubmenu implements Menu {
 
     String title = "ADMIN MENU > Surveys";
-    String[] menuItems = {"Create Survey", "Update survey", "Delete survey", "Show survey result(s)",  Colors.RED_BACKGROUND_BRIGHT + "[DEBUG]" + Colors.RESET + " Answer question"};
+    String[] menuItems = { "Create Survey", "Update survey", "Delete survey", "Show survey result(s)",
+            Colors.RED_BACKGROUND_BRIGHT + "[DEBUG]" + Colors.RESET + " Answer question" };
 
     @Override
     public String getTitle() {

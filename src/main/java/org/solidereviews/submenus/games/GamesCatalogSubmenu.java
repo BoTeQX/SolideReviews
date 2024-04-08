@@ -1,11 +1,9 @@
 package org.solidereviews.submenus.games;
 
-import org.solidereviews.games.GameController;
 import org.solidereviews.games.GameDisplayer;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.GamesMenu;
 
-import org.solidereviews.utils.Colors;
 import org.solidereviews.utils.GlobalFunctions;
 
 public class GamesCatalogSubmenu implements Menu {

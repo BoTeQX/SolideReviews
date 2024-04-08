@@ -5,13 +5,12 @@ import org.solidereviews.submenus.games.GameRankingsSubMenu;
 import org.solidereviews.submenus.games.GameReviewsSubmenu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
 
-import org.solidereviews.utils.Colors;
 import org.solidereviews.utils.GlobalFunctions;
 
 public class GamesMenu implements Menu {
 
     String title = "GAMES MENU";
-    String[] menuItems = {"Game rankings", "Game catalog", "Game reviews"};
+    String[] menuItems = { "Game rankings", "Game catalog", "Game reviews" };
 
     @Override
     public String getTitle() {
@@ -22,6 +21,7 @@ public class GamesMenu implements Menu {
     public String[] getMenuItems() {
         return menuItems;
     }
+
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {

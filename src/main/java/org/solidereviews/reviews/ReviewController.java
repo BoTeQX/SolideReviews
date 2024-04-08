@@ -1,72 +1,60 @@
 package org.solidereviews.reviews;
 
 import java.util.Scanner;
-import java.util.ArrayList;
-
 import org.solidereviews.games.Game;
 import org.solidereviews.games.GameController;
 import org.solidereviews.submenus.games.GameReviewsSubmenu;
+import org.solidereviews.utils.GlobalFunctions;
 
 public class ReviewController {
+    private static int setRating(String ratingType) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.printf("Rate the %s (1-5): %n", ratingType);
+        while (true) {
+            if (scanner.hasNextInt()) {
+                int rating = scanner.nextInt();
+                if (rating >= 1 && rating <= 5) {
+                    scanner.nextLine();
+                    return rating;
+                } else {
+                    System.out.println("Invalid input. Please enter a number between 1 and 5.");
+                }
+            } else {
+                scanner.next();
+                System.out.println("Invalid input. Please enter a number between 1 and 5.");
+            }
+        }
+    }
 
     public void addReview() {
-        ArrayList<Game> games = GameController.getGames();
-        ArrayList<String> gameNames = new ArrayList<>();
-        for (Game game : games) {
-            gameNames.add(game.getName());
-        }
-
+        GlobalFunctions.clearScreen();
+        Game game = GameController.showGamesAndSelect("Select a game to review:");
+        GlobalFunctions.clearScreen();
+        System.out.printf("Reviewing %s: %n", game.getName());
+        int graphicsRating = setRating("graphics");
+        int gameplayRating = setRating("gameplay");
+        int storyRating = setRating("story");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Select a game to review:");
-        String gameName = scanner.nextLine();
-        while (!gameNames.contains(gameName)) {
-            System.out.println("Invalid game name. Please select a game from the list:");
-            gameName = scanner.nextLine();
-        }
-
-        System.out.println("Rate the graphics (1-5):");
-        int graphicsRating = scanner.nextInt();
-        while (graphicsRating < 1 || graphicsRating > 5) {
-            System.out.println("Invalid rating. Please enter a number between 1 and 5:");
-            graphicsRating = scanner.nextInt();
-        }
-
-        System.out.println("Rate the gameplay (1-5):");
-        int gameplayRating = scanner.nextInt();
-        while (gameplayRating < 1 || gameplayRating > 5) {
-            System.out.println("Invalid rating. Please enter a number between 1 and 5:");
-            gameplayRating = scanner.nextInt();
-        }
-
-        System.out.println("Rate the story (1-5):");
-        int storyRating = scanner.nextInt();
-        while (storyRating < 1 || storyRating > 5) {
-            System.out.println("Invalid rating. Please enter a number between 1 and 5:");
-            storyRating = scanner.nextInt();
-        }
-
-        scanner.nextLine();
         System.out.println("Write your review or leave empty:");
-        scanner.nextLine();
         String reviewText = scanner.nextLine();
-        Review review = new Review(gameName, graphicsRating, gameplayRating, storyRating, reviewText);
-
-        Review.showReview();
-
+        Review review = new Review(graphicsRating, gameplayRating, storyRating, reviewText);
+        GlobalFunctions.clearScreen();
+        System.out.printf("Review preview for %s: %n", game.getName());
+        review.showReview();
         System.out.println("Confirm review? (Y/N)");
         String confirm = scanner.nextLine();
-        while (!confirm.equalsIgnoreCase("Y") && !confirm.equalsIgnoreCase("N")) {
+        while (!confirm.equalsIgnoreCase("y") && !confirm.equalsIgnoreCase("n")) {
             System.out.println("Invalid input. Please enter Y or N:");
             confirm = scanner.nextLine();
         }
+        GlobalFunctions.clearScreen();
         if (confirm.equalsIgnoreCase("N")) {
             System.out.println("Review cancelled.");
         } else {
-            scanner.close();
-            Review.addReview(review);
+            game.addReview(review);
             System.out.println("Review added successfully!");
-
         }
+        GlobalFunctions.pressToContinue();
         new GameReviewsSubmenu().initiateMenu();
     }
 }

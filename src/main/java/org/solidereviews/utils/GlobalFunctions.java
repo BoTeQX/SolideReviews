@@ -1,10 +1,10 @@
 package org.solidereviews.utils;
 
-import org.solidereviews.utils.Colors;
 import java.util.Scanner;
 
 public class GlobalFunctions {
     static Scanner scanner = new Scanner(System.in);
+
     public static void clearScreen() {
         System.out.print("\033\143");
         System.out.print("\033[H\033[2J");

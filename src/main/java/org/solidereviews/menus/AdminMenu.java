@@ -4,18 +4,18 @@ import org.solidereviews.interfaces.Menu;
 import org.solidereviews.submenus.admin.ManageGameCatalogSubmenu;
 import org.solidereviews.submenus.admin.SurveysSubmenu;
 
-import org.solidereviews.utils.Colors;
 import org.solidereviews.utils.GlobalFunctions;
 
 public class AdminMenu implements Menu {
 
     String title = "ADMIN MENU";
-    String[] menuItems = {"Manage game catalog", "Surveys"};
+    String[] menuItems = { "Manage game catalog", "Surveys" };
 
     @Override
     public String getTitle() {
         return title;
     }
+
     @Override
     public String[] getMenuItems() {
         return menuItems;

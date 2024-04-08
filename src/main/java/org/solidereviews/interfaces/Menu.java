@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public interface Menu {
     Scanner scanner = new Scanner(System.in);
+
     default void displayLogo() {
         System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
         System.out.println("    ▄█▀███▀█▄    ─── Solide  ──              ▄█▀███▀█▄    ");
@@ -29,26 +30,28 @@ public interface Menu {
         do {
             GlobalFunctions.clearScreen();
             displayLogo();
-            System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT +  title + " " + Colors.RESET);
+            System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + title + " " + Colors.RESET);
             System.out.println("│");
 
-            if(title.equals("MAIN MENU")) {
-                System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> " + Colors.YELLOW_BOLD + "SALE" + Colors.RESET);
+            if (title.equals("MAIN MENU")) {
+                System.out.println("├ <" + Colors.BLUE_BOLD + "1" + Colors.RESET + "> " + Colors.YELLOW_BOLD + "SALE"
+                        + Colors.RESET);
                 for (int i = 0; i < menuItems.length; i++) {
                     System.out.println("├ <" + Colors.BLUE_BOLD + (i + 2) + Colors.RESET + "> " + menuItems[i]);
                 }
-            }
-            else {
+            } else {
                 for (int i = 0; i < menuItems.length; i++) {
                     System.out.println("├ <" + Colors.BLUE_BOLD + (i + 1) + Colors.RESET + "> " + menuItems[i]);
                 }
             }
 
             System.out.println("│");
-            if(!title.equals("MAIN MENU")) {
-                System.out.println("├ <" + Colors.BLUE_BOLD + "9" + Colors.RESET + "> " + Colors.BLUE_BOLD + "Back" + Colors.RESET);
+            if (!title.equals("MAIN MENU")) {
+                System.out.println("├ <" + Colors.BLUE_BOLD + "9" + Colors.RESET + "> " + Colors.BLUE_BOLD + "Back"
+                        + Colors.RESET);
             }
-            System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
+            System.out
+                    .println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + "> " + Colors.RED + "Exit" + Colors.RESET);
             System.out.println();
 
             // Get and process user choice
@@ -56,6 +59,7 @@ public interface Menu {
             processUserChoice(choice);
         } while (choice != 0);
     }
+
     default int getUserChoice() {
         System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
         while (!scanner.hasNextInt()) {
