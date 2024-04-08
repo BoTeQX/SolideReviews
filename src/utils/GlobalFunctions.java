@@ -1,4 +1,4 @@
-package org.solidereviews.utils;
+package utils;
 
 import java.util.Scanner;
 

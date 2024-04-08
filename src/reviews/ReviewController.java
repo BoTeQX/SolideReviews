@@ -1,10 +1,10 @@
-package org.solidereviews.reviews;
+package reviews;
 
 import java.util.Scanner;
-import org.solidereviews.games.Game;
-import org.solidereviews.games.GameController;
-import org.solidereviews.submenus.games.GameReviewsSubmenu;
-import org.solidereviews.utils.GlobalFunctions;
+import games.Game;
+import games.GameController;
+import submenus.games.GameReviewsSubmenu;
+import utils.GlobalFunctions;
 
 public class ReviewController {
     private static int setRating(String ratingType) {

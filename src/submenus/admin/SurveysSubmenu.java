@@ -1,12 +1,12 @@
-package org.solidereviews.submenus.admin;
+package submenus.admin;
 
-import org.solidereviews.interfaces.Menu;
-import org.solidereviews.menus.AdminMenu;
+import interfaces.Menu;
+import menus.AdminMenu;
 
-import org.solidereviews.utils.Colors;
-import org.solidereviews.utils.GlobalFunctions;
+import utils.Colors;
+import utils.GlobalFunctions;
 
-import org.solidereviews.surveys.SurveyController;
+import surveys.SurveyController;
 
 public class SurveysSubmenu implements Menu {
 

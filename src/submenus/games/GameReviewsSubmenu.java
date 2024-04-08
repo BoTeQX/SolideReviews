@@ -1,11 +1,11 @@
-package org.solidereviews.submenus.games;
+package submenus.games;
 
-import org.solidereviews.interfaces.Menu;
-import org.solidereviews.menus.GamesMenu;
-import org.solidereviews.reviews.ReviewController;
-import org.solidereviews.reviews.ReviewDisplayer;
+import interfaces.Menu;
+import menus.GamesMenu;
+import reviews.ReviewController;
+import reviews.ReviewDisplayer;
 
-import org.solidereviews.utils.GlobalFunctions;
+import utils.GlobalFunctions;
 
 public class GameReviewsSubmenu implements Menu {
 

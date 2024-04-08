@@ -1,11 +1,11 @@
-package org.solidereviews.submenus.admin;
+package submenus.admin;
 
-import org.solidereviews.games.GameController;
-import org.solidereviews.games.GameDisplayer;
-import org.solidereviews.interfaces.Menu;
-import org.solidereviews.menus.AdminMenu;
+import games.GameController;
+import games.GameDisplayer;
+import interfaces.Menu;
+import menus.AdminMenu;
 
-import org.solidereviews.utils.GlobalFunctions;
+import utils.GlobalFunctions;
 
 public class ManageGameCatalogSubmenu implements Menu {
 

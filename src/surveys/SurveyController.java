@@ -1,13 +1,13 @@
-package org.solidereviews.surveys;
+package surveys;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.solidereviews.games.Game;
-import org.solidereviews.games.GameController;
+import games.Game;
+import games.GameController;
 
-import org.solidereviews.utils.Colors;
-import org.solidereviews.utils.GlobalFunctions;
+import utils.Colors;
+import utils.GlobalFunctions;
 
 public class SurveyController {
 

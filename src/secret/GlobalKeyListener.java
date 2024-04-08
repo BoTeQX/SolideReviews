@@ -1,6 +1,6 @@
-package org.solidereviews.secret;
+package secret;
 
-import org.solidereviews.utils.GlobalFunctions;
+import utils.GlobalFunctions;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;

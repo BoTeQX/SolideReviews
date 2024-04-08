@@ -1,7 +1,7 @@
-package org.solidereviews.interfaces;
+package interfaces;
 
-import org.solidereviews.utils.Colors;
-import org.solidereviews.utils.GlobalFunctions;
+import utils.Colors;
+import utils.GlobalFunctions;
 
 import java.util.Scanner;
 

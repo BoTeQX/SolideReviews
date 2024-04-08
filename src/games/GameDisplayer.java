@@ -1,10 +1,10 @@
-package org.solidereviews.games;
+package games;
 
-import org.solidereviews.submenus.admin.ManageGameCatalogSubmenu;
-import org.solidereviews.submenus.games.GamesCatalogSubmenu;
+import submenus.admin.ManageGameCatalogSubmenu;
+import submenus.games.GamesCatalogSubmenu;
 
-import org.solidereviews.utils.Colors;
-import org.solidereviews.utils.GlobalFunctions;
+import utils.Colors;
+import utils.GlobalFunctions;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
-package org.solidereviews.reviews;
+package reviews;
 
 import java.util.ArrayList;
 
-import org.solidereviews.games.Game;
-import org.solidereviews.games.GameController;
-import org.solidereviews.utils.GlobalFunctions;
+import games.Game;
+import games.GameController;
+import utils.GlobalFunctions;
 
 public class ReviewDisplayer {
     public void showReviewsByGame() {

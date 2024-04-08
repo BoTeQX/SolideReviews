@@ -1,8 +1,8 @@
-package org.solidereviews.menus;
+package menus;
 
-import org.solidereviews.interfaces.Menu;
-import org.solidereviews.utils.Colors;
-import org.solidereviews.utils.GlobalFunctions;
+import interfaces.Menu;
+import utils.Colors;
+import utils.GlobalFunctions;
 import java.util.HashMap;
 import java.util.Map;
 

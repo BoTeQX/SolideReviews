@@ -1,4 +1,4 @@
-package org.solidereviews.reviews;
+package reviews;
 
 public class Review {
     private final int graphicsRating;

@@ -1,4 +1,4 @@
-package org.solidereviews.surveys;
+package surveys;
 
 import java.util.ArrayList;
 

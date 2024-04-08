@@ -1,10 +1,10 @@
-package org.solidereviews.menus;
+package menus;
 
-import org.solidereviews.interfaces.Menu;
-import org.solidereviews.submenus.admin.ManageGameCatalogSubmenu;
-import org.solidereviews.submenus.admin.SurveysSubmenu;
+import interfaces.Menu;
+import submenus.admin.ManageGameCatalogSubmenu;
+import submenus.admin.SurveysSubmenu;
 
-import org.solidereviews.utils.GlobalFunctions;
+import utils.GlobalFunctions;
 
 public class AdminMenu implements Menu {
 

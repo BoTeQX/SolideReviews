@@ -1,4 +1,4 @@
-package org.solidereviews.utils;
+package utils;
 
 
 // this class is used to store the colors that are used in the console to make the output more readable and user-friendly and colorful :)

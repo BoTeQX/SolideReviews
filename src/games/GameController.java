@@ -1,9 +1,9 @@
-package org.solidereviews.games;
+package games;
 
-import org.solidereviews.utils.FileManager;
+import utils.FileManager;
 
-import org.solidereviews.utils.Colors;
-import org.solidereviews.utils.GlobalFunctions;
+import utils.Colors;
+import utils.GlobalFunctions;
 
 import java.util.ArrayList;
 import java.util.Scanner;

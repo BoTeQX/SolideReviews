@@ -1,9 +1,9 @@
-package org.solidereviews.submenus.games;
+package submenus.games;
 
-import org.solidereviews.interfaces.Menu;
-import org.solidereviews.menus.GamesMenu;
+import interfaces.Menu;
+import menus.GamesMenu;
 
-import org.solidereviews.utils.GlobalFunctions;
+import utils.GlobalFunctions;
 
 public class GameRankingsSubMenu implements Menu {
 
