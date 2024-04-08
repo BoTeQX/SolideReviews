@@ -35,8 +35,13 @@ public class RankingDisplayer {
         Collections.sort(rankedGames, (game1, game2) ->
                 Integer.compare(calculateAverageRating(game2), calculateAverageRating(game1)));
 
-        // Check if there are any ranked games (games with reviews)
-        boolean hasRankedGames = rankedGames.stream().anyMatch(game -> calculateAverageRating(game) > 0);
+        boolean hasRankedGames = false;
+        for (Game game : rankedGames) {
+            if (calculateAverageRating(game) > 0) {
+                hasRankedGames = true;
+                break;
+            }
+        }
 
         if (hasRankedGames) {
             // Display the top bar of the table
