@@ -41,10 +41,10 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-*.jar
 data.txt
 *.bat
 
+SolideReviews.jar
 .idea/misc.xml
 .idea/.name
 
