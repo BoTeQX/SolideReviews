@@ -2,14 +2,14 @@ package org.solidereviews.menus;
 
 import org.solidereviews.interfaces.Menu;
 
+import org.solidereviews.utils.GlobalFunctions;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class MainMenu implements Menu {
     String title = "MAIN MENU";
-    String[] menuItems = {"Games","Admin"};
+    String[] menuItems = { "Games", "Admin" };
     private final Map<String, String> adminCredentials;
 
     public MainMenu() {
@@ -34,7 +34,7 @@ public class MainMenu implements Menu {
             case 1 -> System.out.println("You selected Option 1.");
             case 2 -> new GamesMenu().initiateMenu();
             case 3 -> adminLogin();
-            case 0 -> closeProgram();
+            case 0 -> GlobalFunctions.closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
@@ -55,7 +55,7 @@ public class MainMenu implements Menu {
                 Thread.sleep(2000);
                 new MainMenu().initiateMenu();
             } catch (InterruptedException e) {
-               System.out.println("Error: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
     }

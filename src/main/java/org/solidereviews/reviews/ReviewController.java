@@ -4,7 +4,7 @@ import java.util.Scanner;
 import org.solidereviews.games.Game;
 import org.solidereviews.games.GameController;
 import org.solidereviews.submenus.games.GameReviewsSubmenu;
-import org.solidereviews.utils.Util;
+import org.solidereviews.utils.GlobalFunctions;
 
 public class ReviewController {
     private static int setRating(String ratingType) {
@@ -27,9 +27,9 @@ public class ReviewController {
     }
 
     public void addReview() {
-        Util.clearScreen();
+        GlobalFunctions.clearScreen();
         Game game = GameController.showGamesAndSelect("Select a game to review:");
-        Util.clearScreen();
+        GlobalFunctions.clearScreen();
         System.out.printf("Reviewing %s: %n", game.getName());
         int graphicsRating = setRating("graphics");
         int gameplayRating = setRating("gameplay");
@@ -38,7 +38,7 @@ public class ReviewController {
         System.out.println("Write your review or leave empty:");
         String reviewText = scanner.nextLine();
         Review review = new Review(graphicsRating, gameplayRating, storyRating, reviewText);
-        Util.clearScreen();
+        GlobalFunctions.clearScreen();
         System.out.printf("Review preview for %s: %n", game.getName());
         review.showReview();
         System.out.println("Confirm review? (Y/N)");
@@ -47,14 +47,14 @@ public class ReviewController {
             System.out.println("Invalid input. Please enter Y or N:");
             confirm = scanner.nextLine();
         }
-        Util.clearScreen();
+        GlobalFunctions.clearScreen();
         if (confirm.equalsIgnoreCase("N")) {
             System.out.println("Review cancelled.");
         } else {
             game.addReview(review);
             System.out.println("Review added successfully!");
         }
-        Util.pressToContinue();
+        GlobalFunctions.pressToContinue();
         new GameReviewsSubmenu().initiateMenu();
     }
 }
