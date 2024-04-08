@@ -1,16 +1,14 @@
 package org.solidereviews.reviews;
 
 public class Review {
-    static String gameName;
-    static int graphicsRating;
-    static int gameplayRating;
-    static int storyRating;
-    static int overallRating;
-    static String reviewText;
+    private int graphicsRating;
+    private int gameplayRating;
+    private int storyRating;
+    private int overallRating;
+    private String reviewText;
 
-    public Review(String gameName, int graphicsRating, int gameplayRating, int storyRating,
+    public Review(int graphicsRating, int gameplayRating, int storyRating,
             String reviewText) {
-        this.gameName = gameName;
         this.graphicsRating = graphicsRating;
         this.gameplayRating = gameplayRating;
         this.storyRating = storyRating;
@@ -18,41 +16,31 @@ public class Review {
         this.reviewText = reviewText;
     }
 
-    public static String getGameName() {
-        return gameName;
-    }
-
-    public static int getGraphicsRating() {
+    public int getGraphicsRating() {
         return graphicsRating;
     }
 
-    public static int getGameplayRating() {
+    public int getGameplayRating() {
         return gameplayRating;
     }
 
-    public static int getStoryRating() {
+    public int getStoryRating() {
         return storyRating;
     }
 
-    public static String getReviewText() {
-        return reviewText;
-    }
-
-    public static int getOverallRating() {
+    public int getOverallRating() {
         return overallRating;
     }
 
-    public static void showReview() {
-        // put clear screen here
-        System.out.println("Game: " + gameName);
+    public String getReviewText() {
+        return reviewText;
+    }
+
+    public void showReview() {
         System.out.println("Graphics: " + graphicsRating);
         System.out.println("Gameplay: " + gameplayRating);
         System.out.println("Story: " + storyRating);
         System.out.println("Overall: " + overallRating);
         System.out.println("Review: " + reviewText);
-    }
-
-    public static void addReview(Review review) {
-        AllReviews.addReview(review);
     }
 }

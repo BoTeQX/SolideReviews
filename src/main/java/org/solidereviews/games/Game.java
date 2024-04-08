@@ -1,16 +1,18 @@
 package org.solidereviews.games;
 
 import java.util.ArrayList;
-import org.solidereviews.games.QuestionAndAnswers;
+import org.solidereviews.surveys.QuestionAndAnswers;
+import org.solidereviews.reviews.Review;
 
 public class Game {
     private String name;
     private String genre;
     private double price;
     private int sale = 0;
+    private ArrayList<Review> reviews = new ArrayList<>();
     private ArrayList<QuestionAndAnswers> survey = new ArrayList<>();
 
-    public Game(String name, String genre, double price){
+    public Game(String name, String genre, double price) {
         this.name = name;
         this.genre = genre;
         this.price = price;
@@ -40,13 +42,31 @@ public class Game {
         this.price = price;
     }
 
-
     public int getSale() {
         return sale;
     }
 
     public void setSale(int sale) {
         this.sale = sale;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public int getOverallRating() {
+        if (reviews.isEmpty()) {
+            return 0;
+        }
+        int sum = 0;
+        for (Review review : reviews) {
+            sum += review.getOverallRating();
+        }
+        return sum / reviews.size();
     }
 
     public void addToSurvey(QuestionAndAnswers qna) {

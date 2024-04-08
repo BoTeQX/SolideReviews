@@ -1,4 +1,4 @@
-package org.solidereviews.games;
+package org.solidereviews.surveys;
 
 import java.util.ArrayList;
 

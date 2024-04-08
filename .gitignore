@@ -41,13 +41,16 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-*.jar
 data.txt
 *.bat
 
+SolideReviews.jar
 .idea/misc.xml
 .idea/.name
+
 
 /.idea/sonarlint
 /.idea
 .idea/artifacts/SolideReviews_jar.xml
+*.jardata
+

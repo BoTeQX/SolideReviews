@@ -1,13 +1,13 @@
 package org.solidereviews.interfaces;
 
 import org.solidereviews.utils.Colors;
+import org.solidereviews.utils.GlobalFunctions;
 
 import java.util.Scanner;
 
 public interface Menu {
-    Scanner scanner = new Scanner(System.in); // Scanner object to get user input
+    Scanner scanner = new Scanner(System.in);
 
-    // Method to display the logo
     default void displayLogo() {
         System.out.println("     ▀▄   ▄▀                                  ▀▄   ▄▀     ");
         System.out.println("    ▄█▀███▀█▄    ─── Solide  ──              ▄█▀███▀█▄    ");
@@ -23,7 +23,7 @@ public interface Menu {
 
     // Method to initiate a menu
     default void initiateMenu() {
-        clearScreen(); // Clear the screen
+         GlobalFunctions.clearScreen(); // Clear the screen
         displayMenu(getTitle(), getMenuItems()); // Display the menu using the title and menu items of the current menu
     }
 
@@ -33,7 +33,7 @@ public interface Menu {
 
         // Do while loop to display the menu until the user exits the program
         do {
-            clearScreen(); // Clear the screen
+             GlobalFunctions.clearScreen(); // Clear the screen
             displayLogo(); // Display the logo
             System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT +  title + " " + Colors.RESET); // Display the title of the current menu
             System.out.println("│");
@@ -76,27 +76,5 @@ public interface Menu {
         }
         return choice; // Return the user's choice
     }
-
-    void processUserChoice(int choice); // Process the user's choice to determine the next action in the menu
-
-    // Method to clear the screen in the console (there are multiple ways to clear the screen in the console, this uses multiple of them to ensure compatibility with different operating systems and consoles)
-    default void clearScreen() {
-        System.out.print("\033\143"); // Clear the screen
-        System.out.print("\033[H\033[2J"); // Clear the screen
-        System.out.flush(); // Clear the screen
-    }
-
-    // Method to close the program
-    default void closeProgram() {
-        System.out.println("Exiting the program. Goodbye!"); // Display a goodbye message
-        System.exit(0); // Exit the program with a status code of 0 (successful exit)
-    }
-
-    // Method to press enter to continue
-    default void pressToContinue() {
-        System.out.println(Colors.BLUE_BOLD + "\nPress Enter to continue..." + Colors.RESET); // Display a message to press enter to continue
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine(); // Wait for the user to press enter
-        clearScreen(); // Clear the screen
-    }
+    void processUserChoice(int choice);
 }

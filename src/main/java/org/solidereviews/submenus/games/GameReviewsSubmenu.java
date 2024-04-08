@@ -3,6 +3,9 @@ package org.solidereviews.submenus.games;
 import org.solidereviews.interfaces.Menu;
 import org.solidereviews.menus.GamesMenu;
 import org.solidereviews.reviews.ReviewController;
+import org.solidereviews.reviews.ReviewDisplayer;
+
+import org.solidereviews.utils.GlobalFunctions;
 
 public class GameReviewsSubmenu implements Menu {
 
@@ -23,11 +26,11 @@ public class GameReviewsSubmenu implements Menu {
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
-            case 1 -> System.out.println("You selected Option 1.");
-            case 2 -> new ReviewController().addReview(); // if user chooses 2, call addReview method (to add a review to a game)
-            case 9 -> new GamesMenu().initiateMenu(); // if user chooses 9, the user is redirected to the GamesMenu
-            case 0 -> closeProgram(); // if user chooses 0, the program is closed
-            default -> System.out.println("Invalid choice. Please enter a valid option."); // if user chooses an invalid option, an error message is displayed
+            case 1 -> new ReviewDisplayer().showReviewsByGame();
+            case 2 -> new ReviewController().addReview();
+            case 9 -> new GamesMenu().initiateMenu();
+            case 0 -> GlobalFunctions.closeProgram();
+            default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
 }

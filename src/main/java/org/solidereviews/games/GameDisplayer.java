@@ -2,7 +2,9 @@ package org.solidereviews.games;
 
 import org.solidereviews.submenus.admin.ManageGameCatalogSubmenu;
 import org.solidereviews.submenus.games.GamesCatalogSubmenu;
+
 import org.solidereviews.utils.Colors;
+import org.solidereviews.utils.GlobalFunctions;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,9 +14,12 @@ public class GameDisplayer extends GameController {
 
     // Method to display the top bar of the table
     protected static void displayTopBar() {
-        System.out.println("+------------------------------------------------------+--------------------------------+--------------+");
-        System.out.println("| Title                                                | Genre                          | Price        |");
-        System.out.println("+------------------------------------------------------+--------------------------------+--------------+");
+        System.out.println(
+                "+------------------------------------------------------+--------------------------------+--------------+");
+        System.out.println(
+                "| Title                                                | Genre                          | Price        |");
+        System.out.println(
+                "+------------------------------------------------------+--------------------------------+--------------+");
     }
 
     // Method to display a game from the catalog in the table format
@@ -26,14 +31,15 @@ public class GameDisplayer extends GameController {
 
     // Method to display the bottom bar of the table
     protected static void displayBottomBar() {
-        System.out.println("+------------------------------------------------------+--------------------------------+--------------+\n");
+        System.out.println(
+                "+------------------------------------------------------+--------------------------------+--------------+\n");
     }
 
     // Method to display a message to pause the screen and wait for the user to press enter
     protected static void displayPauseMessage(String previousMenuTitle) {
         System.out.println();
-        pressToContinue(); // Call the pressToContinue method to display the message and wait for the user to press enter
-        clearScreen(); // Clear the screen
+        GlobalFunctions.pressToContinue(); // Call the pressToContinue method to display the message and wait for the user to press enter
+        GlobalFunctions.clearScreen(); // Check if the user came from the AdminMenu or the GamesCatalogSubmenu
 
         // Check if the user came from the AdminMenu or the GamesCatalogSubmenu
         if (previousMenuTitle.equals("ADMIN MENU > Manage game catalog")) {
@@ -45,7 +51,7 @@ public class GameDisplayer extends GameController {
 
     // Method to display all games in the catalog
     public static void showAllGames(String previousMenuTitle) {
-        clearScreen(); // Clear the screen
+        GlobalFunctions.clearScreen(); // Clear the screen
         displayTopBar();  // Call the displayTopBar method to display the top bar of the table
 
         // Loop through the games ArrayList and display each game in the catalog
@@ -57,7 +63,7 @@ public class GameDisplayer extends GameController {
         displayPauseMessage(previousMenuTitle); // Call the displayPauseMessage method to display a message to pause the screen and wait for the user to press enter
     }
 
-    // Method to display all genres in the catalog
+   // Method to display all genres in the catalog
     private static void getAllGenres() {
         System.out.println("╭──> " + Colors.CYAN_BOLD_BRIGHT + "AVAILABLE GENRES: " + Colors.RESET);
         System.out.println("│");
@@ -83,8 +89,9 @@ public class GameDisplayer extends GameController {
 
 
     public static void chooseGenreAndShowGames(String previousMenuTitle) {
-        clearScreen(); // Clear the screen
+        GlobalFunctions.clearScreen(); // Clear the screen
         getAllGenres(); // Call the getAllGenres method to display all genres in the catalog
+
         System.out.println("│");
         System.out.println("╰ <" + Colors.BLUE_BOLD + "0" + Colors.RESET + ">" + Colors.RED + " Cancel" + Colors.RESET); // Display the option to cancel
         System.out.println();
@@ -94,7 +101,7 @@ public class GameDisplayer extends GameController {
         // Check if the user's choice is valid and display the games for the selected genre (more than 0 because 0 is to cancel and less than or equal to the number of genres)
         if (choice > 0 && choice <= games.size()) {
             String selectedGenre = games.get(choice - 1).getGenre(); // Get the selected genre based on the user's choice (subtract 1 because the index starts at 0)
-            clearScreen(); // Clear the screen
+             GlobalFunctions.clearScreen(); // Clear the screen
             showGamesByGenre(selectedGenre, previousMenuTitle); // Call the showGamesByGenre method to display the games for the selected genre and pass the previousMenuTitle to know where the user came from
         }
         // Check if the user's choice is (0) to cancel
@@ -134,7 +141,7 @@ public class GameDisplayer extends GameController {
 
     // Method to display a single game from the catalog in the table format
     public static void showSingleGame(String gameName, String previousMenuTitle) {
-        clearScreen(); // Clear the screen
+        GlobalFunctions.clearScreen(); // Clear the screen
 
         // Loop through the games ArrayList and display the game with the specified name
         for (Game game : games) {
@@ -148,10 +155,3 @@ public class GameDisplayer extends GameController {
         }
     }
 
-    //Method to hold the screen and wait for the user to press enter so the user has the time to read the screen properly
-    private static void pressToContinue() {
-        System.out.println(Colors.BLUE_BOLD + "\nPress Enter to continue..." + Colors.RESET); // Display the message to press enter
-        scanner.nextLine(); // Wait for the user to press enter
-        clearScreen(); // Clear the screen
-    }
-}

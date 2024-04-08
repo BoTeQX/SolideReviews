@@ -1,19 +1,18 @@
 package org.solidereviews.menus;
 
 import org.solidereviews.interfaces.Menu;
-
+import org.solidereviews.utils.GlobalFunctions;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class MainMenu implements Menu {
-    String title = "MAIN MENU"; // Title of the menu
-    String[] menuItems = {"SALE", "Games","Admin"}; // Menu items
-    private final Map<String, String> adminCredentials; // Admin credentials
+    String title = "MAIN MENU";
+    String[] menuItems = { "Games", "Admin" };
+    private final Map<String, String> adminCredentials;
 
     public MainMenu() {
-        this.adminCredentials = new HashMap<>(); // create a new hashmap for admin credentials when the MainMenu object is created
-        adminCredentials.put("admin", "admin"); // Add admin credentials to a hashmap (username, password)
+        this.adminCredentials = new HashMap<>();
+        adminCredentials.put("admin", "admin"); 
     }
 
     @Override
@@ -27,10 +26,10 @@ public class MainMenu implements Menu {
     public void processUserChoice(int choice) {
         switch (choice) {
             case 1 -> System.out.println("You selected Option 1.");
-            case 2 -> new GamesMenu().initiateMenu(); // If the user selects option 2, the GamesMenu gets initiated
-            case 3 -> adminLogin(); // If the user selects option 3, the adminLogin method gets called to authenticate the admin/ ask the admin to login
-            case 0 -> closeProgram(); // If the user selects option 0, the program gets closed
-            default -> System.out.println("Invalid choice. Please enter a valid option."); // If the user enters an invalid option, a message gets displayed
+            case 2 -> new GamesMenu().initiateMenu();
+            case 3 -> adminLogin();
+            case 0 -> GlobalFunctions.closeProgram();
+            default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
     }
 
@@ -50,7 +49,7 @@ public class MainMenu implements Menu {
                 Thread.sleep(2000); // Wait for 2 seconds
                 new MainMenu().initiateMenu(); // Re-initiate the MainMenu after 2 seconds
             } catch (InterruptedException e) {
-               System.out.println("Error: " + e.getMessage()); // If an error occurs, display the error message
+                System.out.println("Error: " + e.getMessage());
             }
         }
     }
