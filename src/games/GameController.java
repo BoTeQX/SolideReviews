@@ -84,40 +84,51 @@ public class GameController {
 
         // Tekken 3
         Game tekken3 = getGameByName("Tekken 3");
-        tekken3.addReview(new Review(5, 5, 5, "Amazing fighting game, great graphics and smooth gameplay."));
-        tekken3.addReview(new Review(5, 5, 5, "One of the best fighting games ever made, a true classic."));
-        tekken3.addReview(new Review(5, 5, 5, "Decent fighter, but lacks depth compared to newer titles."));
+        if (tekken3 != null) {
+            tekken3.addReview(new Review(5, 5, 5, "Amazing fighting game, great graphics and smooth gameplay."));
+            tekken3.addReview(new Review(5, 5, 5, "One of the best fighting games ever made, a true classic."));
+            tekken3.addReview(new Review(5, 5, 5, "Decent fighter, but lacks depth compared to newer titles."));
+        }
 
         // Crash Bandicoot
-        Game crashBandicoot = GameController.getGameByName("Crash Bandicoot");
-        crashBandicoot.addReview(new Review(4, 5, 4, "Classic platformer with challenging levels and vibrant visuals."));
-        crashBandicoot.addReview(new Review(5, 4, 5, "Nostalgia overload! Still as fun and frustrating as I remember."));
-        crashBandicoot.addReview(new Review(4, 4, 4, "Fun but frustrating at times, especially those timed jumps!"));
+        Game crashBandicoot = getGameByName("Crash Bandicoot");
+        if (crashBandicoot != null) {
+            crashBandicoot.addReview(new Review(4, 5, 4, "Classic platformer with challenging levels and vibrant visuals."));
+            crashBandicoot.addReview(new Review(5, 4, 5, "Nostalgia overload! Still as fun and frustrating as I remember."));
+            crashBandicoot.addReview(new Review(4, 4, 4, "Fun but frustrating at times, especially those timed jumps!"));
+        }
 
         // Super Bomberman 5
-        Game superBomberman5 = GameController.getGameByName("Super Bomberman 5");
-        superBomberman5.addReview(new Review(5, 4, 3, "Fun multiplayer experience, but lacks depth in single-player mode."));
-        superBomberman5.addReview(new Review(4, 3, 4, "Great party game, explosions everywhere!"));
-        superBomberman5.addReview(new Review(3, 2, 3, "Decent game, but can get repetitive after a while."));
+        Game superBomberman5 = getGameByName("Super Bomberman 5");
+        if (superBomberman5 != null) {
+            superBomberman5.addReview(new Review(5, 4, 3, "Fun multiplayer experience, but lacks depth in single-player mode."));
+            superBomberman5.addReview(new Review(4, 3, 4, "Great party game, explosions everywhere!"));
+            superBomberman5.addReview(new Review(3, 2, 3, "Decent game, but can get repetitive after a while."));
+        }
 
         // RollerCoaster Tycoon
-        Game rollerCoasterTycoon = GameController.getGameByName("RollerCoaster Tycoon");
-        rollerCoasterTycoon.addReview(new Review(4, 5, 5, "Incredibly addictive, building and managing theme parks is a blast."));
-        rollerCoasterTycoon.addReview(new Review(5, 4, 4, "Classic tycoon game, still holds up after all these years."));
-        rollerCoasterTycoon.addReview(new Review(3, 3, 5, "Fun game, but could use more variety in rides."));
+        Game rollerCoasterTycoon = getGameByName("RollerCoaster Tycoon");
+        if (rollerCoasterTycoon != null) {
+            rollerCoasterTycoon.addReview(new Review(4, 5, 5, "Incredibly addictive, building and managing theme parks is a blast."));
+            rollerCoasterTycoon.addReview(new Review(5, 4, 4, "Classic tycoon game, still holds up after all these years."));
+            rollerCoasterTycoon.addReview(new Review(3, 3, 5, "Fun game, but could use more variety in rides."));
+        }
 
         // Donkey Kong
-        Game donkeyKong = GameController.getGameByName("Donkey Kong");
-        donkeyKong.addReview(new Review(5, 3, 4, "Classic platformer with challenging levels and memorable characters."));
-        donkeyKong.addReview(new Review(4, 4, 3, "Great game, but difficulty spikes can be frustrating."));
-        donkeyKong.addReview(new Review(3, 3, 3, "Decent platformer, but nothing groundbreaking."));
-
+        Game donkeyKong = getGameByName("Donkey Kong");
+        if (donkeyKong != null) {
+            donkeyKong.addReview(new Review(5, 3, 4, "Classic platformer with challenging levels and memorable characters."));
+            donkeyKong.addReview(new Review(4, 4, 3, "Great game, but difficulty spikes can be frustrating."));
+            donkeyKong.addReview(new Review(3, 3, 3, "Decent platformer, but nothing groundbreaking."));
+        }
+    
         // Sonic the Hedgehog
-        Game sonicTheHedgehog = GameController.getGameByName("Sonic the Hedgehog");
-        sonicTheHedgehog.addReview(new Review(4, 4, 3, "Fast-paced action, but level design could be better."));
-        sonicTheHedgehog.addReview(new Review(3, 5, 4, "Fun game, but physics can be wonky at times."));
-        sonicTheHedgehog.addReview(new Review(5, 3, 5, "Classic Sonic adventure, still holds up well today."));
-
+        Game sonicTheHedgehog = getGameByName("Sonic the Hedgehog");
+        if (sonicTheHedgehog != null) {
+            sonicTheHedgehog.addReview(new Review(4, 4, 3, "Fast-paced action, but level design could be better."));
+            sonicTheHedgehog.addReview(new Review(3, 5, 4, "Fun game, but physics can be wonky at times."));
+            sonicTheHedgehog.addReview(new Review(5, 3, 5, "Classic Sonic adventure, still holds up well today."));
+        }
     }
 
     public static ArrayList<Game> getGames() {
