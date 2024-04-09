@@ -21,7 +21,6 @@ public class AdminMenu implements Menu {
         return menuItems;
     } 
 
-    // Use the user's choice that was entered in the menu to determine which submenu to initiate
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {

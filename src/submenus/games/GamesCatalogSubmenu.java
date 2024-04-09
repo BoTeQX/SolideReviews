@@ -8,20 +8,19 @@ import utils.GlobalFunctions;
 
 public class GamesCatalogSubmenu implements Menu {
 
-    String title = "GAMES MENU > Game catalog"; // Title of the submenu
-    String[] menuItems = { "Show all games", "Show games (genre)" }; // Menu items
+    String title = "GAMES MENU > Game catalog";
+    String[] menuItems = { "Show all games", "Show games (genre)" };
 
     @Override
     public String getTitle() {
         return title;
-    } // Return the title of the submenu
+    }
 
     @Override
     public String[] getMenuItems() {
         return menuItems;
-    } // Return the menu items
+    }
 
-    // Use the user's choice that was entered in the menu to determine which method to call or menu to redirect to
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {

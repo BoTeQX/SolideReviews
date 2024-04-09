@@ -17,14 +17,13 @@ public class SurveysSubmenu implements Menu {
     @Override
     public String getTitle() {
         return title;
-    } // Return the title of the submenu
+    }
 
     @Override
     public String[] getMenuItems() {
         return menuItems;
-    } // Return the menu items
+    }
 
-    // Use the user's choice that was entered in the menu to determine which method to call or menu to redirect to
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
