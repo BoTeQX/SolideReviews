@@ -5,6 +5,7 @@ import utils.Colors;
 import utils.GlobalFunctions;
 import java.util.HashMap;
 import java.util.Map;
+import games.SaleController;
 
 public class MainMenu implements Menu {
     String title = "MAIN MENU";
@@ -26,7 +27,7 @@ public class MainMenu implements Menu {
     @Override
     public void processUserChoice(int choice) {
         switch (choice) {
-            case 1 -> System.out.println("You selected Option 1.");
+            case 1 -> SaleController.showGamesOnSale();
             case 2 -> new GamesMenu().initiateMenu();
             case 3 -> adminLogin();
             case 0 -> GlobalFunctions.closeProgram();
