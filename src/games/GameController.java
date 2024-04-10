@@ -187,6 +187,7 @@ public class GameController {
 
         if (updateOpt == 1) {
             GlobalFunctions.clearScreen();
+            System.out.println("old name: " + game.getName());
             System.out.println(Colors.CYAN_BOLD_BRIGHT + "New name?(leave empty to cancel)" + Colors.RESET);
             scanner.nextLine();
             String newName = scanner.nextLine();
@@ -198,6 +199,7 @@ public class GameController {
             game.setName(newName);
         } else if (updateOpt == 2) {
             GlobalFunctions.clearScreen();
+            System.out.println("old genre: " + game.getGenre());
             System.out.println(Colors.CYAN_BOLD_BRIGHT + "New genre?(leave empty to cancel)" + Colors.RESET);
             scanner.nextLine();
             String newGenre = scanner.nextLine();
@@ -209,6 +211,7 @@ public class GameController {
             game.setGenre(newGenre);
         } else if (updateOpt == 3) {
             GlobalFunctions.clearScreen();
+            System.out.println("old price: " + game.getPrice());
             System.out.println(Colors.CYAN_BOLD_BRIGHT + "New price?(put 0 to cancel)" + Colors.RESET);
             scanner.nextLine();
             double newPrice = 0;
@@ -257,6 +260,7 @@ public class GameController {
             GlobalFunctions.pressToContinue();
             return;
         }
+            System.out.println("old sale: " + selectedGame.getSale() + "%");
         System.out.println(Colors.BLUE_BOLD + "How much % sale do you want?");
         int salePercentage = 0;
         boolean validPrice = false;
