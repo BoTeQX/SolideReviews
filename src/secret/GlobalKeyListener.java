@@ -1,6 +1,7 @@
 package secret;
 
 import utils.GlobalFunctions;
+import secret.Snake;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
@@ -15,10 +16,16 @@ public class GlobalKeyListener implements NativeKeyListener {
 	// 57421 right
 	// 57424 down
 	// 28 enter
-	private int[] konamiCode = {57416, 57416, 57424, 57424, 57419, 57421, 57419, 57421, 28};
+	private int[] konamiCode = {57416, 57416, 57424, 57424, 57419, 57421, 57419, 57421};
 	private int konamiIndex = 0;
+	private boolean started = false;
 
 	public void nativeKeyPressed(NativeKeyEvent e) {
+		if (started) {
+			Snake.changeDir(e.getKeyCode());
+			return;
+		}
+
 		if (e.getKeyCode() == konamiCode[konamiIndex]) {
 			konamiIndex++;
 		} else {
@@ -27,9 +34,8 @@ public class GlobalKeyListener implements NativeKeyListener {
 
 		if (konamiIndex == konamiCode.length) {
 			konamiIndex = 0;
-			GlobalFunctions.clearScreen();
-			System.out.println("Konami code activated");
-			GlobalFunctions.pressToContinue();
+			started = true;
+			new Snake();
 		}
 	}
 
