@@ -73,6 +73,10 @@ public class FileManager {
         return readAllLines(GAMES_FILE_PATH);
     }
 
+    public ArrayList<String> readReviewFile() {
+        return readAllLines(REVIEWS_FILE_PATH);
+    }
+
     public ArrayList<String> readSurveysFile() {
         return readAllLines(SURVEYS_FILE_PATH);
     }
