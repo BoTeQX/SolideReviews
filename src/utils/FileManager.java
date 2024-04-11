@@ -1,22 +1,26 @@
 package utils;
 
+import surveys.QuestionAndAnswers;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class FileManager {
     private static final String DIRECTORY_PATH = FileManager.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    private static final String DATA_DIRECTORY_PATH = DIRECTORY_PATH + "data/";
-    private static final String DATA_FILE_PATH = DATA_DIRECTORY_PATH + "data.txt";
-    private static final String GAMES_FILE_PATH = DATA_DIRECTORY_PATH + "games.txt";
+    private static final String FILE_DIRECTORY_PATH = DIRECTORY_PATH + "data/";
+    private static final String GAMES_FILE_PATH = FILE_DIRECTORY_PATH + "games.txt";
+    private static final String REVIEWS_FILE_PATH = FILE_DIRECTORY_PATH + "reviews.txt";
+    private static final String SURVEYS_FILE_PATH = FILE_DIRECTORY_PATH + "surveys.txt";
 
     public FileManager() {
         makeDataDirectory();
-        makeDataFile(DATA_FILE_PATH);
         makeDataFile(GAMES_FILE_PATH);
+        makeDataFile(REVIEWS_FILE_PATH);
+        makeDataFile(SURVEYS_FILE_PATH);
     }
 
     private void makeDataDirectory() {
-        File directory = new File(DATA_DIRECTORY_PATH);
+        File directory = new File(FILE_DIRECTORY_PATH);
         if (!directory.exists()) {
             directory.mkdirs();
         }
@@ -33,12 +37,14 @@ public class FileManager {
         }
     }
 
-    public void writeDataFile(String data, String filePath) {
-        writeFile(data, filePath);
+    public void writeGameToFile(String gameInfo) {
+
+        writeFile(gameInfo, GAMES_FILE_PATH);
     }
 
-    public void writeGameToFile(String gameInfo) {
-        writeFile(gameInfo, GAMES_FILE_PATH);
+    public void writeReviewToFile(String reviewInfo) {
+
+        writeFile(reviewInfo, REVIEWS_FILE_PATH);
     }
 
     private void writeFile(String gameInfo, String filePath) {
@@ -67,16 +73,108 @@ public class FileManager {
         return readAllLines(GAMES_FILE_PATH);
     }
 
+    public ArrayList<String> readSurveysFile() {
+        return readAllLines(SURVEYS_FILE_PATH);
+    }
+
     public static String getGamesFilePath() {
         return GAMES_FILE_PATH;
     }
 
-    public void deleteGamesFile() {
-        File file = new File(GAMES_FILE_PATH);
+    public void deleteFile(String filepath) {
+        File file = new File(filepath);
         if (file.exists()) {
             file.delete();
-            makeDataFile(GAMES_FILE_PATH); // recreate the file
+            makeDataFile(filepath); // recreate the file
         }
     }
-}
 
+    public void deleteSurvey() {
+        deleteFile(SURVEYS_FILE_PATH);
+    }
+
+    public void deleteGame() {
+        deleteFile(GAMES_FILE_PATH);
+    }
+
+    public void writeSurveyToFile(String surveyData) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(SURVEYS_FILE_PATH, true))) {
+            writer.write(surveyData);
+            writer.newLine();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static ArrayList<QuestionAndAnswers> readSurveysFromFile(ArrayList<String> gameNames) {
+        ArrayList<QuestionAndAnswers> surveys = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(SURVEYS_FILE_PATH))) {
+            String line;
+            String gameName = null;
+            String question = null;
+            Boolean multipleChoice = null;
+            ArrayList<String> answers = new ArrayList<>();
+            ArrayList<String> choices = new ArrayList<>();
+            boolean isSurveyStarted = false;
+            boolean isChoicesSection = false;
+            boolean isAnswerSection = false;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("Game Name:")) {
+                    gameName = line.substring("Game Name: ".length()).trim();
+                    if (!gameNames.contains(gameName)) {
+                        skipSurvey(reader);
+                        continue; // Skip to the next line
+                    } else {
+                        isSurveyStarted = true;
+                    }
+                } else if (isSurveyStarted && line.startsWith("Question:")) {
+                    question = line.substring("Question: ".length()).trim();
+                } else if (isSurveyStarted && line.startsWith("Multiple Choice:")) {
+                    multipleChoice = Boolean.valueOf(line.substring("Multiple Choice: ".length()).trim());
+                } else if (isSurveyStarted && line.equals("### Choices ###")) {
+                    isChoicesSection = true;
+                } else if (isSurveyStarted && line.equals("### Answers ###")) {
+                    isChoicesSection = false;
+                    isAnswerSection = true;
+                } else if (isSurveyStarted && isChoicesSection && line.startsWith("- ")) {
+                    choices.add(line.substring(2).trim());
+                } else if (isSurveyStarted && isAnswerSection && !line.isEmpty()) {
+                    answers.add(line.trim());
+                } else if (isSurveyStarted && line.isEmpty()) {
+                    // End of survey
+                    QuestionAndAnswers qna = new QuestionAndAnswers(question, multipleChoice);
+                    if (!multipleChoice) {
+                        qna.getAnswers().addAll(answers);
+                    }
+                    if (multipleChoice && !choices.isEmpty()) {
+                        qna.getChoices().addAll(choices);
+                    }
+                    surveys.add(qna);
+                    // Clear data for the next survey
+                    question = null;
+                    multipleChoice = null;
+                    answers.clear();
+                    choices.clear();
+                    isSurveyStarted = false;
+                    isChoicesSection = false;
+                    isAnswerSection = false;
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return surveys;
+    }
+
+    // Helper method to skip lines until an empty line is encountered
+    private static void skipSurvey(BufferedReader reader) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null && !line.isEmpty()) {
+            // Skip lines until an empty line is encountered
+        }
+    }
+
+}

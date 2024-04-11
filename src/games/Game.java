@@ -3,6 +3,7 @@ package games;
 import java.util.ArrayList;
 import surveys.QuestionAndAnswers;
 import reviews.Review;
+import utils.FileManager;
 
 public class Game {
     private String name;
@@ -10,13 +11,15 @@ public class Game {
     private double price;
     private int sale = 0;
     private ArrayList<Review> reviews = new ArrayList<>();
-    private ArrayList<QuestionAndAnswers> survey = new ArrayList<>();
+    private ArrayList<QuestionAndAnswers> survey;
 
     public Game(String name, String genre, double price) {
         this.name = name;
         this.genre = genre;
         this.price = price;
+        this.survey = new ArrayList<>();
     }
+
 
     public String getName() {
         return name;
@@ -56,6 +59,18 @@ public class Game {
 
     public ArrayList<Review> getReviews() {
         return reviews;
+    }
+
+    public static void readSurveysFromFile(ArrayList<Game> games) {
+        ArrayList<String> gameNames = new ArrayList<>();
+        for (Game game : games) {
+            gameNames.add(game.getName());
+        }
+        ArrayList<QuestionAndAnswers> surveysFromFile = FileManager.readSurveysFromFile(gameNames);
+        for (Game game : games) {
+            game.getSurvey().addAll(surveysFromFile);
+        }
+
     }
 
     public int getOverallRating() {
