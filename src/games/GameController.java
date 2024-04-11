@@ -48,12 +48,9 @@ public class GameController {
             }
         }
 
-        String gameInfo = gameName + "~" + gameGenre + "~" + gamePrice; // formatting string
-
-        fileManager.writeGameToFile(gameInfo); // uses the method in FileManager to write into the datafile
-
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
+        writeGameInfo(game);
         System.out.println("Game added!");
         GameDisplayer.showSingleGame(gameName, previousMenuTitle);
     }
@@ -65,11 +62,16 @@ public class GameController {
             String name = parts[0];
             String genre = parts[1];
             double price = Double.parseDouble(parts[2]);
-            Game game = new Game(name, genre, price);
+            int sale = 0; 
+            if (parts.length > 3) {
+                sale = Integer.parseInt(parts[3]);
+            }
+            Game game = new Game(name, genre, price, sale);
             ReviewController.initiateReviews(game);
             addToGameList(game);
         }
     }
+
 
     public static Game getGameByName(String name) {
         for (Game game : games) {
@@ -99,10 +101,8 @@ public class GameController {
         }
         games.remove(selectedGame); // remove the game from the arraylist
         fileManager.deleteGame(); // delete the file just like updategame
-        for (Game updatedGame : games) {
-            // the whole text file gets rewritten
-            String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
-            fileManager.writeGameToFile(gameInfo);
+        for (Game removedGame : games) {
+            writeGameInfo(removedGame);
         }
         GlobalFunctions.clearScreen();
         System.out.println(selectedGame.getName() + " removed.");
@@ -119,6 +119,10 @@ public class GameController {
             return;
         }
         updateGameMenu(selectedGame);
+        fileManager.deleteGame();
+        for (Game updatedGame : games) {
+            writeGameInfo(updatedGame);
+        }
     }
 
     private static void updateGameMenu(Game game) {
@@ -185,14 +189,6 @@ public class GameController {
             return; // Exit the method if the user cancels
         }
 
-        // Rewrite the file with the updated game data
-        fileManager.deleteGame(); // Delete the existing games file
-        for (Game updatedGame : games) {
-            // Write each game to the file
-
-            String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
-            fileManager.writeGameToFile(gameInfo);
-        }
         GlobalFunctions.clearScreen();
         System.out.println("Game updated.");
         GlobalFunctions.pressToContinue();
@@ -225,6 +221,10 @@ public class GameController {
         }
         // int salePercentage = scanner.nextInt();
         selectedGame.setSale(salePercentage);
+        fileManager.deleteGame();
+        for (Game saleGame : games) {
+            writeGameInfo(saleGame);
+        }
         GlobalFunctions.clearScreen();
         System.out.println(selectedGame.getName() + " sale updated.\nOld price: " + selectedGame.getPrice());
         System.out.printf("New price: %.2f", ((selectedGame.getPrice() / 100) * (100 - selectedGame.getSale())));
@@ -266,5 +266,18 @@ public class GameController {
         scanner.nextLine();
 
         return selectedGame;
+    }
+
+    public static void writeGameInfo(Game game) {
+        String gameInfo = formatGameInfo(game);
+        fileManager.writeGameToFile(gameInfo);
+    }
+
+    private static String formatGameInfo(Game game) {
+        if (game.getSale() > 0) {
+            return game.getName() + "~" + game.getGenre() + "~" + game.getPrice() + "~" + game.getSale();
+        } else {
+            return game.getName() + "~" + game.getGenre() + "~" + game.getPrice() + "~";
+        }
     }
 }

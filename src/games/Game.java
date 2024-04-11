@@ -20,6 +20,14 @@ public class Game {
         this.survey = new ArrayList<>();
     }
 
+    public Game(String name, String genre, double price, int sale) {
+        this.name = name;
+        this.genre = genre;
+        this.price = price;
+        this.survey = new ArrayList<>();
+        this.sale = sale;
+    }
+
 
     public String getName() {
         return name;
