@@ -144,14 +144,26 @@ public class FileManager {
                     isAnswerSection = true;
                 } else if (isSurveyStarted && isChoicesSection && line.startsWith("- ")) {
                     choices.add(line.substring(2).trim());
+                } else if (isSurveyStarted && isAnswerSection && line.equals("### End of Answers ###")) {
+                    // For multiple choice surveys, the end of answers section also signals the end of the survey
+                    QuestionAndAnswers qna = new QuestionAndAnswers(question, multipleChoice);
+                    qna.getAnswers().addAll(answers);
+                    qna.getChoices().addAll(choices);
+                    surveys.add(qna);
+                    // Clear data for the next survey
+                    question = null;
+                    multipleChoice = null;
+                    answers.clear();
+                    choices.clear();
+                    isSurveyStarted = false;
+                    isChoicesSection = false;
+                    isAnswerSection = false;
                 } else if (isSurveyStarted && isAnswerSection && !line.isEmpty()) {
                     answers.add(line.trim());
                 } else if (isSurveyStarted && line.isEmpty()) {
                     // End of survey
                     QuestionAndAnswers qna = new QuestionAndAnswers(question, multipleChoice);
-                    if (!multipleChoice) {
-                        qna.getAnswers().addAll(answers);
-                    }
+                    qna.getAnswers().addAll(answers);
                     if (multipleChoice && !choices.isEmpty()) {
                         qna.getChoices().addAll(choices);
                     }
@@ -172,6 +184,8 @@ public class FileManager {
 
         return surveys;
     }
+
+
 
     // Helper method to skip lines until an empty line is encountered
     private static void skipSurvey(BufferedReader reader) throws IOException {
