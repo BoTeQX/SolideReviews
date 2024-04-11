@@ -150,7 +150,7 @@ public class GameController {
         }
         games.remove(selectedGame); // remove the game from the arraylist
         FileManager fileManager = new FileManager();
-        fileManager.deleteGamesFile(); // delete the file just like updategame
+        fileManager.deleteGame(); // delete the file just like updategame
         for (Game updatedGame : games) {
             // the whole text file gets rewritten
             String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
@@ -239,7 +239,7 @@ public class GameController {
 
         // Rewrite the file with the updated game data
         FileManager fileManager = new FileManager();
-        fileManager.deleteGamesFile(); // Delete the existing games file
+        fileManager.deleteGame(); // Delete the existing games file
         for (Game updatedGame : games) {
             // Write each game to the file
 
