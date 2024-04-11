@@ -127,11 +127,12 @@ public class FileManager {
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Game Name:")) {
                     gameName = line.substring("Game Name: ".length()).trim();
-                    if (!gameNames.contains(gameName)) {
-                        skipSurvey(reader);
-                        continue; // Skip to the next line
+                    if (gameNames.contains(gameName)) {
+                        isSurveyStarted = true; // Start a new survey for this game
                     } else {
-                        isSurveyStarted = true;
+                        // Skip this survey and move to the next one
+                        skipSurvey(reader);
+                        isSurveyStarted = false;
                     }
                 } else if (isSurveyStarted && line.startsWith("Question:")) {
                     question = line.substring("Question: ".length()).trim();
@@ -160,22 +161,11 @@ public class FileManager {
                     isAnswerSection = false;
                 } else if (isSurveyStarted && isAnswerSection && !line.isEmpty()) {
                     answers.add(line.trim());
-                } else if (isSurveyStarted && line.isEmpty()) {
+                } else if (line.isEmpty()) {
                     // End of survey
-                    QuestionAndAnswers qna = new QuestionAndAnswers(question, multipleChoice);
-                    qna.getAnswers().addAll(answers);
-                    if (multipleChoice && !choices.isEmpty()) {
-                        qna.getChoices().addAll(choices);
-                    }
-                    surveys.add(qna);
-                    // Clear data for the next survey
-                    question = null;
-                    multipleChoice = null;
-                    answers.clear();
-                    choices.clear();
-                    isSurveyStarted = false;
-                    isChoicesSection = false;
-                    isAnswerSection = false;
+                    isSurveyStarted = false; // End the current survey
+                    choices.clear(); // Clear choices for the next survey
+                    answers.clear(); // Clear answers for the next survey
                 }
             }
         } catch (IOException ex) {
@@ -184,8 +174,6 @@ public class FileManager {
 
         return surveys;
     }
-
-
 
     // Helper method to skip lines until an empty line is encountered
     private static void skipSurvey(BufferedReader reader) throws IOException {
