@@ -77,14 +77,6 @@ public class FileManager {
         return readAllLines(REVIEWS_FILE_PATH);
     }
 
-    public ArrayList<String> readSurveysFile() {
-        return readAllLines(SURVEYS_FILE_PATH);
-    }
-
-    public static String getGamesFilePath() {
-        return GAMES_FILE_PATH;
-    }
-
     public void deleteFile(String filepath) {
         File file = new File(filepath);
         if (file.exists()) {
