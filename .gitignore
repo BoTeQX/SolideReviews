@@ -1,17 +1,4 @@
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
-*.ipr
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
@@ -40,4 +27,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+SolideReviews.jar
+
+SolideReviews.jardata
+*.dll
 *.class
+/.idea/sonarlint
