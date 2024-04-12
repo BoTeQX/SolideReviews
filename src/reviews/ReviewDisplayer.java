@@ -4,11 +4,16 @@ import java.util.ArrayList;
 
 import games.Game;
 import games.GameController;
+import submenus.games.GameReviewsSubmenu;
 import utils.GlobalFunctions;
 
 public class ReviewDisplayer {
     public void showReviewsByGame() {
         Game game = GameController.showGamesAndSelect("Select a game to see the reviews from:");
+        if (game ==  null) {
+            new GameReviewsSubmenu().initiateMenu();
+            return;
+        }
         int overall = game.getOverallRating();
         System.err.println("Overall rating: " + overall);
         ArrayList<Review> reviews = game.getReviews();

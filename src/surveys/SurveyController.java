@@ -341,8 +341,7 @@
             System.out.print(Colors.BLUE_BOLD + "Enter your choice: " + Colors.RESET);
         }
 
-        public static void answerQuestion() {
-            Game selectedGame = GameController.showGamesAndSelect("Select Game");
+        public static void answerQuestion(Game selectedGame) {
             if (selectedGame == null)
                 return;
 
