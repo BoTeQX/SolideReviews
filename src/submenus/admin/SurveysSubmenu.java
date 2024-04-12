@@ -31,7 +31,7 @@ public class SurveysSubmenu implements Menu {
             case 2 -> SurveyController.updateSurvey();
             case 3 -> SurveyController.deleteSurvey();
             case 4 -> SurveyController.showSurveyResult();
-            case 5 -> SurveyController.answerQuestion();
+//            case 5 -> SurveyController.answerQuestion
             case 9 -> new AdminMenu().initiateMenu();
             case 0 -> GlobalFunctions.closeProgram();
             default -> System.out.println("Invalid choice. Please enter a valid option.");
