@@ -73,7 +73,10 @@ public class ReviewController {
             int graphicsRating = Integer.parseInt(parts[1]);
             int gameplayRating = Integer.parseInt(parts[2]);
             int storyRating = Integer.parseInt(parts[3]);
-            String reviewText = parts[4];
+            String reviewText = "";
+            if (parts.length > 4) {
+                    reviewText = parts[4];
+                }
             Review review = new Review(graphicsRating, gameplayRating, storyRating, reviewText);
             game.addReview(review);
          }
