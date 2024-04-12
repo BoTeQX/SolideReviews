@@ -1,6 +1,7 @@
 package games;
 
 import reviews.Review;
+import reviews.ReviewController;
 import utils.FileManager;
 
 import utils.Colors;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class GameController {
     static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Game> games = new ArrayList<>();
+    public static FileManager fileManager = new FileManager();
 
     public static void addGame(String previousMenuTitle) {
         GlobalFunctions.clearScreen();
@@ -46,29 +48,30 @@ public class GameController {
             }
         }
 
-        String gameInfo = gameName + "~" + gameGenre + "~" + gamePrice; // formatting string
-
-        FileManager fileManager = new FileManager();
-        fileManager.writeGameToFile(gameInfo); // uses the method in FileManager to write into the datafile
-
         Game game = new Game(gameName, gameGenre, gamePrice);
         games.add(game);
+        writeGameInfo(game);
         System.out.println("Game added!");
         GameDisplayer.showSingleGame(gameName, previousMenuTitle);
     }
 
     public static void initiateGames() {
-        FileManager fileManager = new FileManager();
         ArrayList<String> gameData = fileManager.readGamesFile(); // Read game data from file
         for (String data : gameData) {
             String[] parts = data.split("~");
             String name = parts[0];
             String genre = parts[1];
             double price = Double.parseDouble(parts[2]);
-            Game game = new Game(name, genre, price);
+            int sale = 0; 
+            if (parts.length > 3) {
+                sale = Integer.parseInt(parts[3]);
+            }
+            Game game = new Game(name, genre, price, sale);
+            ReviewController.initiateReviews(game);
             addToGameList(game);
         }
     }
+
 
     public static Game getGameByName(String name) {
         for (Game game : games) {
@@ -77,58 +80,6 @@ public class GameController {
             }
         }
         return null;
-    }
-
-    public static void initiateReviews() {
-        //Temporarily hardcoding reviews for games
-
-        // Tekken 3
-        Game tekken3 = getGameByName("Tekken 3");
-        if (tekken3 != null) {
-            tekken3.addReview(new Review(5, 5, 5, "Amazing fighting game, great graphics and smooth gameplay."));
-            tekken3.addReview(new Review(5, 5, 5, "One of the best fighting games ever made, a true classic."));
-            tekken3.addReview(new Review(5, 5, 5, "Decent fighter, but lacks depth compared to newer titles."));
-        }
-
-        // Crash Bandicoot
-        Game crashBandicoot = getGameByName("Crash Bandicoot");
-        if (crashBandicoot != null) {
-            crashBandicoot.addReview(new Review(4, 5, 4, "Classic platformer with challenging levels and vibrant visuals."));
-            crashBandicoot.addReview(new Review(5, 4, 5, "Nostalgia overload! Still as fun and frustrating as I remember."));
-            crashBandicoot.addReview(new Review(4, 4, 4, "Fun but frustrating at times, especially those timed jumps!"));
-        }
-
-        // Super Bomberman 5
-        Game superBomberman5 = getGameByName("Super Bomberman 5");
-        if (superBomberman5 != null) {
-            superBomberman5.addReview(new Review(5, 4, 3, "Fun multiplayer experience, but lacks depth in single-player mode."));
-            superBomberman5.addReview(new Review(4, 3, 4, "Great party game, explosions everywhere!"));
-            superBomberman5.addReview(new Review(3, 2, 3, "Decent game, but can get repetitive after a while."));
-        }
-
-        // RollerCoaster Tycoon
-        Game rollerCoasterTycoon = getGameByName("RollerCoaster Tycoon");
-        if (rollerCoasterTycoon != null) {
-            rollerCoasterTycoon.addReview(new Review(4, 5, 5, "Incredibly addictive, building and managing theme parks is a blast."));
-            rollerCoasterTycoon.addReview(new Review(5, 4, 4, "Classic tycoon game, still holds up after all these years."));
-            rollerCoasterTycoon.addReview(new Review(3, 3, 5, "Fun game, but could use more variety in rides."));
-        }
-
-        // Donkey Kong
-        Game donkeyKong = getGameByName("Donkey Kong");
-        if (donkeyKong != null) {
-            donkeyKong.addReview(new Review(5, 3, 4, "Classic platformer with challenging levels and memorable characters."));
-            donkeyKong.addReview(new Review(4, 4, 3, "Great game, but difficulty spikes can be frustrating."));
-            donkeyKong.addReview(new Review(3, 3, 3, "Decent platformer, but nothing groundbreaking."));
-        }
-    
-        // Sonic the Hedgehog
-        Game sonicTheHedgehog = getGameByName("Sonic the Hedgehog");
-        if (sonicTheHedgehog != null) {
-            sonicTheHedgehog.addReview(new Review(4, 4, 3, "Fast-paced action, but level design could be better."));
-            sonicTheHedgehog.addReview(new Review(3, 5, 4, "Fun game, but physics can be wonky at times."));
-            sonicTheHedgehog.addReview(new Review(5, 3, 5, "Classic Sonic adventure, still holds up well today."));
-        }
     }
 
     public static ArrayList<Game> getGames() {
@@ -149,12 +100,9 @@ public class GameController {
             return;
         }
         games.remove(selectedGame); // remove the game from the arraylist
-        FileManager fileManager = new FileManager();
         fileManager.deleteGame(); // delete the file just like updategame
-        for (Game updatedGame : games) {
-            // the whole text file gets rewritten
-            String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
-            fileManager.writeGameToFile(gameInfo);
+        for (Game removedGame : games) {
+            writeGameInfo(removedGame);
         }
         GlobalFunctions.clearScreen();
         System.out.println(selectedGame.getName() + " removed.");
@@ -171,6 +119,10 @@ public class GameController {
             return;
         }
         updateGameMenu(selectedGame);
+        fileManager.deleteGame();
+        for (Game updatedGame : games) {
+            writeGameInfo(updatedGame);
+        }
     }
 
     private static void updateGameMenu(Game game) {
@@ -237,15 +189,6 @@ public class GameController {
             return; // Exit the method if the user cancels
         }
 
-        // Rewrite the file with the updated game data
-        FileManager fileManager = new FileManager();
-        fileManager.deleteGame(); // Delete the existing games file
-        for (Game updatedGame : games) {
-            // Write each game to the file
-
-            String gameInfo = updatedGame.getName() + "~" + updatedGame.getGenre() + "~" + updatedGame.getPrice();
-            fileManager.writeGameToFile(gameInfo);
-        }
         GlobalFunctions.clearScreen();
         System.out.println("Game updated.");
         GlobalFunctions.pressToContinue();
@@ -278,6 +221,10 @@ public class GameController {
         }
         // int salePercentage = scanner.nextInt();
         selectedGame.setSale(salePercentage);
+        fileManager.deleteGame();
+        for (Game saleGame : games) {
+            writeGameInfo(saleGame);
+        }
         GlobalFunctions.clearScreen();
         System.out.println(selectedGame.getName() + " sale updated.\nOld price: " + selectedGame.getPrice());
         System.out.printf("New price: %.2f", ((selectedGame.getPrice() / 100) * (100 - selectedGame.getSale())));
@@ -319,5 +266,18 @@ public class GameController {
         scanner.nextLine();
 
         return selectedGame;
+    }
+
+    public static void writeGameInfo(Game game) {
+        String gameInfo = formatGameInfo(game);
+        fileManager.writeGameToFile(gameInfo);
+    }
+
+    private static String formatGameInfo(Game game) {
+        if (game.getSale() > 0) {
+            return game.getName() + "~" + game.getGenre() + "~" + game.getPrice() + "~" + game.getSale();
+        } else {
+            return game.getName() + "~" + game.getGenre() + "~" + game.getPrice() + "~";
+        }
     }
 }

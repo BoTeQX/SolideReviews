@@ -73,12 +73,8 @@ public class FileManager {
         return readAllLines(GAMES_FILE_PATH);
     }
 
-    public ArrayList<String> readSurveysFile() {
-        return readAllLines(SURVEYS_FILE_PATH);
-    }
-
-    public static String getGamesFilePath() {
-        return GAMES_FILE_PATH;
+    public ArrayList<String> readReviewFile() {
+        return readAllLines(REVIEWS_FILE_PATH);
     }
 
     public void deleteFile(String filepath) {
@@ -108,7 +104,6 @@ public class FileManager {
 
     public static ArrayList<QuestionAndAnswers> readSurveysFromFile(ArrayList<String> gameNames) {
         ArrayList<QuestionAndAnswers> surveys = new ArrayList<>();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(SURVEYS_FILE_PATH))) {
             String line;
             String gameName = null;
@@ -123,58 +118,51 @@ public class FileManager {
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Game Name:")) {
                     gameName = line.substring("Game Name: ".length()).trim();
-                    if (!gameNames.contains(gameName)) {
-                        skipSurvey(reader);
-                        continue; // Skip to the next line
-                    } else {
-                        isSurveyStarted = true;
+                    isSurveyStarted = gameNames.contains(gameName);
+                } else if (isSurveyStarted) {
+                    if (line.startsWith("Question:")) {
+                        question = line.substring("Question: ".length()).trim();
+                    } else if (line.startsWith("Multiple Choice:")) {
+                        multipleChoice = Boolean.valueOf(line.substring("Multiple Choice: ".length()).trim());
+                    } else if (line.equals("### Choices ###")) {
+                        isChoicesSection = true;
+                    } else if (line.equals("### Answers ###")) {
+                        isChoicesSection = false;
+                        isAnswerSection = true;
+                    } else if (isChoicesSection && line.startsWith("- ")) {
+                        choices.add(line.substring(2).trim());
+                    } else if (isAnswerSection && line.equals("### End of Answers ###")) {
+                        addSurvey(surveys, question, multipleChoice, answers, choices);
+                        question = null;
+                        multipleChoice = null;
+                        answers.clear();
+                        choices.clear();
+                        isAnswerSection = false;
+                    } else if (isAnswerSection && !line.isEmpty()) {
+                        answers.add(line.trim());
+                    } else if (line.isEmpty()) {
+                        endSurvey(isSurveyStarted, choices, answers);
                     }
-                } else if (isSurveyStarted && line.startsWith("Question:")) {
-                    question = line.substring("Question: ".length()).trim();
-                } else if (isSurveyStarted && line.startsWith("Multiple Choice:")) {
-                    multipleChoice = Boolean.valueOf(line.substring("Multiple Choice: ".length()).trim());
-                } else if (isSurveyStarted && line.equals("### Choices ###")) {
-                    isChoicesSection = true;
-                } else if (isSurveyStarted && line.equals("### Answers ###")) {
-                    isChoicesSection = false;
-                    isAnswerSection = true;
-                } else if (isSurveyStarted && isChoicesSection && line.startsWith("- ")) {
-                    choices.add(line.substring(2).trim());
-                } else if (isSurveyStarted && isAnswerSection && !line.isEmpty()) {
-                    answers.add(line.trim());
-                } else if (isSurveyStarted && line.isEmpty()) {
-                    // End of survey
-                    QuestionAndAnswers qna = new QuestionAndAnswers(question, multipleChoice);
-                    if (!multipleChoice) {
-                        qna.getAnswers().addAll(answers);
-                    }
-                    if (multipleChoice && !choices.isEmpty()) {
-                        qna.getChoices().addAll(choices);
-                    }
-                    surveys.add(qna);
-                    // Clear data for the next survey
-                    question = null;
-                    multipleChoice = null;
-                    answers.clear();
-                    choices.clear();
-                    isSurveyStarted = false;
-                    isChoicesSection = false;
-                    isAnswerSection = false;
                 }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
         return surveys;
     }
 
-    // Helper method to skip lines until an empty line is encountered
-    private static void skipSurvey(BufferedReader reader) throws IOException {
-        String line;
-        while ((line = reader.readLine()) != null && !line.isEmpty()) {
-            // Skip lines until an empty line is encountered
-        }
+    private static void addSurvey(ArrayList<QuestionAndAnswers> surveys, String question, Boolean multipleChoice,
+                                  ArrayList<String> answers, ArrayList<String> choices) {
+        QuestionAndAnswers qna = new QuestionAndAnswers(question, multipleChoice);
+        qna.getAnswers().addAll(answers);
+        qna.getChoices().addAll(choices);
+        surveys.add(qna);
+    }
+
+    private static void endSurvey(boolean isSurveyStarted, ArrayList<String> choices, ArrayList<String> answers) {
+        isSurveyStarted = false;
+        choices.clear();
+        answers.clear();  //clears Surveys
     }
 
 }

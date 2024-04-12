@@ -262,21 +262,27 @@
             createQuestionMenu(gameName, "Enter new question: ", survey.getQuestion(),
                     String.valueOf(survey.isMultipleChoice()), survey.getChoices());
             survey.changeQuestion(scanner.nextLine());
+            rewriteSurvey();
             showThingsToUpdateAndSelect(gameName, survey);
+
         }
 
         public static void updateMultipleChoice(String gameName, QuestionAndAnswers survey) {
             createQuestionMenu(gameName, null, survey.getQuestion(), String.valueOf(survey.isMultipleChoice()),
                     survey.getChoices());
             survey.setMultipleChoice(GlobalFunctions.createConfirmMenu("Is this a multiple choice question?"));
+            rewriteSurvey();
             showThingsToUpdateAndSelect(gameName, survey);
+
         }
 
         public static void addChoice(String gameName, QuestionAndAnswers survey) {
             createQuestionMenu(gameName, "Enter new choice: ", survey.getQuestion(),
                     String.valueOf(survey.isMultipleChoice()), survey.getChoices());
             survey.addChoice(scanner.nextLine());
+            rewriteSurvey();
             showThingsToUpdateAndSelect(gameName, survey);
+
         }
 
         public static void deleteChoice(String gameName, QuestionAndAnswers survey) {
@@ -291,7 +297,10 @@
             if (GlobalFunctions.createConfirmMenu("Are you sure you want to delete this choice '" + Colors.RESET + choice
                     + Colors.CYAN_BOLD + "' from the survey?"))
                 survey.getChoices().remove(choice);
+
+            rewriteSurvey();
             showThingsToUpdateAndSelect(gameName, survey);
+
         }
 
         public static String showSurveyChoicesAndSelect(QuestionAndAnswers survey) {
@@ -354,8 +363,7 @@
                     showQuestionAndAnswer(question, gameName, i + 1, surveySize);
                 }
             }
-            fileManager.deleteSurvey();
-            writeSurveysToFile(surveyList, gameName);
+            rewriteSurvey();
 
             System.out.println(Colors.GREEN_BOLD + "\nAnswer saved successfully!" + Colors.RESET);
             GlobalFunctions.pressToContinue();
@@ -438,5 +446,14 @@
 
             String surveyData = stringBuilder.toString();
             fileManager.writeSurveyToFile(surveyData);
+        }
+
+        public static void rewriteSurvey() {
+            fileManager.deleteSurvey();
+            for (Game game : GameController.getGames()) {
+                ArrayList<QuestionAndAnswers> surveyList = game.getSurvey();
+                writeSurveysToFile(surveyList, game.getName());
+            }
+
         }
     }

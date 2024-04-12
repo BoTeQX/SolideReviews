@@ -9,7 +9,6 @@ public class Main {
         new FileManager();
         GameController.initiateGames();
         new GlobalKeyListener();
-        GameController.initiateReviews();
         Game.readSurveysFromFile(GameController.getGames());
 
 

@@ -20,6 +20,14 @@ public class Game {
         this.survey = new ArrayList<>();
     }
 
+    public Game(String name, String genre, double price, int sale) {
+        this.name = name;
+        this.genre = genre;
+        this.price = price;
+        this.survey = new ArrayList<>();
+        this.sale = sale;
+    }
+
 
     public String getName() {
         return name;
@@ -62,15 +70,12 @@ public class Game {
     }
 
     public static void readSurveysFromFile(ArrayList<Game> games) {
-        ArrayList<String> gameNames = new ArrayList<>();
         for (Game game : games) {
+            ArrayList<String> gameNames = new ArrayList<>();
             gameNames.add(game.getName());
-        }
-        ArrayList<QuestionAndAnswers> surveysFromFile = FileManager.readSurveysFromFile(gameNames);
-        for (Game game : games) {
+            ArrayList<QuestionAndAnswers> surveysFromFile = FileManager.readSurveysFromFile(gameNames);
             game.getSurvey().addAll(surveysFromFile);
         }
-
     }
 
     public int getOverallRating() {
